@@ -24,7 +24,7 @@
 		"techrebornjei.mixins.json"
 	],
 	"depends": {
-		"minecraft": ">=1.20.2- <1.20.3-",
+		"minecraft": ">=1.20.3- <1.20.5-",
 		"jei": "*",
 		"techreborn": "*"
 	}

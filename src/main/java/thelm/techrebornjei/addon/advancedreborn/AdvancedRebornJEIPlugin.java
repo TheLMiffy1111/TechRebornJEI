@@ -7,18 +7,18 @@ import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import ml.pkom.advancedreborn.Blocks;
-import ml.pkom.advancedreborn.Recipes;
-import ml.pkom.advancedreborn.gui.GuiCanningMachine;
-import ml.pkom.advancedreborn.gui.GuiCentrifugalExtractor;
-import ml.pkom.advancedreborn.gui.GuiInductionFurnace;
-import ml.pkom.advancedreborn.gui.GuiRotaryGrinder;
-import ml.pkom.advancedreborn.gui.GuiSingularityCompressor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.pitan76.advancedreborn.Blocks;
+import net.pitan76.advancedreborn.Recipes;
+import net.pitan76.advancedreborn.gui.GuiCanningMachine;
+import net.pitan76.advancedreborn.gui.GuiCentrifugalExtractor;
+import net.pitan76.advancedreborn.gui.GuiInductionFurnace;
+import net.pitan76.advancedreborn.gui.GuiRotaryGrinder;
+import net.pitan76.advancedreborn.gui.GuiSingularityCompressor;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import thelm.techrebornjei.TechRebornJEIPlugin;
@@ -58,13 +58,13 @@ public class AdvancedRebornJEIPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(new ItemStack(Blocks.CANNING_MACHINE), CANNING_MACHINE);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.CANNING_MACHINE.getOrNull()), CANNING_MACHINE);
 
-		registration.addRecipeCatalyst(new ItemStack(Blocks.ROTARY_GRINDER), TechRebornJEIPlugin.GRINDER);
-		registration.addRecipeCatalyst(new ItemStack(Blocks.CENTRIFUGAL_EXTRACTOR), TechRebornJEIPlugin.EXTRACTOR);
-		registration.addRecipeCatalyst(new ItemStack(Blocks.SINGULARITY_COMPRESSOR), TechRebornJEIPlugin.COMPRESSOR);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.ROTARY_GRINDER.getOrNull()), TechRebornJEIPlugin.GRINDER);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.CENTRIFUGAL_EXTRACTOR.getOrNull()), TechRebornJEIPlugin.EXTRACTOR);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.SINGULARITY_COMPRESSOR.getOrNull()), TechRebornJEIPlugin.COMPRESSOR);
 
-		registration.addRecipeCatalyst(new ItemStack(Blocks.INDUCTION_FURNACE), RecipeTypes.SMELTING);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.INDUCTION_FURNACE.getOrNull()), RecipeTypes.SMELTING);
 	}
 
 	@Override
