@@ -56,13 +56,13 @@ public class AdvancedRebornJEIPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(new ItemStack(Blocks.CANNING_MACHINE.getOrNull()), CANNING_MACHINE);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.CANNING_MACHINE), CANNING_MACHINE);
 
-		registration.addRecipeCatalyst(new ItemStack(Blocks.ROTARY_GRINDER.getOrNull()), TechRebornJEIPlugin.GRINDER);
-		registration.addRecipeCatalyst(new ItemStack(Blocks.CENTRIFUGAL_EXTRACTOR.getOrNull()), TechRebornJEIPlugin.EXTRACTOR);
-		registration.addRecipeCatalyst(new ItemStack(Blocks.SINGULARITY_COMPRESSOR.getOrNull()), TechRebornJEIPlugin.COMPRESSOR);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.ROTARY_GRINDER), TechRebornJEIPlugin.GRINDER);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.CENTRIFUGAL_EXTRACTOR), TechRebornJEIPlugin.EXTRACTOR);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.SINGULARITY_COMPRESSOR), TechRebornJEIPlugin.COMPRESSOR);
 
-		registration.addRecipeCatalyst(new ItemStack(Blocks.INDUCTION_FURNACE.getOrNull()), RecipeTypes.SMELTING);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.INDUCTION_FURNACE), RecipeTypes.SMELTING);
 	}
 
 	@Override

@@ -17,8 +17,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PowerSystem.EnergySystem;
@@ -40,17 +38,7 @@ public abstract class AbstractRecipeCategory<R> extends GuiComponent implements 
 
 	public AbstractRecipeCategory(RecipeType<R> recipeType) {
 		this.recipeType = recipeType;
-		this.title = new TranslatableComponent(recipeType.getUid().toString());
-	}
-
-	@Override
-	public ResourceLocation getUid() {
-		return recipeType.getUid();
-	}
-
-	@Override
-	public Class<? extends R> getRecipeClass() {
-		return recipeType.getRecipeClass();
+		this.title = Component.translatable(recipeType.getUid().toString());
 	}
 
 	@Override
@@ -68,10 +56,12 @@ public abstract class AbstractRecipeCategory<R> extends GuiComponent implements 
 		return background.get();
 	}
 
+	@Override
 	public int getWidth() {
 		return 150;
 	}
 
+	@Override
 	public int getHeight() {
 		return 66;
 	}

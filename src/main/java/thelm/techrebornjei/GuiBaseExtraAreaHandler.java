@@ -32,7 +32,7 @@ public class GuiBaseExtraAreaHandler implements IGuiContainerHandler<GuiBase<?>>
 			extraAreas.add(new Rect2i(guiBase.getGuiLeft() - width, guiBase.getGuiTop() + 8, width, height));
 		}
 		if(guiBase.hideGuiElements() && SlotConfigGui.selectedSlot != -1) {
-			ConfigSlotElement element = SlotConfigGui.getVisibleElements().stream().findAny().orElse(null);
+			ConfigSlotElement element = SlotConfigGui.slotElementMap.get(SlotConfigGui.selectedSlot);
 			if(element != null) {
 				int slotX = element.getX() + guiBase.getGuiLeft() - 50;
 				if(element.getWidth() + slotX > guiBase.getScreenWidth()) {

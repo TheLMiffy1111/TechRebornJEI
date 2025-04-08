@@ -14,8 +14,6 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.api.generator.FluidGeneratorRecipe;
@@ -47,10 +45,10 @@ public class FluidGeneratorRecipeCategory extends AbstractRecipeCategory<FluidGe
 	public List<Component> getTooltipStrings(FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
 		if(isInEnergyDisplay(108, 8, mouseX, mouseY)) {
 			return List.of(
-					new TranslatableComponent("techreborn.jei.recipe.energy"),
-					new TranslatableComponent("techreborn.jei.recipe.generator.total", recipe.getEnergyPerBucket()).withStyle(ChatFormatting.GRAY),
-					TextComponent.EMPTY,
-					new TextComponent(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn")));
+					Component.translatable("techreborn.jei.recipe.energy"),
+					Component.translatable("techreborn.jei.recipe.generator.total", recipe.getEnergyPerBucket()).withStyle(ChatFormatting.GRAY),
+					Component.empty(),
+					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn")));
 		}
 		return List.of();
 	}

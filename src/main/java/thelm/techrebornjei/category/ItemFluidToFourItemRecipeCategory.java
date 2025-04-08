@@ -13,8 +13,6 @@ import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.crafting.RebornFluidRecipe;
 import thelm.techrebornjei.EntryAnimation;
@@ -53,11 +51,11 @@ public class ItemFluidToFourItemRecipeCategory<R extends RebornFluidRecipe> exte
 	public List<Component> getTooltipStrings(R recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
 		if(isInEnergyDisplay(8, 18, mouseX, mouseY)) {
 			return List.of(
-					new TranslatableComponent("techreborn.jei.recipe.energy"),
-					new TranslatableComponent("techreborn.jei.recipe.running.cost", "E", recipe.getPower()).withStyle(ChatFormatting.GRAY),
-					new TranslatableComponent("techreborn.jei.recipe.generator.total", recipe.getPower() * recipe.getTime()).withStyle(ChatFormatting.GRAY),
-					TextComponent.EMPTY,
-					new TextComponent(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn")));
+					Component.translatable("techreborn.jei.recipe.energy"),
+					Component.translatable("techreborn.jei.recipe.running.cost", "E", recipe.getPower()).withStyle(ChatFormatting.GRAY),
+					Component.translatable("techreborn.jei.recipe.generator.total", recipe.getPower() * recipe.getTime()).withStyle(ChatFormatting.GRAY),
+					Component.empty(),
+					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn")));
 		}
 		return List.of();
 	}

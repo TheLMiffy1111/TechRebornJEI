@@ -15,7 +15,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.material.Fluids;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -75,10 +74,10 @@ public class FluidIngredientRenderer extends GuiComponent implements IIngredient
 		long mb = ingredient.getAmount() / (FluidConstants.BUCKET / 1000);
 		long sp = ingredient.getAmount() % (FluidConstants.BUCKET / 1000);
 		if(sp > 0) {
-			tooltip.add(new TranslatableComponent("jei.tooltip.liquid.amount.with.fraction", INTEGER_FORMAT.format(mb), INTEGER_FORMAT.format(sp)).withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable("jei.tooltip.liquid.amount.with.fraction", INTEGER_FORMAT.format(mb), INTEGER_FORMAT.format(sp)).withStyle(ChatFormatting.GRAY));
 		}
 		else {
-			tooltip.add(new TranslatableComponent("jei.tooltip.liquid.amount", INTEGER_FORMAT.format(mb)).withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable("jei.tooltip.liquid.amount", INTEGER_FORMAT.format(mb)).withStyle(ChatFormatting.GRAY));
 		}
 		return tooltip;
 	}

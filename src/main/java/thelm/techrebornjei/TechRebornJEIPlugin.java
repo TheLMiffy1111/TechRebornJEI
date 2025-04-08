@@ -42,10 +42,10 @@ import techreborn.api.recipe.recipes.FusionReactorRecipe;
 import techreborn.api.recipe.recipes.IndustrialGrinderRecipe;
 import techreborn.api.recipe.recipes.IndustrialSawmillRecipe;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
-import techreborn.client.gui.DataDrivenGui;
 import techreborn.client.gui.GuiAlloyFurnace;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiAssemblingMachine;
+import techreborn.client.gui.GuiAutoCrafting;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.client.gui.GuiChemicalReactor;
@@ -58,6 +58,7 @@ import techreborn.client.gui.GuiFluidReplicator;
 import techreborn.client.gui.GuiFusionReactor;
 import techreborn.client.gui.GuiGasTurbine;
 import techreborn.client.gui.GuiGenerator;
+import techreborn.client.gui.GuiGrinder;
 import techreborn.client.gui.GuiImplosionCompressor;
 import techreborn.client.gui.GuiIndustrialElectrolyzer;
 import techreborn.client.gui.GuiIndustrialGrinder;
@@ -136,7 +137,6 @@ public class TechRebornJEIPlugin implements IModPlugin {
 
 	public TechRebornJEIPlugin() {
 		ADD_JEI_BUTTON.add(GuiAlloyFurnace.class);
-		ADD_JEI_BUTTON.add(DataDrivenGui.class);
 		//ADD_JEI_BUTTON.add(GuiAutoCrafting.class);
 		ADD_JEI_BUTTON.add(GuiIronFurnace.class);
 
@@ -299,7 +299,7 @@ public class TechRebornJEIPlugin implements IModPlugin {
 		registration.addRecipeClickArea(GuiExtractor.class, 158, 5, 12, 12, EXTRACTOR);
 		registration.addRecipeClickArea(GuiFluidReplicator.class, 158, 5, 12, 12, FLUID_REPLICATOR);
 		registration.addRecipeClickArea(GuiFusionReactor.class, 158, 5, 12, 12, FUSION_REACTOR);
-		registration.addRecipeClickArea(DataDrivenGui.class, 158, 5, 12, 12, GRINDER);
+		registration.addRecipeClickArea(GuiGrinder.class, 158, 5, 12, 12, GRINDER);
 		registration.addRecipeClickArea(GuiImplosionCompressor.class, 158, 5, 12, 12, IMPLOSION_COMPRESSOR);
 		registration.addRecipeClickArea(GuiIndustrialElectrolyzer.class, 158, 5, 12, 12, INDUSTRIAL_ELECTROLYZER);
 		registration.addRecipeClickArea(GuiIndustrialGrinder.class, 158, 5, 12, 12, INDUSTRIAL_GRINDER);
