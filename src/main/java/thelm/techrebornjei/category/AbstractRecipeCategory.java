@@ -2,11 +2,6 @@ package thelm.techrebornjei.category;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.function.Supplier;
-
-import com.google.common.base.Suppliers;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -15,21 +10,21 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PowerSystem.EnergySystem;
+import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.GuiBuilder;
+import reborncore.client.gui.GuiSprites;
 import thelm.techrebornjei.EntryAnimation;
+import thelm.techrebornjei.GuiRenderUtil;
 import thelm.techrebornjei.TechRebornJEIPlugin;
 
-public abstract class AbstractRecipeCategory<R> extends GuiComponent implements IRecipeCategory<R> {
+public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 
 	public static final NumberFormat TIME_FORMAT = new DecimalFormat("###.##");
 
 	public final RecipeType<R> recipeType;
 	public final Component title;
-	public final Supplier<IDrawable> background = Suppliers.memoize(() -> guiHelper().createBlankDrawable(getWidth(), getHeight()));
 
 	public AbstractRecipeCategory(RecipeType<R> recipeType, Component title) {
 		this.recipeType = recipeType;
@@ -49,11 +44,6 @@ public abstract class AbstractRecipeCategory<R> extends GuiComponent implements 
 	@Override
 	public Component getTitle() {
 		return title;
-	}
-
-	@Override
-	public IDrawable getBackground() {
-		return background.get();
 	}
 
 	@Override
@@ -103,30 +93,27 @@ public abstract class AbstractRecipeCategory<R> extends GuiComponent implements 
 		return TechRebornJEIPlugin.outputSlot4;
 	}
 
-	public void drawProgressBar(PoseStack poseStack, int x, int y, int animationDuration, GuiBuilder.ProgressDirection direction) {
-		RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-		blit(poseStack, x, y, direction.x, direction.y, direction.width, direction.height);
+	public void drawProgressBar(GuiGraphics guiGraphics, int x, int y, int animationDuration, GuiBuilder.ProgressDirection direction) {
+		GuiSprites.drawSprite(guiGraphics, direction.baseSprite, x, y);
 		int j = Math.round(System.currentTimeMillis() % animationDuration / (float)animationDuration * 16);
 		if(j < 0) {
 			j = 0;
 		}
 		switch(direction) {
-		case RIGHT -> blit(poseStack, x, y, direction.xActive, direction.yActive, j, 10);
-		case LEFT -> blit(poseStack, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-		case UP -> blit(poseStack, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-		case DOWN -> blit(poseStack, x, y, direction.xActive, direction.yActive, 10, j);
+		case RIGHT -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10);
+		case LEFT -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
+		case UP -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
+		case DOWN -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j);
 		}
 	}
 
 	public static final int ENERGY_DISPLAY_WIDTH = 14;	
 	public static final int ENERGY_DISPLAY_HEIGHT = 50;
 
-	public void drawEnergyDisplay(PoseStack poseStack, int x, int y, EntryAnimation animation) {
+	public void drawEnergyDisplay(GuiGraphics guiGraphics, int x, int y, EntryAnimation animation) {
 		int innerWidth = ENERGY_DISPLAY_WIDTH - 2;
 		int innerHeight = ENERGY_DISPLAY_HEIGHT - 2;
-		EnergySystem displayPower = PowerSystem.getDisplayPower();
-		RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-		blit(poseStack, x, y, displayPower.xBar - 15, displayPower.yBar - 1, ENERGY_DISPLAY_WIDTH, ENERGY_DISPLAY_HEIGHT);
+		GuiSprites.drawSprite(guiGraphics, GuiSprites.POWER_BAR_BASE, x, y);
 		int innerDisplayHeight;
 		if(animation.animationType() != EntryAnimation.Type.NONE) {
 			innerDisplayHeight = Math.round(System.currentTimeMillis() % animation.duration() / (float)animation.duration() * innerHeight);
@@ -137,10 +124,10 @@ public abstract class AbstractRecipeCategory<R> extends GuiComponent implements 
 		else {
 			innerDisplayHeight = innerHeight;
 		}
-		blit(poseStack, x + 1, y + innerHeight - innerDisplayHeight + 1, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, innerWidth, innerDisplayHeight);
+		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.POWER_BAR_OVERLAY), x + 1, y + 1 + innerHeight - innerDisplayHeight, 0, 0, innerWidth, innerDisplayHeight, innerWidth, innerHeight);
 	}
 
 	public boolean isInEnergyDisplay(int x, int y, double mouseX, double mouseY) {
-		return mouseX >= x && mouseX < x + 14 && mouseY >= y && mouseY < y + 50;
+		return mouseX >= x && mouseX < x + ENERGY_DISPLAY_WIDTH && mouseY >= y && mouseY < y + ENERGY_DISPLAY_HEIGHT;
 	}
 }

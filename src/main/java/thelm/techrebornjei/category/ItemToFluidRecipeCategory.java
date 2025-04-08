@@ -1,7 +1,5 @@
 package thelm.techrebornjei.category;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import mezz.jei.api.fabric.constants.FabricTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -9,8 +7,9 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornFluidRecipe;
 import thelm.techrebornjei.FluidIngredientRenderer;
 
@@ -31,11 +30,11 @@ public class ItemToFluidRecipeCategory<R extends RebornFluidRecipe> extends Abst
 	}
 
 	@Override
-	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-		super.draw(recipe, recipeSlotsView, poseStack, mouseX, mouseY);
-		drawProgressBar(poseStack, 46 + 21, 30, recipe, GuiBuilder.ProgressDirection.RIGHT);
+	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+		super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
+		drawProgressBar(guiGraphics, 46 + 21, 30, recipe, GuiBuilder.ProgressDirection.RIGHT);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
-		font.draw(poseStack, component, 24, 5, 0xFF404040);
+		guiGraphics.drawString(font, component, 24, 5, 0xFF404040, false);
 	}
 }

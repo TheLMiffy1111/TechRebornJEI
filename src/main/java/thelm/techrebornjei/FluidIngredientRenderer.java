@@ -4,7 +4,6 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.fabric.ingredients.fluids.IJeiFluidIngredient;
 import mezz.jei.api.ingredients.IIngredientRenderer;
@@ -12,14 +11,14 @@ import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.material.Fluids;
-import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.gui.GuiSprites;
 
-public class FluidIngredientRenderer extends GuiComponent implements IIngredientRenderer<IJeiFluidIngredient> {
+public record FluidIngredientRenderer(EntryAnimation animation) implements IIngredientRenderer<IJeiFluidIngredient> {
 
 	public static final FluidIngredientRenderer UPWARDS = new FluidIngredientRenderer(EntryAnimation.UPWARDS);
 	public static final FluidIngredientRenderer DOWNWARDS = new FluidIngredientRenderer(EntryAnimation.DOWNWARDS);
@@ -27,18 +26,10 @@ public class FluidIngredientRenderer extends GuiComponent implements IIngredient
 
 	public static final NumberFormat INTEGER_FORMAT = NumberFormat.getIntegerInstance();
 
-	public final EntryAnimation animation;
-
-	public FluidIngredientRenderer(EntryAnimation animation) {
-		this.animation = animation;
-	}
-
 	@Override
-	public void render(PoseStack poseStack, IJeiFluidIngredient ingredient) {
-		int width = getWidth();
+	public void render(GuiGraphics guiGraphics, IJeiFluidIngredient ingredient) {
 		int height = getHeight();
-		RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-		blit(poseStack, -3, -3, 194, 26, width + 6, height + 6);
+		GuiSprites.drawSprite(guiGraphics, GuiSprites.TANK_BACKGROUND, -3, -3);
 		int innerDisplayHeight;
 		if(animation.animationType() != EntryAnimation.Type.NONE) {
 			innerDisplayHeight = Math.round(System.currentTimeMillis() % animation.duration() / (float)animation.duration() * height);
@@ -49,22 +40,22 @@ public class FluidIngredientRenderer extends GuiComponent implements IIngredient
 		else {
 			innerDisplayHeight = height;
 		}
-		drawFluid(poseStack, getFluidVariant(ingredient), innerDisplayHeight);
-		RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-		blit(poseStack, 0, 0, 194, 82, width, height);
+		drawFluid(guiGraphics, getFluidVariant(ingredient), innerDisplayHeight);
+		GuiSprites.drawSprite(guiGraphics, GuiSprites.TANK_FOREGROUND, 0, 0);
 	}
 
-	public void drawFluid(PoseStack poseStack, FluidVariant fluidVariant, int drawHeight) {
+	public void drawFluid(GuiGraphics guiGraphics, FluidVariant fluidVariant, int drawHeight) {
 		TextureAtlasSprite sprite = FluidVariantRendering.getSprite(fluidVariant);
 		if(sprite == null) {
 			return;
 		}
 		int color = FluidVariantRendering.getColor(fluidVariant);
 		RenderSystem.setShaderColor((color >> 16 & 0xFF) / 255F, (color >> 8 & 0xFF) / 255F, (color & 0xFF) / 255F, 1F);
-		GuiRenderUtil.blitTiledSprite(poseStack, sprite, 0, getHeight() - drawHeight, getWidth(), drawHeight, 16, 16);
+		GuiRenderUtil.blitTiledSprite(guiGraphics, sprite, 0, getHeight() - drawHeight, getWidth(), drawHeight, 16, 16);
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 
+	@SuppressWarnings("removal")
 	@Override
 	public List<Component> getTooltip(IJeiFluidIngredient ingredient, TooltipFlag tooltipFlag) {
 		if(ingredient.getFluid() == Fluids.EMPTY) {

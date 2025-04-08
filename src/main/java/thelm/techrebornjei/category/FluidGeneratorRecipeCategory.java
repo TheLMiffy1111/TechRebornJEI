@@ -2,20 +2,20 @@ package thelm.techrebornjei.category;
 
 import java.util.List;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import mezz.jei.api.fabric.constants.FabricTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.gui.GuiBuilder;
 import techreborn.api.generator.FluidGeneratorRecipe;
 import thelm.techrebornjei.EntryAnimation;
 import thelm.techrebornjei.FluidIngredientRenderer;
@@ -36,21 +36,20 @@ public class FluidGeneratorRecipeCategory extends AbstractRecipeCategory<FluidGe
 	}
 
 	@Override
-	public void draw(FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-		drawEnergyDisplay(poseStack, 108, 8, EntryAnimation.UPWARDS);
-		drawProgressBar(poseStack, 76 - 16, 48 - 19, 5000, GuiBuilder.ProgressDirection.RIGHT);
+	public void draw(FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+		drawEnergyDisplay(guiGraphics, 108, 8, EntryAnimation.UPWARDS);
+		drawProgressBar(guiGraphics, 76 - 16, 48 - 19, 5000, GuiBuilder.ProgressDirection.RIGHT);
 	}
 
 	@Override
-	public List<Component> getTooltipStrings(FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+	public void getTooltip(ITooltipBuilder tooltip, FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
 		if(isInEnergyDisplay(108, 8, mouseX, mouseY)) {
-			return List.of(
+			tooltip.addAll(List.of(
 					Component.translatable("techreborn.jei.recipe.energy"),
 					Component.translatable("techreborn.jei.recipe.generator.total", recipe.getEnergyPerBucket()).withStyle(ChatFormatting.GRAY),
 					Component.empty(),
-					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn")));
+					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn"))));
 		}
-		return List.of();
 	}
 
 	@Override

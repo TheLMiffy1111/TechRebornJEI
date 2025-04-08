@@ -27,7 +27,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
-import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.GuiSprites;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.fluid.container.ItemFluidInfo;
@@ -119,13 +120,13 @@ public class TechRebornJEIPlugin implements IModPlugin {
 	public static final RecipeType<RebornRecipe> VACUUM_FREEZER = createRecipeType(ModRecipes.VACUUM_FREEZER);
 	public static final RecipeType<RebornRecipe> WIRE_MILL = createRecipeType(ModRecipes.WIRE_MILL);
 
-	public static final Set<Class<? extends GuiBase<?>>> ADD_JEI_BUTTON = new HashSet<>();
-
 	public static final RecipeType<FluidGeneratorRecipe> THERMAL_GENERATOR = createFluidGeneratorRecipeType(Machine.THERMAL_GENERATOR);
 	public static final RecipeType<FluidGeneratorRecipe> GAS_GENERATOR = createFluidGeneratorRecipeType(Machine.GAS_TURBINE);
 	public static final RecipeType<FluidGeneratorRecipe> DIESEL_GENERATOR = createFluidGeneratorRecipeType(Machine.DIESEL_GENERATOR);
 	public static final RecipeType<FluidGeneratorRecipe> SEMI_FLUID_GENERATOR = createFluidGeneratorRecipeType(Machine.SEMI_FLUID_GENERATOR);
 	public static final RecipeType<FluidGeneratorRecipe> PLASMA_GENERATOR = createFluidGeneratorRecipeType(Machine.PLASMA_GENERATOR);
+
+	public static final Set<Class<? extends GuiBase<?>>> ADD_JEI_BUTTON = new HashSet<>();
 
 	public static final ResourceLocation ELEMENTS = new ResourceLocation("techrebornjei:textures/gui/elements.png");
 	public static IDrawable outputSlot1;
@@ -137,8 +138,38 @@ public class TechRebornJEIPlugin implements IModPlugin {
 
 	public TechRebornJEIPlugin() {
 		ADD_JEI_BUTTON.add(GuiAlloyFurnace.class);
+		ADD_JEI_BUTTON.add(GuiAlloySmelter.class);
+		ADD_JEI_BUTTON.add(GuiAssemblingMachine.class);
+		ADD_JEI_BUTTON.add(GuiBlastFurnace.class);
+		ADD_JEI_BUTTON.add(GuiCentrifuge.class);
+		ADD_JEI_BUTTON.add(GuiChemicalReactor.class);
+		ADD_JEI_BUTTON.add(GuiCompressor.class);
+		ADD_JEI_BUTTON.add(GuiDistillationTower.class);
+		ADD_JEI_BUTTON.add(GuiExtractor.class);
+		ADD_JEI_BUTTON.add(GuiFluidReplicator.class);
+		ADD_JEI_BUTTON.add(GuiFusionReactor.class);
+		ADD_JEI_BUTTON.add(GuiGrinder.class);
+		ADD_JEI_BUTTON.add(GuiImplosionCompressor.class);
+		ADD_JEI_BUTTON.add(GuiIndustrialElectrolyzer.class);
+		ADD_JEI_BUTTON.add(GuiIndustrialGrinder.class);
+		ADD_JEI_BUTTON.add(GuiIndustrialSawmill.class);
+		ADD_JEI_BUTTON.add(GuiRollingMachine.class);
+		ADD_JEI_BUTTON.add(GuiScrapboxinator.class);
+		ADD_JEI_BUTTON.add(GuiSolidCanningMachine.class);
+		ADD_JEI_BUTTON.add(GuiVacuumFreezer.class);
+		ADD_JEI_BUTTON.add(GuiWireMill.class);
+
+		ADD_JEI_BUTTON.add(GuiThermalGenerator.class);
+		ADD_JEI_BUTTON.add(GuiGasTurbine.class);
+		ADD_JEI_BUTTON.add(GuiDieselGenerator.class);
+		ADD_JEI_BUTTON.add(GuiSemifluidGenerator.class);
+		ADD_JEI_BUTTON.add(GuiPlasmaGenerator.class);
+
 		//ADD_JEI_BUTTON.add(GuiAutoCrafting.class);
 		ADD_JEI_BUTTON.add(GuiIronFurnace.class);
+		ADD_JEI_BUTTON.add(GuiElectricFurnace.class);
+
+		ADD_JEI_BUTTON.add(GuiGenerator.class);
 
 		if(FabricLoader.getInstance().isModLoaded("advanced_reborn")) {
 			ADDONS.add(new AdvancedRebornJEIPlugin());
@@ -147,8 +178,10 @@ public class TechRebornJEIPlugin implements IModPlugin {
 		ScreenEvents.AFTER_INIT.register((minecraft, screen, scaledWidth, scaledHeight) -> {
 			if(ADD_JEI_BUTTON.contains(screen.getClass())) {
 				GuiBase<?> guiBase = (GuiBase<?>)screen;
-				((ScreenAccessor)guiBase).trjei$addRenderable((poseStack, mouseX, mouseY, partialTick) -> {
-					guiBase.builder.drawJEIButton(poseStack, guiBase, 158, 5, GuiBase.Layer.BACKGROUND);
+				((ScreenAccessor)guiBase).trjei$addRenderable((guiGraphics, mouseX, mouseY, partialTick) -> {
+					if(!guiBase.hideGuiElements()) {
+						GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.JEI_ICON), guiBase.getGuiLeft() + 158, guiBase.getGuiTop() + 5, 2, 2, 12, 12, 16, 16);
+					}
 				});
 			}
 		});

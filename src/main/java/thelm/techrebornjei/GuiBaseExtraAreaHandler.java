@@ -6,10 +6,10 @@ import java.util.List;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import net.minecraft.client.renderer.Rect2i;
 import reborncore.api.blockentity.IUpgradeable;
-import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.slot.GuiTab;
-import reborncore.client.gui.builder.slot.SlotConfigGui;
-import reborncore.client.gui.builder.slot.elements.ConfigSlotElement;
+import reborncore.client.gui.GuiBase;
+import reborncore.client.gui.config.GuiTab;
+import reborncore.client.gui.config.SlotConfigGui;
+import reborncore.client.gui.config.elements.ConfigSlotElement;
 
 public class GuiBaseExtraAreaHandler implements IGuiContainerHandler<GuiBase<?>> {
 
@@ -31,8 +31,8 @@ public class GuiBaseExtraAreaHandler implements IGuiContainerHandler<GuiBase<?>>
 			int width = 20;
 			extraAreas.add(new Rect2i(guiBase.getGuiLeft() - width, guiBase.getGuiTop() + 8, width, height));
 		}
-		if(guiBase.hideGuiElements() && SlotConfigGui.selectedSlot != -1) {
-			ConfigSlotElement element = SlotConfigGui.slotElementMap.get(SlotConfigGui.selectedSlot);
+		if(guiBase.getSelectedTab() instanceof SlotConfigGui slotConfigGui) {
+			ConfigSlotElement element = slotConfigGui.getSelectedSlot();
 			if(element != null) {
 				int slotX = element.getX() + guiBase.getGuiLeft() - 50;
 				if(element.getWidth() + slotX > guiBase.getScreenWidth()) {

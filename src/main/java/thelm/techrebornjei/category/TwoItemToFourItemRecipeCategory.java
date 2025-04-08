@@ -1,15 +1,14 @@
 package thelm.techrebornjei.category;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import thelm.techrebornjei.TechRebornJEIPlugin;
 
@@ -34,11 +33,11 @@ public class TwoItemToFourItemRecipeCategory<R extends RebornRecipe> extends Abs
 	}
 
 	@Override
-	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-		super.draw(recipe, recipeSlotsView, poseStack, mouseX, mouseY);
-		drawProgressBar(poseStack, 55 + 21, 36 + 4, recipe, GuiBuilder.ProgressDirection.UP);
+	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+		super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
+		drawProgressBar(guiGraphics, 55 + 21, 36 + 4, recipe, GuiBuilder.ProgressDirection.UP);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
-		font.draw(poseStack, component, getWidth() - font.width(component) - 17, getHeight() - 13, 0xFF404040);
+		guiGraphics.drawString(font, component, getWidth() - font.width(component) - 17, getHeight() - 13, 0xFF404040, false);
 	}
 }
