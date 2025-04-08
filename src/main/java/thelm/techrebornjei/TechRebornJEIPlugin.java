@@ -23,7 +23,7 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -165,7 +165,7 @@ public class TechRebornJEIPlugin implements IModPlugin {
 			@Override
 			public String apply(ItemStack ingredient, UidContext context) {
 				if(ingredient.getItem() instanceof ItemFluidInfo info) {
-					return Registry.FLUID.getKey(info.getFluid(ingredient)).toString();
+					return BuiltInRegistries.FLUID.getKey(info.getFluid(ingredient)).toString();
 				}
 				return "";
 			}
@@ -348,6 +348,6 @@ public class TechRebornJEIPlugin implements IModPlugin {
 
 	public static List<FluidGeneratorRecipe> getFluidGeneratorRecipes(EFluidGenerator generator) {
 		return GeneratorRecipeHelper.getFluidRecipesForGenerator(generator).getRecipes().stream().
-				sorted(Comparator.comparing(recipe -> Registry.FLUID.getKey(recipe.fluid()))).toList();
+				sorted(Comparator.comparing(recipe -> BuiltInRegistries.FLUID.getKey(recipe.fluid()))).toList();
 	}
 }

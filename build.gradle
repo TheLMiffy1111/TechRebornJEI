@@ -98,14 +98,14 @@ repositories {
 	}
 }
 
-def mcVersion = "1.19.2"
+def mcVersion = "1.19.3"
 def modName = "TechRebornJEI"
 def modId = "techrebornjei"
-def specVersion = "19.2"
+def specVersion = "19.3"
 def vendor = "thelm"
 
 group = "thelm.textlogger"
-version = "19.2.0"
+version = "19.3.0"
 
 archivesBaseName = "${modName}-${mcVersion}"
 
@@ -144,22 +144,22 @@ dependencies {
 	implementation "org.apache.logging.log4j:log4j-core:2.24.3"
 
 	// Minecraft
-	minecraft "com.mojang:minecraft:1.19.2"
+	minecraft "com.mojang:minecraft:1.19.3"
 	mappings loom.layered {
 		officialMojangMappings {
 			nameSyntheticMembers = false
 		}
-		parchment "org.parchmentmc.data:parchment-1.19.2:2022.11.27@zip"
+		parchment "org.parchmentmc.data:parchment-1.19.3:2023.06.25@zip"
 	}
 	modImplementation "net.fabricmc:fabric-loader:0.16.12"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.77.0+1.19.2"
-	modImplementation "com.terraformersmc:modmenu:4.2.0-beta.2"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.76.1+1.19.3"
+	modImplementation "com.terraformersmc:modmenu:5.1.0"
 
 	// Dependencies
-	modImplementation("mezz.jei:jei-1.19.2-fabric:11.8.1.1034") {transitive = false}
-	modImplementation("TechReborn:TechReborn-1.19:5.4.0") {exclude module: "RoughlyEnoughItems-fabric"}
-	modImplementation "net.pitan76:mcpitanlib-fabric+1.19.2:3.1.5"
-	modImplementation "curse.maven:advancedreborn-543089:5212043"
+	modImplementation("mezz.jei:jei-1.19.3-fabric:12.4.0.22") {transitive = false}
+	modImplementation "TechReborn:TechReborn-1.19:5.5.0"
+	modImplementation "net.pitan76:mcpitanlib-fabric+1.19.3:1.9.6"
+	modImplementation "curse.maven:advancedreborn-543089:4466876"
 }
 
 def replacements = [

@@ -12,7 +12,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -55,6 +55,6 @@ public class FluidGeneratorRecipeCategory extends AbstractRecipeCategory<FluidGe
 
 	@Override
 	public ResourceLocation getRegistryName(FluidGeneratorRecipe recipe) {
-		return Registry.FLUID.getKey(recipe.fluid());
+		return BuiltInRegistries.FLUID.getKey(recipe.fluid());
 	}
 }
