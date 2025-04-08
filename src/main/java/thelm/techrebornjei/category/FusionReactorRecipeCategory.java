@@ -5,13 +5,14 @@ import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.client.gui.GuiBuilder;
 import techreborn.api.recipe.recipes.FusionReactorRecipe;
 import thelm.techrebornjei.EntryAnimation;
 
 public class FusionReactorRecipeCategory extends TwoItemToItemCenterRecipeCategory<FusionReactorRecipe> {
 
-	public FusionReactorRecipeCategory(RecipeType<FusionReactorRecipe> recipeType) {
+	public FusionReactorRecipeCategory(RecipeType<RecipeHolder<FusionReactorRecipe>> recipeType) {
 		super(recipeType);
 	}
 

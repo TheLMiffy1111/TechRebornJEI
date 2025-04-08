@@ -4,7 +4,6 @@ import java.util.List;
 
 import mezz.jei.api.fabric.constants.FabricTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -42,14 +41,15 @@ public class FluidGeneratorRecipeCategory extends AbstractRecipeCategory<FluidGe
 	}
 
 	@Override
-	public void getTooltip(ITooltipBuilder tooltip, FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+	public List<Component> getTooltipStrings(FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
 		if(isInEnergyDisplay(108, 8, mouseX, mouseY)) {
-			tooltip.addAll(List.of(
+			return List.of(
 					Component.translatable("techreborn.jei.recipe.energy"),
 					Component.translatable("techreborn.jei.recipe.generator.total", recipe.getEnergyPerBucket()).withStyle(ChatFormatting.GRAY),
 					Component.empty(),
-					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn"))));
+					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn")));
 		}
+		return List.of();
 	}
 
 	@Override

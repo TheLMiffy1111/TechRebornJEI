@@ -8,17 +8,18 @@ import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import thelm.techrebornjei.TechRebornJEIPlugin;
 
 public class TwoItemToFourItemRecipeCategory<R extends RebornRecipe> extends AbstractRebornEnergyRecipeCategory<R> {
 
-	public TwoItemToFourItemRecipeCategory(RecipeType<R> recipeType) {
+	public TwoItemToFourItemRecipeCategory(RecipeType<RecipeHolder<R>> recipeType) {
 		super(recipeType);
 	}
 
-	public TwoItemToFourItemRecipeCategory(RecipeType<R> recipeType, Component title) {
+	public TwoItemToFourItemRecipeCategory(RecipeType<RecipeHolder<R>> recipeType, Component title) {
 		super(recipeType, title);
 	}
 

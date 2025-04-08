@@ -9,17 +9,18 @@ import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornFluidRecipe;
 import thelm.techrebornjei.FluidIngredientRenderer;
 
 public class ItemToFluidRecipeCategory<R extends RebornFluidRecipe> extends AbstractRebornEnergyRecipeCategory<R> {
 
-	public ItemToFluidRecipeCategory(RecipeType<R> recipeType) {
+	public ItemToFluidRecipeCategory(RecipeType<RecipeHolder<R>> recipeType) {
 		super(recipeType);
 	}
 
-	public ItemToFluidRecipeCategory(RecipeType<R> recipeType, Component title) {
+	public ItemToFluidRecipeCategory(RecipeType<RecipeHolder<R>> recipeType, Component title) {
 		super(recipeType, title);
 	}
 

@@ -3,25 +3,52 @@ package thelm.techrebornjei.category;
 import java.util.List;
 
 import mezz.jei.api.fabric.ingredients.fluids.IJeiFluidIngredient;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.fabric.ingredients.fluid.JeiFluidIngredient;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.material.Fluids;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
 
-public abstract class AbstractRebornRecipeCategory<R extends RebornRecipe> extends AbstractRecipeCategory<R> {
+public abstract class AbstractRebornRecipeCategory<R extends RebornRecipe> extends AbstractRecipeCategory<RecipeHolder<R>> {
 
-	public AbstractRebornRecipeCategory(RecipeType<R> recipeType, Component title) {
+	public AbstractRebornRecipeCategory(RecipeType<RecipeHolder<R>> recipeType, Component title) {
 		super(recipeType, title);
 	}
 
-	public AbstractRebornRecipeCategory(RecipeType<R> recipeType) {
+	public AbstractRebornRecipeCategory(RecipeType<RecipeHolder<R>> recipeType) {
 		super(recipeType);
+	}
+
+	@Override
+	public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<R> recipeHolder, IFocusGroup focuses) {
+		setRecipe(builder, recipeHolder.value(), focuses);
+	}
+
+	public abstract void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses);
+
+	@Override
+	public void draw(RecipeHolder<R> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+		draw(recipe.value(), recipeSlotsView, guiGraphics, mouseX, mouseY);
+	}
+
+	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {}
+
+	@Override
+	public List<Component> getTooltipStrings(RecipeHolder<R> recipeHolder, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+		return getTooltipStrings(recipeHolder.value(), recipeSlotsView, mouseX, mouseY);
+	}
+
+	public List<Component> getTooltipStrings(R recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+		return List.of();
 	}
 
 	public List<ItemStack> getInput(RebornRecipe recipe, int index) {

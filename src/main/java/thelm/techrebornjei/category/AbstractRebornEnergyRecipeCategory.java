@@ -2,22 +2,22 @@ package thelm.techrebornjei.category;
 
 import java.util.List;
 
-import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.common.crafting.RebornRecipe;
 import thelm.techrebornjei.EntryAnimation;
 
 public abstract class AbstractRebornEnergyRecipeCategory<R extends RebornRecipe> extends AbstractRebornRecipeCategory<R> {
 
-	public AbstractRebornEnergyRecipeCategory(RecipeType<R> recipeType) {
+	public AbstractRebornEnergyRecipeCategory(RecipeType<RecipeHolder<R>> recipeType) {
 		super(recipeType);
 	}
 
-	public AbstractRebornEnergyRecipeCategory(RecipeType<R> recipeType, Component title) {
+	public AbstractRebornEnergyRecipeCategory(RecipeType<RecipeHolder<R>> recipeType, Component title) {
 		super(recipeType, title);
 	}
 
@@ -27,14 +27,15 @@ public abstract class AbstractRebornEnergyRecipeCategory<R extends RebornRecipe>
 	}
 
 	@Override
-	public void getTooltip(ITooltipBuilder tooltip, R recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+	public List<Component> getTooltipStrings(R recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
 		if(isInEnergyDisplay(8, 8, mouseX, mouseY)) {
-			tooltip.addAll(List.of(
+			return List.of(
 					Component.translatable("techreborn.jei.recipe.energy"),
 					Component.translatable("techreborn.jei.recipe.running.cost", "E", recipe.getPower()).withStyle(ChatFormatting.GRAY),
 					Component.translatable("techreborn.jei.recipe.generator.total", recipe.getPower() * recipe.getTime()).withStyle(ChatFormatting.GRAY),
 					Component.empty(),
-					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn"))));
+					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn")));
 		}
+		return List.of();
 	}
 }

@@ -12,12 +12,13 @@ import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.client.gui.GuiBuilder;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
 
 public class RollingMachineRecipeCategory extends AbstractRebornEnergyRecipeCategory<RollingMachineRecipe> {
 
-	public RollingMachineRecipeCategory(RecipeType<RollingMachineRecipe> recipeType) {
+	public RollingMachineRecipeCategory(RecipeType<RecipeHolder<RollingMachineRecipe>> recipeType) {
 		super(recipeType);
 	}
 

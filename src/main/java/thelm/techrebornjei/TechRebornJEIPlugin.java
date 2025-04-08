@@ -26,11 +26,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.FluidGeneratorRecipe;
@@ -78,7 +78,6 @@ import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
 import thelm.techrebornjei.addon.advancedreborn.AdvancedRebornJEIPlugin;
 import thelm.techrebornjei.category.FluidGeneratorRecipeCategory;
-import thelm.techrebornjei.category.FusionReactorRecipeCategory;
 import thelm.techrebornjei.category.ItemFluidToFourItemRecipeCategory;
 import thelm.techrebornjei.category.ItemFluidToThreeItemRecipeCategory;
 import thelm.techrebornjei.category.ItemToFluidRecipeCategory;
@@ -99,26 +98,26 @@ public class TechRebornJEIPlugin implements IModPlugin {
 	public static IJeiHelpers jeiHelpers;
 	public static IJeiRuntime jeiRuntime;
 
-	public static final RecipeType<RebornRecipe> ALLOY_SMELTER = createRecipeType(ModRecipes.ALLOY_SMELTER);
-	public static final RecipeType<AssemblingMachineRecipe> ASSEMBLING_MACHINE = createRecipeType(ModRecipes.ASSEMBLING_MACHINE, AssemblingMachineRecipe.class);
-	public static final RecipeType<BlastFurnaceRecipe> BLAST_FURNACE = createRecipeType(ModRecipes.BLAST_FURNACE, BlastFurnaceRecipe.class);
-	public static final RecipeType<CentrifugeRecipe> CENTRIFUGE = createRecipeType(ModRecipes.CENTRIFUGE, CentrifugeRecipe.class);
-	public static final RecipeType<RebornRecipe> CHEMICAL_REACTOR = createRecipeType(ModRecipes.CHEMICAL_REACTOR);
-	public static final RecipeType<RebornRecipe> COMPRESSOR = createRecipeType(ModRecipes.COMPRESSOR);
-	public static final RecipeType<RebornRecipe> DISTILLATION_TOWER = createRecipeType(ModRecipes.DISTILLATION_TOWER);
-	public static final RecipeType<RebornRecipe> EXTRACTOR = createRecipeType(ModRecipes.EXTRACTOR);
-	public static final RecipeType<FluidReplicatorRecipe> FLUID_REPLICATOR = createRecipeType(ModRecipes.FLUID_REPLICATOR, FluidReplicatorRecipe.class);
-	public static final RecipeType<FusionReactorRecipe> FUSION_REACTOR = createRecipeType(ModRecipes.FUSION_REACTOR, FusionReactorRecipe.class);
-	public static final RecipeType<RebornRecipe> GRINDER = createRecipeType(ModRecipes.GRINDER);
-	public static final RecipeType<RebornRecipe> IMPLOSION_COMPRESSOR = createRecipeType(ModRecipes.IMPLOSION_COMPRESSOR);
-	public static final RecipeType<RebornRecipe> INDUSTRIAL_ELECTROLYZER = createRecipeType(ModRecipes.INDUSTRIAL_ELECTROLYZER);
-	public static final RecipeType<IndustrialGrinderRecipe> INDUSTRIAL_GRINDER = createRecipeType(ModRecipes.INDUSTRIAL_GRINDER, IndustrialGrinderRecipe.class);
-	public static final RecipeType<IndustrialSawmillRecipe> INDUSTRIAL_SAWMILL = createRecipeType(ModRecipes.INDUSTRIAL_SAWMILL, IndustrialSawmillRecipe.class);
-	public static final RecipeType<RollingMachineRecipe> ROLLING_MACHINE = createRecipeType(ModRecipes.ROLLING_MACHINE, RollingMachineRecipe.class);
-	public static final RecipeType<RebornRecipe> SCRAPBOX = createRecipeType(ModRecipes.SCRAPBOX);
-	public static final RecipeType<RebornRecipe> SOLID_CANNING_MACHINE = createRecipeType(ModRecipes.SOLID_CANNING_MACHINE);
-	public static final RecipeType<RebornRecipe> VACUUM_FREEZER = createRecipeType(ModRecipes.VACUUM_FREEZER);
-	public static final RecipeType<RebornRecipe> WIRE_MILL = createRecipeType(ModRecipes.WIRE_MILL);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> ALLOY_SMELTER = RecipeType.createFromVanilla(ModRecipes.ALLOY_SMELTER);
+	public static final RecipeType<RecipeHolder<AssemblingMachineRecipe>> ASSEMBLING_MACHINE = RecipeType.createFromVanilla(ModRecipes.ASSEMBLING_MACHINE);
+	public static final RecipeType<RecipeHolder<BlastFurnaceRecipe>> BLAST_FURNACE = RecipeType.createFromVanilla(ModRecipes.BLAST_FURNACE);
+	public static final RecipeType<RecipeHolder<CentrifugeRecipe>> CENTRIFUGE = RecipeType.createFromVanilla(ModRecipes.CENTRIFUGE);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> CHEMICAL_REACTOR = RecipeType.createFromVanilla(ModRecipes.CHEMICAL_REACTOR);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> COMPRESSOR = RecipeType.createFromVanilla(ModRecipes.COMPRESSOR);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> DISTILLATION_TOWER = RecipeType.createFromVanilla(ModRecipes.DISTILLATION_TOWER);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> EXTRACTOR = RecipeType.createFromVanilla(ModRecipes.EXTRACTOR);
+	public static final RecipeType<RecipeHolder<FluidReplicatorRecipe>> FLUID_REPLICATOR = RecipeType.createFromVanilla(ModRecipes.FLUID_REPLICATOR);
+	public static final RecipeType<RecipeHolder<FusionReactorRecipe>> FUSION_REACTOR = RecipeType.createFromVanilla(ModRecipes.FUSION_REACTOR);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> GRINDER = RecipeType.createFromVanilla(ModRecipes.GRINDER);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> IMPLOSION_COMPRESSOR = RecipeType.createFromVanilla(ModRecipes.IMPLOSION_COMPRESSOR);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> INDUSTRIAL_ELECTROLYZER = RecipeType.createFromVanilla(ModRecipes.INDUSTRIAL_ELECTROLYZER);
+	public static final RecipeType<RecipeHolder<IndustrialGrinderRecipe>> INDUSTRIAL_GRINDER = RecipeType.createFromVanilla(ModRecipes.INDUSTRIAL_GRINDER);
+	public static final RecipeType<RecipeHolder<IndustrialSawmillRecipe>> INDUSTRIAL_SAWMILL = RecipeType.createFromVanilla(ModRecipes.INDUSTRIAL_SAWMILL);
+	public static final RecipeType<RecipeHolder<RollingMachineRecipe>> ROLLING_MACHINE = RecipeType.createFromVanilla(ModRecipes.ROLLING_MACHINE);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> SCRAPBOX = RecipeType.createFromVanilla(ModRecipes.SCRAPBOX);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> SOLID_CANNING_MACHINE = RecipeType.createFromVanilla(ModRecipes.SOLID_CANNING_MACHINE);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> VACUUM_FREEZER = RecipeType.createFromVanilla(ModRecipes.VACUUM_FREEZER);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> WIRE_MILL = RecipeType.createFromVanilla(ModRecipes.WIRE_MILL);
 
 	public static final RecipeType<FluidGeneratorRecipe> THERMAL_GENERATOR = createFluidGeneratorRecipeType(Machine.THERMAL_GENERATOR);
 	public static final RecipeType<FluidGeneratorRecipe> GAS_GENERATOR = createFluidGeneratorRecipeType(Machine.GAS_TURBINE);
@@ -225,7 +224,7 @@ public class TechRebornJEIPlugin implements IModPlugin {
 		registration.addRecipeCategories(new TwoItemToThreeItemRecipeCategory<>(DISTILLATION_TOWER));
 		registration.addRecipeCategories(new ItemToItemRecipeCategory<>(EXTRACTOR));
 		registration.addRecipeCategories(new ItemToFluidRecipeCategory<>(FLUID_REPLICATOR));
-		registration.addRecipeCategories(new FusionReactorRecipeCategory(FUSION_REACTOR));
+		registration.addRecipeCategories(new TwoItemToItemCenterRecipeCategory<>(FUSION_REACTOR));
 		registration.addRecipeCategories(new ItemToItemRecipeCategory<>(GRINDER));
 		registration.addRecipeCategories(new TwoItemToTwoItemRecipeCategory<>(IMPLOSION_COMPRESSOR));
 		registration.addRecipeCategories(new TwoItemToFourItemRecipeCategory<>(INDUSTRIAL_ELECTROLYZER));
@@ -365,14 +364,6 @@ public class TechRebornJEIPlugin implements IModPlugin {
 		TechRebornJEIPlugin.jeiRuntime = jeiRuntime;
 
 		ADDONS.forEach(addon -> addon.onRuntimeAvailable(jeiRuntime));
-	}
-
-	public static RecipeType<RebornRecipe> createRecipeType(RebornRecipeType<RebornRecipe> rebornRecipeType) {
-		return new RecipeType<>(rebornRecipeType.name(), RebornRecipe.class);
-	}
-
-	public static <R extends RebornRecipe> RecipeType<R> createRecipeType(RebornRecipeType<R> rebornRecipeType, Class<R> rebornRecipeClass) {
-		return new RecipeType<>(rebornRecipeType.name(), rebornRecipeClass);
 	}
 
 	public static RecipeType<FluidGeneratorRecipe> createFluidGeneratorRecipeType(Machine machine) {

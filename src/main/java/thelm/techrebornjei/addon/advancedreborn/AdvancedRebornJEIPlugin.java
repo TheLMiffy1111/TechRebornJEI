@@ -7,18 +7,20 @@ import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import ml.pkom.advancedreborn.Blocks;
+import ml.pkom.advancedreborn.Recipes;
+import ml.pkom.advancedreborn.gui.GuiCanningMachine;
+import ml.pkom.advancedreborn.gui.GuiCentrifugalExtractor;
+import ml.pkom.advancedreborn.gui.GuiInductionFurnace;
+import ml.pkom.advancedreborn.gui.GuiRotaryGrinder;
+import ml.pkom.advancedreborn.gui.GuiSingularityCompressor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.pitan76.advancedreborn.Blocks;
-import net.pitan76.advancedreborn.Recipes;
-import net.pitan76.advancedreborn.gui.GuiCanningMachine;
-import net.pitan76.advancedreborn.gui.GuiCentrifugalExtractor;
-import net.pitan76.advancedreborn.gui.GuiInductionFurnace;
-import net.pitan76.advancedreborn.gui.GuiRotaryGrinder;
-import net.pitan76.advancedreborn.gui.GuiSingularityCompressor;
 import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RebornRecipeType;
 import thelm.techrebornjei.TechRebornJEIPlugin;
 import thelm.techrebornjei.category.TwoItemToItemRecipeCategory;
 
@@ -26,7 +28,7 @@ public class AdvancedRebornJEIPlugin implements IModPlugin {
 
 	public static final ResourceLocation UID = new ResourceLocation("techrebornjei:advancedreborn");
 
-	public static final RecipeType<RebornRecipe> CANNING_MACHINE = TechRebornJEIPlugin.createRecipeType(Recipes.CANNING_MACHINE);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> CANNING_MACHINE = RecipeType.createFromVanilla((RebornRecipeType<RebornRecipe>)Recipes.CANNING_MACHINE);
 
 	public AdvancedRebornJEIPlugin() {
 		TechRebornJEIPlugin.ADD_JEI_BUTTON.add(GuiCanningMachine.class);
@@ -51,7 +53,7 @@ public class AdvancedRebornJEIPlugin implements IModPlugin {
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
 		RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
-		registration.addRecipes(CANNING_MACHINE, recipeManager.getAllRecipesFor(Recipes.CANNING_MACHINE));
+		registration.addRecipes(CANNING_MACHINE, recipeManager.getAllRecipesFor((RebornRecipeType<RebornRecipe>)Recipes.CANNING_MACHINE));
 	}
 
 	@Override

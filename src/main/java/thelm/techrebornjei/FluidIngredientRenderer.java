@@ -55,7 +55,6 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 
-	@SuppressWarnings("removal")
 	@Override
 	public List<Component> getTooltip(IJeiFluidIngredient ingredient, TooltipFlag tooltipFlag) {
 		if(ingredient.getFluid() == Fluids.EMPTY) {
