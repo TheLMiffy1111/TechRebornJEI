@@ -1,0 +1,43 @@
+package thelm.techrebornjei.category;
+
+import java.util.List;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.RecipeType;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import reborncore.common.crafting.RebornRecipe;
+import thelm.techrebornjei.EntryAnimation;
+
+public abstract class AbstractRebornEnergyRecipeCategory<R extends RebornRecipe> extends AbstractRebornRecipeCategory<R> {
+
+	public AbstractRebornEnergyRecipeCategory(RecipeType<R> recipeType) {
+		super(recipeType);
+	}
+
+	public AbstractRebornEnergyRecipeCategory(RecipeType<R> recipeType, Component title) {
+		super(recipeType, title);
+	}
+
+	@Override
+	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+		drawEnergyDisplay(poseStack, 8, 8, EntryAnimation.DOWNWARDS);
+	}
+
+	@Override
+	public List<Component> getTooltipStrings(R recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+		if(isInEnergyDisplay(8, 8, mouseX, mouseY)) {
+			return List.of(
+					new TranslatableComponent("techreborn.jei.recipe.energy"),
+					new TranslatableComponent("techreborn.jei.recipe.running.cost", "E", recipe.getPower()).withStyle(ChatFormatting.GRAY),
+					new TranslatableComponent("techreborn.jei.recipe.generator.total", recipe.getPower() * recipe.getTime()).withStyle(ChatFormatting.GRAY),
+					TextComponent.EMPTY,
+					new TextComponent(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn")));
+		}
+		return List.of();
+	}
+}

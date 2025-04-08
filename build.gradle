@@ -1,0 +1,240 @@
+plugins {
+	id "com.crystaelix.loom" version "1.10.0"
+	id "eclipse"
+	id "idea"
+	id "maven-publish"
+	id "net.kyori.blossom" version "[1,2)"
+	id "me.modmuss50.mod-publish-plugin" version "0.8.4"
+}
+
+repositories {
+	mavenCentral()
+	flatDir {
+		dirs "libs"
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.parchmentmc.net/"
+			}
+		}
+		filter {
+			includeGroup "org.parchmentmc.data"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.nucleoid.xyz/"
+			}
+		}
+		filter {
+			includeGroup "eu.pb4"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.terraformersmc.com/"
+			}
+		}
+		filter {
+			includeGroup "com.terraformersmc"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.blamejared.com/"
+			}
+		}
+		filter {
+			includeGroup "mezz.jei"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.architectury.dev/"
+			}
+		}
+		filter {
+			includeGroup "dev.architectury"
+			includeGroup "me.shedaniel.cloth"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.modmuss50.me/"
+			}
+		}
+		filter {
+			includeGroup "teamreborn"
+			includeGroup "RebornCore"
+			includeGroup "TechReborn"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.pitan76.net/"
+			}
+		}
+		filter {
+			includeGroup "ml.pkom"
+			includeGroup "net.pitan76"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://cursemaven.com/"
+			}
+		}
+		filter {
+			includeGroup "curse.maven"
+		}
+	}
+}
+
+def mcVersion = "1.18.2"
+def modName = "TechRebornJEI"
+def modId = "techrebornjei"
+def specVersion = "18.2"
+def vendor = "thelm"
+
+group = "thelm.textlogger"
+version = "18.2.0"
+
+archivesBaseName = "${modName}-${mcVersion}"
+
+sourceSets {
+	main
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+		vendor = JvmVendorSpec.AZUL
+	}
+	withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = "UTF-8"
+}
+
+loom {
+	silentMojangMappingsLicense()
+	mixin.defaultRefmapName = "${modId}.refmap.json"
+	runs {
+		configureEach {
+			property "fabric.log.console.level", "debug"
+		}
+		client {
+			programArg "--username=Dev"
+		}
+		server
+	}
+}
+
+dependencies {
+	// Log4j
+	implementation "org.apache.logging.log4j:log4j-core:2.24.3"
+
+	// Minecraft
+	minecraft "com.mojang:minecraft:1.18.2"
+	mappings loom.layered {
+		officialMojangMappings {
+			nameSyntheticMembers = false
+		}
+		parchment "org.parchmentmc.data:parchment-1.18.2:2022.11.06@zip"
+	}
+	modImplementation "net.fabricmc:fabric-loader:0.16.12"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.77.0+1.18.2"
+	modImplementation "com.terraformersmc:modmenu:3.2.5"
+
+	// Dependencies
+	modImplementation("mezz.jei:jei-1.18.2-fabric:10.2.1.1009") {transitive = false}
+	modImplementation "TechReborn:TechReborn-1.18:5.2.1"
+	modImplementation "net.pitan76:mcpitanlib-fabric+1.18.2:3.2.2"
+	modImplementation "curse.maven:advancedreborn-543089:5970311"
+}
+
+def replacements = [
+	"0@VERSION@": version
+]
+
+blossom {
+	replaceToken(replacements)
+}
+
+processResources {
+	inputs.properties(replacements)
+	filesMatching(["fabric.mod.json"]) {
+		filter {
+			it.replace(replacements)
+		}
+	}
+}
+
+def manifestAttributes = [
+	"Specification-Title": modName,
+	"Specification-Vendor": vendor,
+	"Specification-Version": specVersion,
+	"Implementation-Title": archivesBaseName,
+	"Implementation-Version": version,
+	"Implementation-Vendor": vendor
+]
+
+jar {
+	manifest.attributes(manifestAttributes)
+}
+
+sourcesJar {
+	manifest.attributes(manifestAttributes)
+}
+
+publishing {
+	publications {
+		register("mavenJava", MavenPublication) {
+			artifact remapJar
+			artifact remapSourcesJar
+		}
+	}
+	repositories {
+		if(project.hasProperty("CrystaelixMavenUsername") && project.hasProperty("CrystaelixMavenPassword")) {
+			maven {
+				name = "CrystaelixMaven"
+				url = "https://maven.crystaelix.com/releases/"
+				credentials(PasswordCredentials)
+			}
+		}
+	}
+}
+
+publishMods {
+	file = remapJar.archiveFile
+	version = displayName = "${project.version}"
+	changelog = file("changelog.md").text
+	type = STABLE
+	modLoaders.add("fabric")
+	additionalFiles.from(remapSourcesJar.archiveFile)
+
+	curseforge {
+		accessToken = providers.gradleProperty("curseforge.token")
+		projectId = "1237141"
+		minecraftVersions.add(mcVersion)
+		requires "jei", "techreborn"
+		optional "advancedreborn"
+	}
+
+	modrinth {
+		accessToken = providers.gradleProperty("modrinth.token")
+		projectId = "FaJv0NSi"
+		minecraftVersions.add(mcVersion)
+		requires "jei", "techreborn"
+		optional "advancedreborn"
+	}
+}
