@@ -39,12 +39,11 @@ public class GuiRenderUtil {
 		RenderSystem.setShaderTexture(0, sprite.atlasLocation());
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		Matrix4f matrix = guiGraphics.pose().last().pose();
-		BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		bufferBuilder.vertex(matrix, x, y, 0).uv(uMin, vMin).endVertex();
-		bufferBuilder.vertex(matrix, x, y + height, 0).uv(uMin, vMax).endVertex();
-		bufferBuilder.vertex(matrix, x + width, y + height, 0).uv(uMax, vMax).endVertex();
-		bufferBuilder.vertex(matrix, x + width, y, 0).uv(uMax, vMin).endVertex();
-		BufferUploader.drawWithShader(bufferBuilder.end());
+		BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		bufferBuilder.addVertex(matrix, x, y, 0).setUv(uMin, vMin);
+		bufferBuilder.addVertex(matrix, x, y + height, 0).setUv(uMin, vMax);
+		bufferBuilder.addVertex(matrix, x + width, y + height, 0).setUv(uMax, vMax);
+		bufferBuilder.addVertex(matrix, x + width, y, 0).setUv(uMax, vMin);
+		BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
 	}
 }

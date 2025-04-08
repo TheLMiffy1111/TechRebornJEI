@@ -4,15 +4,16 @@ import java.util.List;
 
 import mezz.jei.api.fabric.ingredients.fluids.IJeiFluidIngredient;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.fabric.ingredients.fluid.JeiFluidIngredient;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.material.Fluids;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
@@ -43,41 +44,39 @@ public abstract class AbstractRebornRecipeCategory<R extends RebornRecipe> exten
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {}
 
 	@Override
-	public List<Component> getTooltipStrings(RecipeHolder<R> recipeHolder, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-		return getTooltipStrings(recipeHolder.value(), recipeSlotsView, mouseX, mouseY);
+	public void getTooltip(ITooltipBuilder tooltip, RecipeHolder<R> recipeHolder, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+		getTooltip(tooltip, recipeHolder.value(), recipeSlotsView, mouseX, mouseY);
 	}
 
-	public List<Component> getTooltipStrings(R recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-		return List.of();
-	}
+	public void getTooltip(ITooltipBuilder tooltip, R recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {}
 
 	public List<ItemStack> getInput(RebornRecipe recipe, int index) {
-		if(index >= 0 && index < recipe.getRebornIngredients().size()) {
-			return recipe.getRebornIngredients().get(index).getPreviewStacks();
+		if(index >= 0 && index < recipe.ingredients().size()) {
+			return recipe.ingredients().get(index).getPreviewStacks();
 		}
 		return List.of();
 	}
 
 	public IJeiFluidIngredient getFluid(RebornRecipe recipe) {
 		if(recipe instanceof RebornFluidRecipe fluidRecipe) {
-			FluidInstance stack = fluidRecipe.getFluidInstance();
-			return new JeiFluidIngredient(stack.getFluid(), stack.getAmount().getRawValue(), stack.getTag());
+			FluidInstance stack = fluidRecipe.fluid();
+			return new JeiFluidIngredient(stack.fluidVariant(), stack.getAmount().getRawValue());
 		}
-		return new JeiFluidIngredient(Fluids.EMPTY, 0);
+		return new JeiFluidIngredient(FluidVariant.blank(), 0);
 	}
 
 	public ItemStack getOutput(RebornRecipe recipe, int index) {
-		if(index >= 0 && index < recipe.getOutputs(null).size()) {
-			return recipe.getOutputs(null).get(index);
+		if(index >= 0 && index < recipe.outputs().size()) {
+			return recipe.outputs().get(index);
 		}
 		return ItemStack.EMPTY;
 	}
 
 	public Component getTimeComponent(RebornRecipe recipe) {
-		return Component.translatable("techreborn.jei.recipe.processing.time.3", TIME_FORMAT.format(recipe.getTime() / 20D));
+		return Component.translatable("techreborn.jei.recipe.processing.time.3", TIME_FORMAT.format(recipe.time() / 20D));
 	}
 
 	public void drawProgressBar(GuiGraphics guiGraphics, int x, int y, RebornRecipe recipe, GuiBuilder.ProgressDirection direction) {
-		drawProgressBar(guiGraphics, x, y, recipe.getTime() * 50, direction);
+		drawProgressBar(guiGraphics, x, y, recipe.time() * 50, direction);
 	}
 }

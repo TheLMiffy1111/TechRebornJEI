@@ -14,7 +14,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.client.gui.GuiBuilder;
-import techreborn.api.recipe.recipes.RollingMachineRecipe;
+import techreborn.recipe.recipes.RollingMachineRecipe;
 
 public class RollingMachineRecipeCategory extends AbstractRebornEnergyRecipeCategory<RollingMachineRecipe> {
 

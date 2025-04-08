@@ -2,9 +2,6 @@ package thelm.techrebornjei.category;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.function.Supplier;
-
-import com.google.common.base.Suppliers;
 
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -28,7 +25,6 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 
 	public final RecipeType<R> recipeType;
 	public final Component title;
-	public final Supplier<IDrawable> background = Suppliers.memoize(() -> guiHelper().createBlankDrawable(getWidth(), getHeight()));
 
 	public AbstractRecipeCategory(RecipeType<R> recipeType, Component title) {
 		this.recipeType = recipeType;
@@ -48,11 +44,6 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	@Override
 	public Component getTitle() {
 		return title;
-	}
-
-	@Override
-	public IDrawable getBackground() {
-		return background.get();
 	}
 
 	@Override

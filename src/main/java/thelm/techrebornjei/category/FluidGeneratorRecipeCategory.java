@@ -4,6 +4,7 @@ import java.util.List;
 
 import mezz.jei.api.fabric.constants.FabricTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -11,21 +12,20 @@ import mezz.jei.api.recipe.RecipeType;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.client.gui.GuiBuilder;
-import techreborn.api.generator.FluidGeneratorRecipe;
+import techreborn.recipe.recipes.FluidGeneratorRecipe;
 import thelm.techrebornjei.EntryAnimation;
 import thelm.techrebornjei.FluidIngredientRenderer;
 
-public class FluidGeneratorRecipeCategory extends AbstractRecipeCategory<FluidGeneratorRecipe> {
+public class FluidGeneratorRecipeCategory extends AbstractRebornRecipeCategory<FluidGeneratorRecipe> {
 
-	public FluidGeneratorRecipeCategory(RecipeType<FluidGeneratorRecipe> recipeType, Component title) {
+	public FluidGeneratorRecipeCategory(RecipeType<RecipeHolder<FluidGeneratorRecipe>> recipeType, Component title) {
 		super(recipeType, title);
 	}
 
-	public FluidGeneratorRecipeCategory(RecipeType<FluidGeneratorRecipe> recipeType) {
+	public FluidGeneratorRecipeCategory(RecipeType<RecipeHolder<FluidGeneratorRecipe>> recipeType) {
 		super(recipeType);
 	}
 
@@ -41,19 +41,13 @@ public class FluidGeneratorRecipeCategory extends AbstractRecipeCategory<FluidGe
 	}
 
 	@Override
-	public List<Component> getTooltipStrings(FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+	public void getTooltip(ITooltipBuilder tooltip, FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
 		if(isInEnergyDisplay(108, 8, mouseX, mouseY)) {
-			return List.of(
+			tooltip.addAll(List.of(
 					Component.translatable("techreborn.jei.recipe.energy"),
-					Component.translatable("techreborn.jei.recipe.generator.total", recipe.getEnergyPerBucket()).withStyle(ChatFormatting.GRAY),
+					Component.translatable("techreborn.jei.recipe.generator.total", recipe.power() * 1000).withStyle(ChatFormatting.GRAY),
 					Component.empty(),
-					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn")));
+					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn"))));
 		}
-		return List.of();
-	}
-
-	@Override
-	public ResourceLocation getRegistryName(FluidGeneratorRecipe recipe) {
-		return BuiltInRegistries.FLUID.getKey(recipe.fluid());
 	}
 }

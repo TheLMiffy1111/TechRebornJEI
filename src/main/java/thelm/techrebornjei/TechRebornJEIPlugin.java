@@ -1,7 +1,6 @@
 package thelm.techrebornjei;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +10,7 @@ import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
@@ -24,6 +23,7 @@ import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -32,17 +32,6 @@ import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.ItemFluidInfo;
-import techreborn.api.generator.EFluidGenerator;
-import techreborn.api.generator.FluidGeneratorRecipe;
-import techreborn.api.generator.GeneratorRecipeHelper;
-import techreborn.api.recipe.recipes.AssemblingMachineRecipe;
-import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
-import techreborn.api.recipe.recipes.CentrifugeRecipe;
-import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
-import techreborn.api.recipe.recipes.FusionReactorRecipe;
-import techreborn.api.recipe.recipes.IndustrialGrinderRecipe;
-import techreborn.api.recipe.recipes.IndustrialSawmillRecipe;
-import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.client.gui.GuiAlloyFurnace;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiAssemblingMachine;
@@ -76,8 +65,18 @@ import techreborn.client.gui.GuiWireMill;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
+import techreborn.recipe.recipes.AssemblingMachineRecipe;
+import techreborn.recipe.recipes.BlastFurnaceRecipe;
+import techreborn.recipe.recipes.CentrifugeRecipe;
+import techreborn.recipe.recipes.FluidGeneratorRecipe;
+import techreborn.recipe.recipes.FluidReplicatorRecipe;
+import techreborn.recipe.recipes.FusionReactorRecipe;
+import techreborn.recipe.recipes.IndustrialGrinderRecipe;
+import techreborn.recipe.recipes.IndustrialSawmillRecipe;
+import techreborn.recipe.recipes.RollingMachineRecipe;
 import thelm.techrebornjei.addon.advancedreborn.AdvancedRebornJEIPlugin;
 import thelm.techrebornjei.category.FluidGeneratorRecipeCategory;
+import thelm.techrebornjei.category.FusionReactorRecipeCategory;
 import thelm.techrebornjei.category.ItemFluidToFourItemRecipeCategory;
 import thelm.techrebornjei.category.ItemFluidToThreeItemRecipeCategory;
 import thelm.techrebornjei.category.ItemToFluidRecipeCategory;
@@ -93,7 +92,7 @@ import thelm.techrebornjei.mixin.ScreenAccessor;
 
 public class TechRebornJEIPlugin implements IModPlugin {
 
-	public static final ResourceLocation UID = new ResourceLocation("techrebornjei:techreborn");
+	public static final ResourceLocation UID = ResourceLocation.parse("techrebornjei:techreborn");
 
 	public static IJeiHelpers jeiHelpers;
 	public static IJeiRuntime jeiRuntime;
@@ -119,15 +118,15 @@ public class TechRebornJEIPlugin implements IModPlugin {
 	public static final RecipeType<RecipeHolder<RebornRecipe>> VACUUM_FREEZER = RecipeType.createFromVanilla(ModRecipes.VACUUM_FREEZER);
 	public static final RecipeType<RecipeHolder<RebornRecipe>> WIRE_MILL = RecipeType.createFromVanilla(ModRecipes.WIRE_MILL);
 
-	public static final RecipeType<FluidGeneratorRecipe> THERMAL_GENERATOR = createFluidGeneratorRecipeType(Machine.THERMAL_GENERATOR);
-	public static final RecipeType<FluidGeneratorRecipe> GAS_GENERATOR = createFluidGeneratorRecipeType(Machine.GAS_TURBINE);
-	public static final RecipeType<FluidGeneratorRecipe> DIESEL_GENERATOR = createFluidGeneratorRecipeType(Machine.DIESEL_GENERATOR);
-	public static final RecipeType<FluidGeneratorRecipe> SEMI_FLUID_GENERATOR = createFluidGeneratorRecipeType(Machine.SEMI_FLUID_GENERATOR);
-	public static final RecipeType<FluidGeneratorRecipe> PLASMA_GENERATOR = createFluidGeneratorRecipeType(Machine.PLASMA_GENERATOR);
+	public static final RecipeType<RecipeHolder<FluidGeneratorRecipe>> THERMAL_GENERATOR = RecipeType.createFromVanilla(ModRecipes.THERMAL_GENERATOR);
+	public static final RecipeType<RecipeHolder<FluidGeneratorRecipe>> GAS_GENERATOR = RecipeType.createFromVanilla(ModRecipes.GAS_GENERATOR);
+	public static final RecipeType<RecipeHolder<FluidGeneratorRecipe>> DIESEL_GENERATOR = RecipeType.createFromVanilla(ModRecipes.DIESEL_GENERATOR);
+	public static final RecipeType<RecipeHolder<FluidGeneratorRecipe>> SEMI_FLUID_GENERATOR = RecipeType.createFromVanilla(ModRecipes.SEMI_FLUID_GENERATOR);
+	public static final RecipeType<RecipeHolder<FluidGeneratorRecipe>> PLASMA_GENERATOR = RecipeType.createFromVanilla(ModRecipes.PLASMA_GENERATOR);
 
 	public static final Set<Class<? extends GuiBase<?>>> ADD_JEI_BUTTON = new HashSet<>();
 
-	public static final ResourceLocation ELEMENTS = new ResourceLocation("techrebornjei:textures/gui/elements.png");
+	public static final ResourceLocation ELEMENTS = ResourceLocation.parse("techrebornjei:textures/gui/elements.png");
 	public static IDrawable outputSlot1;
 	public static IDrawable outputSlot2;
 	public static IDrawable outputSlot3;
@@ -193,9 +192,17 @@ public class TechRebornJEIPlugin implements IModPlugin {
 
 	@Override
 	public void registerItemSubtypes(ISubtypeRegistration registration) {
-		registration.registerSubtypeInterpreter(TRContent.CELL, new IIngredientSubtypeInterpreter<ItemStack>() {
+		registration.registerSubtypeInterpreter(TRContent.CELL, new ISubtypeInterpreter<ItemStack>() {
 			@Override
-			public String apply(ItemStack ingredient, UidContext context) {
+			public Object getSubtypeData(ItemStack ingredient, UidContext context) {
+				if(ingredient.getItem() instanceof ItemFluidInfo info) {
+					return info.getFluid(ingredient);
+				}
+				return null;
+			}
+
+			@Override
+			public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
 				if(ingredient.getItem() instanceof ItemFluidInfo info) {
 					return BuiltInRegistries.FLUID.getKey(info.getFluid(ingredient)).toString();
 				}
@@ -224,7 +231,7 @@ public class TechRebornJEIPlugin implements IModPlugin {
 		registration.addRecipeCategories(new TwoItemToThreeItemRecipeCategory<>(DISTILLATION_TOWER));
 		registration.addRecipeCategories(new ItemToItemRecipeCategory<>(EXTRACTOR));
 		registration.addRecipeCategories(new ItemToFluidRecipeCategory<>(FLUID_REPLICATOR));
-		registration.addRecipeCategories(new TwoItemToItemCenterRecipeCategory<>(FUSION_REACTOR));
+		registration.addRecipeCategories(new FusionReactorRecipeCategory(FUSION_REACTOR));
 		registration.addRecipeCategories(new ItemToItemRecipeCategory<>(GRINDER));
 		registration.addRecipeCategories(new TwoItemToTwoItemRecipeCategory<>(IMPLOSION_COMPRESSOR));
 		registration.addRecipeCategories(new TwoItemToFourItemRecipeCategory<>(INDUSTRIAL_ELECTROLYZER));
@@ -237,7 +244,7 @@ public class TechRebornJEIPlugin implements IModPlugin {
 		registration.addRecipeCategories(new ItemToItemRecipeCategory<>(WIRE_MILL));
 
 		registration.addRecipeCategories(new FluidGeneratorRecipeCategory(THERMAL_GENERATOR));
-		registration.addRecipeCategories(new FluidGeneratorRecipeCategory(GAS_GENERATOR));
+		registration.addRecipeCategories(new FluidGeneratorRecipeCategory(GAS_GENERATOR, Component.translatable("techreborn:gas_turbine")));
 		registration.addRecipeCategories(new FluidGeneratorRecipeCategory(DIESEL_GENERATOR));
 		registration.addRecipeCategories(new FluidGeneratorRecipeCategory(SEMI_FLUID_GENERATOR));
 		registration.addRecipeCategories(new FluidGeneratorRecipeCategory(PLASMA_GENERATOR));
@@ -269,11 +276,11 @@ public class TechRebornJEIPlugin implements IModPlugin {
 		registration.addRecipes(VACUUM_FREEZER, recipeManager.getAllRecipesFor(ModRecipes.VACUUM_FREEZER));
 		registration.addRecipes(WIRE_MILL, recipeManager.getAllRecipesFor(ModRecipes.WIRE_MILL));
 
-		registration.addRecipes(THERMAL_GENERATOR, getFluidGeneratorRecipes(EFluidGenerator.THERMAL));
-		registration.addRecipes(GAS_GENERATOR, getFluidGeneratorRecipes(EFluidGenerator.GAS));
-		registration.addRecipes(DIESEL_GENERATOR, getFluidGeneratorRecipes(EFluidGenerator.DIESEL));
-		registration.addRecipes(SEMI_FLUID_GENERATOR, getFluidGeneratorRecipes(EFluidGenerator.SEMIFLUID));
-		registration.addRecipes(PLASMA_GENERATOR, getFluidGeneratorRecipes(EFluidGenerator.PLASMA));
+		registration.addRecipes(THERMAL_GENERATOR, recipeManager.getAllRecipesFor(ModRecipes.THERMAL_GENERATOR));
+		registration.addRecipes(GAS_GENERATOR, recipeManager.getAllRecipesFor(ModRecipes.GAS_GENERATOR));
+		registration.addRecipes(DIESEL_GENERATOR, recipeManager.getAllRecipesFor(ModRecipes.DIESEL_GENERATOR));
+		registration.addRecipes(SEMI_FLUID_GENERATOR, recipeManager.getAllRecipesFor(ModRecipes.SEMI_FLUID_GENERATOR));
+		registration.addRecipes(PLASMA_GENERATOR, recipeManager.getAllRecipesFor(ModRecipes.PLASMA_GENERATOR));
 
 		ADDONS.forEach(addon -> addon.registerRecipes(registration));
 	}
@@ -364,14 +371,5 @@ public class TechRebornJEIPlugin implements IModPlugin {
 		TechRebornJEIPlugin.jeiRuntime = jeiRuntime;
 
 		ADDONS.forEach(addon -> addon.onRuntimeAvailable(jeiRuntime));
-	}
-
-	public static RecipeType<FluidGeneratorRecipe> createFluidGeneratorRecipeType(Machine machine) {
-		return RecipeType.create("techreborn", machine.name, FluidGeneratorRecipe.class);
-	}
-
-	public static List<FluidGeneratorRecipe> getFluidGeneratorRecipes(EFluidGenerator generator) {
-		return GeneratorRecipeHelper.getFluidRecipesForGenerator(generator).getRecipes().stream().
-				sorted(Comparator.comparing(recipe -> BuiltInRegistries.FLUID.getKey(recipe.fluid()))).toList();
 	}
 }

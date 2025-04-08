@@ -15,7 +15,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.material.Fluids;
 import reborncore.client.gui.GuiSprites;
 
 public record FluidIngredientRenderer(EntryAnimation animation) implements IIngredientRenderer<IJeiFluidIngredient> {
@@ -40,7 +39,7 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 		else {
 			innerDisplayHeight = height;
 		}
-		drawFluid(guiGraphics, getFluidVariant(ingredient), innerDisplayHeight);
+		drawFluid(guiGraphics, ingredient.getFluidVariant(), innerDisplayHeight);
 		GuiSprites.drawSprite(guiGraphics, GuiSprites.TANK_FOREGROUND, 0, 0);
 	}
 
@@ -55,12 +54,13 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 
+	@SuppressWarnings("removal")
 	@Override
 	public List<Component> getTooltip(IJeiFluidIngredient ingredient, TooltipFlag tooltipFlag) {
-		if(ingredient.getFluid() == Fluids.EMPTY) {
+		if(ingredient.getFluidVariant().isBlank()) {
 			return List.of();
 		}
-		List<Component> tooltip = FluidVariantRendering.getTooltip(getFluidVariant(ingredient), tooltipFlag);
+		List<Component> tooltip = FluidVariantRendering.getTooltip(ingredient.getFluidVariant(), tooltipFlag);
 		long mb = ingredient.getAmount() / (FluidConstants.BUCKET / 1000);
 		long sp = ingredient.getAmount() % (FluidConstants.BUCKET / 1000);
 		if(sp > 0) {
@@ -71,11 +71,6 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 		}
 		return tooltip;
 	}
-
-	public FluidVariant getFluidVariant(IJeiFluidIngredient ingredient) {
-		return FluidVariant.of(ingredient.getFluid(), ingredient.getTag().orElse(null));
-	}
-
 	@Override
 	public int getHeight() {
 		return 50;

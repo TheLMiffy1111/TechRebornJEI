@@ -7,7 +7,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.client.gui.GuiBuilder;
-import techreborn.api.recipe.recipes.FusionReactorRecipe;
+import techreborn.recipe.recipes.FusionReactorRecipe;
 import thelm.techrebornjei.EntryAnimation;
 
 public class FusionReactorRecipeCategory extends TwoItemToItemCenterRecipeCategory<FusionReactorRecipe> {
@@ -18,7 +18,7 @@ public class FusionReactorRecipeCategory extends TwoItemToItemCenterRecipeCatego
 
 	@Override
 	public void draw(FusionReactorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		drawEnergyDisplay(guiGraphics, 8, 8, recipe.getPower() < 0 ? EntryAnimation.DOWNWARDS : EntryAnimation.UPWARDS);
+		drawEnergyDisplay(guiGraphics, 8, 8, recipe.power() < 0 ? EntryAnimation.DOWNWARDS : EntryAnimation.UPWARDS);
 		drawProgressBar(guiGraphics, 29 + 21, 30, recipe, GuiBuilder.ProgressDirection.RIGHT);
 		drawProgressBar(guiGraphics, 29 + 71, 30, recipe, GuiBuilder.ProgressDirection.LEFT);
 		Font font = font();
