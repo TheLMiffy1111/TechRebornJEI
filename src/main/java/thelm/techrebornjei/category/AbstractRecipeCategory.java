@@ -69,11 +69,11 @@ public abstract class AbstractRecipeCategory<R> extends GuiComponent implements 
 	}
 
 	public int getWidth() {
-		return 150;
+		return 140;
 	}
 
 	public int getHeight() {
-		return 66;
+		return 56;
 	}
 
 	@Override
@@ -154,6 +154,6 @@ public abstract class AbstractRecipeCategory<R> extends GuiComponent implements 
 	}
 
 	public boolean isInEnergyDisplay(int x, int y, double mouseX, double mouseY) {
-		return mouseX >= x && mouseX < x + 14 && mouseY >= y && mouseY < y + 50;
+		return mouseX >= x && mouseX < x + ENERGY_DISPLAY_WIDTH && mouseY >= y && mouseY < y + ENERGY_DISPLAY_HEIGHT;
 	}
 }

@@ -25,19 +25,19 @@ public class TwoItemToThreeItemRecipeCategory<R extends RebornRecipe> extends Ab
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 55 - 23, 35 - 19).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 55 - 23, 55 - 19).addItemStacks(getInput(recipe, 1)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 101 - 23, 45 - 19).addItemStack(getOutput(recipe, 0)).setBackground(TechRebornJEIPlugin.outputSlot3, -5, -5);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 101 + 20 - 23, 45 - 19).addItemStack(getOutput(recipe, 1));
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 101 + 40 - 23, 45 - 19).addItemStack(getOutput(recipe, 2));
+		builder.addSlot(RecipeIngredientRole.INPUT, 27, 10).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.INPUT, 27, 30).addItemStacks(getInput(recipe, 1)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 73, 20).addItemStack(getOutput(recipe, 0)).setBackground(TechRebornJEIPlugin.outputSlot3, -5, -5);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 20).addItemStack(getOutput(recipe, 1));
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 113, 20).addItemStack(getOutput(recipe, 2));
 	}
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
 		super.draw(recipe, recipeSlotsView, poseStack, mouseX, mouseY);
-		drawProgressBar(poseStack, 76 - 23, 48 - 19, recipe, GuiBuilder.ProgressDirection.RIGHT);
+		drawProgressBar(poseStack, 48, 23, recipe, GuiBuilder.ProgressDirection.RIGHT);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
-		font.draw(poseStack, component, getWidth() - font.width(component) - 5, 5, 0xFF404040);
+		font.draw(poseStack, component, getWidth() - font.width(component), 0, 0xFF808080);
 	}
 }
