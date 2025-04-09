@@ -24,20 +24,20 @@ public class TwoItemToFourItemRecipeCategory<R extends RebornRecipe> extends Abs
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 55 - 20, 41).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 55, 41).addItemStacks(getInput(recipe, 1)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 55 + 17 - 9 - 20, 36 - 22).addItemStack(getOutput(recipe, 0)).setBackground(TechRebornJEIPlugin.outputSlot4, -5, -5);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 55 + 17 - 9, 36 - 22).addItemStack(getOutput(recipe, 1));
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 55 + 17 - 9 + 20, 36 - 22).addItemStack(getOutput(recipe, 2));
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 55 + 17 - 9 + 40, 36 - 22).addItemStack(getOutput(recipe, 3));
+		builder.addSlot(RecipeIngredientRole.INPUT, 30, 36).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.INPUT, 50, 36).addItemStacks(getInput(recipe, 1)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 38, 9).addItemStack(getOutput(recipe, 0)).setBackground(TechRebornJEIPlugin.outputSlot4, -5, -5);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 58, 9).addItemStack(getOutput(recipe, 1));
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 78, 9).addItemStack(getOutput(recipe, 2));
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 98, 9).addItemStack(getOutput(recipe, 3));
 	}
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-		drawProgressBar(guiGraphics, 55 + 21, 36 + 4, recipe, GuiBuilder.ProgressDirection.UP);
+		drawProgressBar(guiGraphics, 70, 35, recipe, GuiBuilder.ProgressDirection.UP);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
-		guiGraphics.drawString(font, component, getWidth() - font.width(component) - 17, getHeight() - 13, 0xFF404040, false);
+		guiGraphics.drawString(font, component, getWidth() - font.width(component), getHeight() - font.lineHeight, 0xFF808080, false);
 	}
 }
