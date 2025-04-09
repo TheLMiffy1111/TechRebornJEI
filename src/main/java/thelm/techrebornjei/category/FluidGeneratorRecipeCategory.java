@@ -31,18 +31,18 @@ public class FluidGeneratorRecipeCategory extends AbstractRebornRecipeCategory<F
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, FluidGeneratorRecipe recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 16, 8).addFluidStack(recipe.fluid(), FluidConstants.BUCKET).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.DOWNWARDS);
+		builder.addSlot(RecipeIngredientRole.INPUT, 11, 3).addFluidStack(recipe.fluid(), FluidConstants.BUCKET).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.DOWNWARDS);
 	}
 
 	@Override
 	public void draw(FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		drawEnergyDisplay(guiGraphics, 108, 8, EntryAnimation.UPWARDS);
-		drawProgressBar(guiGraphics, 76 - 16, 48 - 19, 5000, GuiBuilder.ProgressDirection.RIGHT);
+		drawEnergyDisplay(guiGraphics, 114, 3, EntryAnimation.UPWARDS);
+		drawProgressBar(guiGraphics, 62, 23, 5000, GuiBuilder.ProgressDirection.RIGHT);
 	}
 
 	@Override
 	public void getTooltip(ITooltipBuilder tooltip, FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-		if(isInEnergyDisplay(108, 8, mouseX, mouseY)) {
+		if(isInEnergyDisplay(114, 3, mouseX, mouseY)) {
 			tooltip.addAll(List.of(
 					Component.translatable("techreborn.jei.recipe.energy"),
 					Component.translatable("techreborn.jei.recipe.generator.total", recipe.power() * 1000).withStyle(ChatFormatting.GRAY),

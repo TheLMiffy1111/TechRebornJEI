@@ -24,17 +24,17 @@ public class TwoItemToItemRecipeCategory<R extends RebornRecipe> extends Abstrac
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 55 - 9, 35 - 19).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 55 - 9, 55 - 19).addItemStacks(getInput(recipe, 1)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 101 - 9, 45 - 19).addItemStack(getOutput(recipe, 0)).setBackground(outputSlot1(), -5, -5);
+		builder.addSlot(RecipeIngredientRole.INPUT, 41, 10).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.INPUT, 41, 30).addItemStacks(getInput(recipe, 1)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 87, 20).addItemStack(getOutput(recipe, 0)).setBackground(outputSlot1(), -5, -5);
 	}
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-		drawProgressBar(guiGraphics, 76 - 9, 48 - 19, recipe, GuiBuilder.ProgressDirection.RIGHT);
+		drawProgressBar(guiGraphics, 62, 23, recipe, GuiBuilder.ProgressDirection.RIGHT);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
-		guiGraphics.drawString(font, component, getWidth() - font.width(component) - 5, 5, 0xFF404040, false);
+		guiGraphics.drawString(font, component, getWidth() - font.width(component), 0, 0xFF808080, false);
 	}
 }

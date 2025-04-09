@@ -24,12 +24,12 @@ public abstract class AbstractRebornEnergyRecipeCategory<R extends RebornRecipe>
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		drawEnergyDisplay(guiGraphics, 8, 8, EntryAnimation.DOWNWARDS);
+		drawEnergyDisplay(guiGraphics, 3, 3, EntryAnimation.DOWNWARDS);
 	}
 
 	@Override
 	public void getTooltip(ITooltipBuilder tooltip, R recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-		if(isInEnergyDisplay(8, 8, mouseX, mouseY)) {
+		if(isInEnergyDisplay(3, 3, mouseX, mouseY)) {
 			tooltip.addAll(List.of(
 					Component.translatable("techreborn.jei.recipe.energy"),
 					Component.translatable("techreborn.jei.recipe.running.cost", "E", recipe.power()).withStyle(ChatFormatting.GRAY),
