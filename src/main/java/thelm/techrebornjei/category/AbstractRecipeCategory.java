@@ -113,18 +113,21 @@ public abstract class AbstractRecipeCategory<R> extends GuiComponent implements 
 		return TechRebornJEIPlugin.outputSlot4;
 	}
 
+	public static final int PROGRESS_BAR_LENGTH = 16;
+	public static final int PROGRESS_BAR_BREADTH = 10;
+
 	public void drawProgressBar(PoseStack poseStack, int x, int y, int animationDuration, GuiBuilder.ProgressDirection direction) {
 		RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
 		blit(poseStack, x, y, direction.x, direction.y, direction.width, direction.height);
-		int j = Math.round(System.currentTimeMillis() % animationDuration / (float)animationDuration * 16);
-		if(j < 0) {
-			j = 0;
+		int drawLength = Math.round(System.currentTimeMillis() % animationDuration / (float)animationDuration * PROGRESS_BAR_LENGTH);
+		if(drawLength < 0) {
+			drawLength = 0;
 		}
 		switch(direction) {
-		case RIGHT -> blit(poseStack, x, y, direction.xActive, direction.yActive, j, 10);
-		case LEFT -> blit(poseStack, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-		case UP -> blit(poseStack, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-		case DOWN -> blit(poseStack, x, y, direction.xActive, direction.yActive, 10, j);
+		case RIGHT -> blit(poseStack, x, y, direction.xActive, direction.yActive, drawLength, PROGRESS_BAR_BREADTH);
+		case LEFT -> blit(poseStack, x + PROGRESS_BAR_LENGTH - drawLength, y, direction.xActive + PROGRESS_BAR_LENGTH - drawLength, direction.yActive, drawLength, PROGRESS_BAR_BREADTH);
+		case UP -> blit(poseStack, x, y + PROGRESS_BAR_LENGTH - drawLength, direction.xActive, direction.yActive + PROGRESS_BAR_LENGTH - drawLength, PROGRESS_BAR_BREADTH, drawLength);
+		case DOWN -> blit(poseStack, x, y, direction.xActive, direction.yActive, PROGRESS_BAR_BREADTH, drawLength);
 		}
 	}
 
@@ -136,18 +139,18 @@ public abstract class AbstractRecipeCategory<R> extends GuiComponent implements 
 		int innerHeight = ENERGY_DISPLAY_HEIGHT - 2;
 		EnergySystem displayPower = PowerSystem.getDisplayPower();
 		RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-		blit(poseStack, x, y, displayPower.xBar - 15, displayPower.yBar - 1, ENERGY_DISPLAY_WIDTH, ENERGY_DISPLAY_HEIGHT);
-		int innerDisplayHeight;
+		blit(poseStack, x, y, displayPower.xBar - ENERGY_DISPLAY_WIDTH - 1, displayPower.yBar - 1, ENERGY_DISPLAY_WIDTH, ENERGY_DISPLAY_HEIGHT);
+		int drawHeight;
 		if(animation.animationType() != EntryAnimation.Type.NONE) {
-			innerDisplayHeight = Math.round(System.currentTimeMillis() % animation.duration() / (float)animation.duration() * innerHeight);
+			drawHeight = Math.round(System.currentTimeMillis() % animation.duration() / (float)animation.duration() * innerHeight);
 			if(animation.animationType() == EntryAnimation.Type.DOWNWARDS) {
-				innerDisplayHeight = innerHeight - innerDisplayHeight;
+				drawHeight = innerHeight - drawHeight;
 			}
 		}
 		else {
-			innerDisplayHeight = innerHeight;
+			drawHeight = innerHeight;
 		}
-		blit(poseStack, x + 1, y + innerHeight - innerDisplayHeight + 1, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, innerWidth, innerDisplayHeight);
+		blit(poseStack, x + 1, y + innerHeight - drawHeight + 1, displayPower.xBar, innerHeight + displayPower.yBar - drawHeight, innerWidth, drawHeight);
 	}
 
 	public boolean isInEnergyDisplay(int x, int y, double mouseX, double mouseY) {
