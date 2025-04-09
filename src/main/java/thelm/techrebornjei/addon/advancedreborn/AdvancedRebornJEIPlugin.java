@@ -20,7 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.RebornRecipeType;
 import thelm.techrebornjei.TechRebornJEIPlugin;
 import thelm.techrebornjei.category.TwoItemToItemRecipeCategory;
 
@@ -28,7 +27,7 @@ public class AdvancedRebornJEIPlugin implements IModPlugin {
 
 	public static final ResourceLocation UID = new ResourceLocation("techrebornjei:advancedreborn");
 
-	public static final RecipeType<RecipeHolder<RebornRecipe>> CANNING_MACHINE = RecipeType.createFromVanilla((RebornRecipeType<RebornRecipe>)Recipes.CANNING_MACHINE);
+	public static final RecipeType<RecipeHolder<RebornRecipe>> CANNING_MACHINE = RecipeType.createFromVanilla(Recipes.CANNING_MACHINE);
 
 	public AdvancedRebornJEIPlugin() {
 		TechRebornJEIPlugin.ADD_JEI_BUTTON.add(GuiCanningMachine.class);
@@ -53,7 +52,7 @@ public class AdvancedRebornJEIPlugin implements IModPlugin {
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
 		RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
-		registration.addRecipes(CANNING_MACHINE, recipeManager.getAllRecipesFor((RebornRecipeType<RebornRecipe>)Recipes.CANNING_MACHINE));
+		registration.addRecipes(CANNING_MACHINE, recipeManager.getAllRecipesFor(Recipes.CANNING_MACHINE));
 	}
 
 	@Override

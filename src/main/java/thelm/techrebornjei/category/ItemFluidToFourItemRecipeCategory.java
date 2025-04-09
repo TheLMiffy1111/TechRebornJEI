@@ -20,8 +20,8 @@ import thelm.techrebornjei.FluidIngredientRenderer;
 
 public class ItemFluidToFourItemRecipeCategory<R extends RebornFluidRecipe> extends AbstractRebornRecipeCategory<R> {
 
-	public ItemFluidToFourItemRecipeCategory(RecipeType<RecipeHolder<R>> rebornRecipeType) {
-		super(rebornRecipeType);
+	public ItemFluidToFourItemRecipeCategory(RecipeType<RecipeHolder<R>> recipeType) {
+		super(recipeType);
 	}
 
 	public ItemFluidToFourItemRecipeCategory(RecipeType<RecipeHolder<R>> recipeType, Component title) {
@@ -30,26 +30,26 @@ public class ItemFluidToFourItemRecipeCategory<R extends RebornFluidRecipe> exte
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 55, 36).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 55 - 26, 18).addIngredient(FabricTypes.FLUID_STACK, getFluid(recipe)).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.DOWNWARDS);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 55 + 46, 36 - 9 - 18).addItemStack(getOutput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 55 + 46, 36 - 9).addItemStack(getOutput(recipe, 1)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 55 + 46, 36 - 9 + 18).addItemStack(getOutput(recipe, 2)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 55 + 46, 36 - 9 + 36).addItemStack(getOutput(recipe, 3)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.INPUT, 50, 28).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.INPUT, 24, 11).addIngredient(FabricTypes.FLUID_STACK, getFluid(recipe)).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.DOWNWARDS);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 1).addItemStack(getOutput(recipe, 0)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 19).addItemStack(getOutput(recipe, 1)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 37).addItemStack(getOutput(recipe, 2)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 55).addItemStack(getOutput(recipe, 3)).setBackground(standardSlot(), -1, -1);
 	}
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		drawEnergyDisplay(guiGraphics, 8, 18, EntryAnimation.DOWNWARDS);
-		drawProgressBar(guiGraphics, 55 + 21, 36 + 4, recipe, GuiBuilder.ProgressDirection.RIGHT);
+		drawEnergyDisplay(guiGraphics, 3, 11, EntryAnimation.DOWNWARDS);
+		drawProgressBar(guiGraphics, 73, 31, recipe, GuiBuilder.ProgressDirection.RIGHT);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
-		guiGraphics.drawString(font, component, 51, 15, 0xFF404040, false);
+		guiGraphics.drawString(font, component, 46, 0, 0xFF808080, false);
 	}
 
 	@Override
 	public List<Component> getTooltipStrings(R recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-		if(isInEnergyDisplay(8, 18, mouseX, mouseY)) {
+		if(isInEnergyDisplay(3, 11, mouseX, mouseY)) {
 			return List.of(
 					Component.translatable("techreborn.jei.recipe.energy"),
 					Component.translatable("techreborn.jei.recipe.running.cost", "E", recipe.getPower()).withStyle(ChatFormatting.GRAY),
@@ -62,6 +62,6 @@ public class ItemFluidToFourItemRecipeCategory<R extends RebornFluidRecipe> exte
 
 	@Override
 	public int getHeight() {
-		return 88;
+		return 72;
 	}
 }
