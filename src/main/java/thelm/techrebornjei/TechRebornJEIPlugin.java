@@ -46,7 +46,6 @@ import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.client.gui.GuiAlloyFurnace;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiAssemblingMachine;
-import techreborn.client.gui.GuiAutoCrafting;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.client.gui.GuiChemicalReactor;
@@ -75,7 +74,6 @@ import techreborn.client.gui.GuiVacuumFreezer;
 import techreborn.client.gui.GuiWireMill;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
-import techreborn.init.TRContent.Machine;
 import thelm.techrebornjei.addon.advancedreborn.AdvancedRebornJEIPlugin;
 import thelm.techrebornjei.category.FluidGeneratorRecipeCategory;
 import thelm.techrebornjei.category.FusionReactorRecipeCategory;
@@ -120,11 +118,11 @@ public class TechRebornJEIPlugin implements IModPlugin {
 	public static final RecipeType<RebornRecipe> VACUUM_FREEZER = createRecipeType(ModRecipes.VACUUM_FREEZER);
 	public static final RecipeType<RebornRecipe> WIRE_MILL = createRecipeType(ModRecipes.WIRE_MILL);
 
-	public static final RecipeType<FluidGeneratorRecipe> THERMAL_GENERATOR = createFluidGeneratorRecipeType(Machine.THERMAL_GENERATOR);
-	public static final RecipeType<FluidGeneratorRecipe> GAS_GENERATOR = createFluidGeneratorRecipeType(Machine.GAS_TURBINE);
-	public static final RecipeType<FluidGeneratorRecipe> DIESEL_GENERATOR = createFluidGeneratorRecipeType(Machine.DIESEL_GENERATOR);
-	public static final RecipeType<FluidGeneratorRecipe> SEMI_FLUID_GENERATOR = createFluidGeneratorRecipeType(Machine.SEMI_FLUID_GENERATOR);
-	public static final RecipeType<FluidGeneratorRecipe> PLASMA_GENERATOR = createFluidGeneratorRecipeType(Machine.PLASMA_GENERATOR);
+	public static final RecipeType<FluidGeneratorRecipe> THERMAL_GENERATOR = createFluidGeneratorRecipeType(TRContent.Machine.THERMAL_GENERATOR);
+	public static final RecipeType<FluidGeneratorRecipe> GAS_GENERATOR = createFluidGeneratorRecipeType(TRContent.Machine.GAS_TURBINE);
+	public static final RecipeType<FluidGeneratorRecipe> DIESEL_GENERATOR = createFluidGeneratorRecipeType(TRContent.Machine.DIESEL_GENERATOR);
+	public static final RecipeType<FluidGeneratorRecipe> SEMI_FLUID_GENERATOR = createFluidGeneratorRecipeType(TRContent.Machine.SEMI_FLUID_GENERATOR);
+	public static final RecipeType<FluidGeneratorRecipe> PLASMA_GENERATOR = createFluidGeneratorRecipeType(TRContent.Machine.PLASMA_GENERATOR);
 
 	public static final Set<Class<? extends GuiBase<?>>> ADD_JEI_BUTTON = new HashSet<>();
 
@@ -281,40 +279,40 @@ public class TechRebornJEIPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(new ItemStack(Machine.IRON_ALLOY_FURNACE), ALLOY_SMELTER, RecipeTypes.FUELING);
-		registration.addRecipeCatalyst(new ItemStack(Machine.ALLOY_SMELTER), ALLOY_SMELTER);
-		registration.addRecipeCatalyst(new ItemStack(Machine.ASSEMBLY_MACHINE), ASSEMBLING_MACHINE);
-		registration.addRecipeCatalyst(new ItemStack(Machine.INDUSTRIAL_BLAST_FURNACE), BLAST_FURNACE);
-		registration.addRecipeCatalyst(new ItemStack(Machine.INDUSTRIAL_CENTRIFUGE), CENTRIFUGE);
-		registration.addRecipeCatalyst(new ItemStack(Machine.CHEMICAL_REACTOR), CHEMICAL_REACTOR);
-		registration.addRecipeCatalyst(new ItemStack(Machine.COMPRESSOR), COMPRESSOR);
-		registration.addRecipeCatalyst(new ItemStack(Machine.DISTILLATION_TOWER), DISTILLATION_TOWER);
-		registration.addRecipeCatalyst(new ItemStack(Machine.EXTRACTOR), EXTRACTOR);
-		registration.addRecipeCatalyst(new ItemStack(Machine.FLUID_REPLICATOR), FLUID_REPLICATOR);
-		registration.addRecipeCatalyst(new ItemStack(Machine.FUSION_CONTROL_COMPUTER), FUSION_REACTOR);
-		registration.addRecipeCatalyst(new ItemStack(Machine.GRINDER), GRINDER);
-		registration.addRecipeCatalyst(new ItemStack(Machine.IMPLOSION_COMPRESSOR), IMPLOSION_COMPRESSOR);
-		registration.addRecipeCatalyst(new ItemStack(Machine.INDUSTRIAL_ELECTROLYZER), INDUSTRIAL_ELECTROLYZER);
-		registration.addRecipeCatalyst(new ItemStack(Machine.INDUSTRIAL_GRINDER), INDUSTRIAL_GRINDER);
-		registration.addRecipeCatalyst(new ItemStack(Machine.INDUSTRIAL_SAWMILL), INDUSTRIAL_SAWMILL);
-		registration.addRecipeCatalyst(new ItemStack(Machine.ROLLING_MACHINE), ROLLING_MACHINE);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.IRON_ALLOY_FURNACE), ALLOY_SMELTER, RecipeTypes.FUELING);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.ALLOY_SMELTER), ALLOY_SMELTER);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.ASSEMBLY_MACHINE), ASSEMBLING_MACHINE);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.INDUSTRIAL_BLAST_FURNACE), BLAST_FURNACE);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.INDUSTRIAL_CENTRIFUGE), CENTRIFUGE);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.CHEMICAL_REACTOR), CHEMICAL_REACTOR);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.COMPRESSOR), COMPRESSOR);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.DISTILLATION_TOWER), DISTILLATION_TOWER);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.EXTRACTOR), EXTRACTOR);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.FLUID_REPLICATOR), FLUID_REPLICATOR);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.FUSION_CONTROL_COMPUTER), FUSION_REACTOR);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.GRINDER), GRINDER);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.IMPLOSION_COMPRESSOR), IMPLOSION_COMPRESSOR);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.INDUSTRIAL_ELECTROLYZER), INDUSTRIAL_ELECTROLYZER);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.INDUSTRIAL_GRINDER), INDUSTRIAL_GRINDER);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.INDUSTRIAL_SAWMILL), INDUSTRIAL_SAWMILL);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.ROLLING_MACHINE), ROLLING_MACHINE);
 		registration.addRecipeCatalyst(new ItemStack(TRContent.SCRAP_BOX), SCRAPBOX);
-		registration.addRecipeCatalyst(new ItemStack(Machine.SCRAPBOXINATOR), SCRAPBOX);
-		registration.addRecipeCatalyst(new ItemStack(Machine.SOLID_CANNING_MACHINE), SOLID_CANNING_MACHINE);
-		registration.addRecipeCatalyst(new ItemStack(Machine.VACUUM_FREEZER), VACUUM_FREEZER);
-		registration.addRecipeCatalyst(new ItemStack(Machine.WIRE_MILL), WIRE_MILL);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.SCRAPBOXINATOR), SCRAPBOX);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.SOLID_CANNING_MACHINE), SOLID_CANNING_MACHINE);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.VACUUM_FREEZER), VACUUM_FREEZER);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.WIRE_MILL), WIRE_MILL);
 
-		registration.addRecipeCatalyst(new ItemStack(Machine.THERMAL_GENERATOR), THERMAL_GENERATOR);
-		registration.addRecipeCatalyst(new ItemStack(Machine.GAS_TURBINE), GAS_GENERATOR);
-		registration.addRecipeCatalyst(new ItemStack(Machine.DIESEL_GENERATOR), DIESEL_GENERATOR);
-		registration.addRecipeCatalyst(new ItemStack(Machine.SEMI_FLUID_GENERATOR), SEMI_FLUID_GENERATOR);
-		registration.addRecipeCatalyst(new ItemStack(Machine.PLASMA_GENERATOR), PLASMA_GENERATOR);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.THERMAL_GENERATOR), THERMAL_GENERATOR);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.GAS_TURBINE), GAS_GENERATOR);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.DIESEL_GENERATOR), DIESEL_GENERATOR);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.SEMI_FLUID_GENERATOR), SEMI_FLUID_GENERATOR);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.PLASMA_GENERATOR), PLASMA_GENERATOR);
 
-		registration.addRecipeCatalyst(new ItemStack(Machine.AUTO_CRAFTING_TABLE), RecipeTypes.CRAFTING);
-		registration.addRecipeCatalyst(new ItemStack(Machine.IRON_FURNACE), RecipeTypes.SMELTING, RecipeTypes.FUELING);
-		registration.addRecipeCatalyst(new ItemStack(Machine.ELECTRIC_FURNACE), RecipeTypes.SMELTING);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.AUTO_CRAFTING_TABLE), RecipeTypes.CRAFTING);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.IRON_FURNACE), RecipeTypes.SMELTING, RecipeTypes.FUELING);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.ELECTRIC_FURNACE), RecipeTypes.SMELTING);
 
-		registration.addRecipeCatalyst(new ItemStack(Machine.SOLID_FUEL_GENERATOR), RecipeTypes.FUELING);
+		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.SOLID_FUEL_GENERATOR), RecipeTypes.FUELING);
 
 		ADDONS.forEach(addon -> addon.registerRecipeCatalysts(registration));
 	}
@@ -375,7 +373,7 @@ public class TechRebornJEIPlugin implements IModPlugin {
 		return new RecipeType<>(rebornRecipeType.name(), rebornRecipeClass);
 	}
 
-	public static RecipeType<FluidGeneratorRecipe> createFluidGeneratorRecipeType(Machine machine) {
+	public static RecipeType<FluidGeneratorRecipe> createFluidGeneratorRecipeType(TRContent.Machine machine) {
 		return RecipeType.create("techreborn", machine.name, FluidGeneratorRecipe.class);
 	}
 
