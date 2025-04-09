@@ -24,20 +24,20 @@ public class TwoItemToFourItemCircleRecipeCategory<R extends RebornRecipe> exten
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 55 - 17, 35 - 19).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 55 - 17, 55 - 19).addItemStacks(getInput(recipe, 1)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 97 - 17, 45 - 19).addItemStack(getOutput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 116 - 17, 26 - 19).addItemStack(getOutput(recipe, 1)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 135 - 17, 45 - 19).addItemStack(getOutput(recipe, 2)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 116 - 17, 64 - 19).addItemStack(getOutput(recipe, 3)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.INPUT, 33, 10).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.INPUT, 33, 30).addItemStacks(getInput(recipe, 1)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 75, 20).addItemStack(getOutput(recipe, 0)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 1).addItemStack(getOutput(recipe, 1)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 113, 20).addItemStack(getOutput(recipe, 2)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 39).addItemStack(getOutput(recipe, 3)).setBackground(standardSlot(), -1, -1);
 	}
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-		drawProgressBar(guiGraphics, 76 - 17, 48 - 19, recipe, GuiBuilder.ProgressDirection.RIGHT);
+		drawProgressBar(guiGraphics, 54, 23, recipe, GuiBuilder.ProgressDirection.RIGHT);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
-		guiGraphics.drawString(font, component, 24, 5, 0xFF404040, false);
+		guiGraphics.drawString(font, component, 21, 0, 0xFF808080, false);
 	}
 }
