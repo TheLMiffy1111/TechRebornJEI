@@ -93,17 +93,20 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 		return TechRebornJEIPlugin.outputSlot4;
 	}
 
+	public static final int PROGRESS_BAR_LENGTH = 16;
+	public static final int PROGRESS_BAR_BREADTH = 10;
+
 	public void drawProgressBar(GuiGraphics guiGraphics, int x, int y, int animationDuration, GuiBuilder.ProgressDirection direction) {
 		GuiSprites.drawSprite(guiGraphics, direction.baseSprite, x, y);
-		int j = Math.round(System.currentTimeMillis() % animationDuration / (float)animationDuration * 16);
-		if(j < 0) {
-			j = 0;
+		int drawLength = Math.round(System.currentTimeMillis() % animationDuration / (float)animationDuration * PROGRESS_BAR_LENGTH);
+		if(drawLength < 0) {
+			drawLength = 0;
 		}
 		switch(direction) {
-		case RIGHT -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10);
-		case LEFT -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
-		case UP -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-		case DOWN -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j);
+		case RIGHT -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, drawLength, PROGRESS_BAR_BREADTH);
+		case LEFT -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x + PROGRESS_BAR_LENGTH - drawLength, y, direction.xActive + PROGRESS_BAR_LENGTH - drawLength, direction.yActive, drawLength, PROGRESS_BAR_BREADTH);
+		case UP -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y + PROGRESS_BAR_LENGTH - drawLength, direction.xActive, direction.yActive + PROGRESS_BAR_LENGTH - drawLength, PROGRESS_BAR_BREADTH, drawLength);
+		case DOWN -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, PROGRESS_BAR_BREADTH, drawLength);
 		}
 	}
 
@@ -114,17 +117,17 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 		int innerWidth = ENERGY_DISPLAY_WIDTH - 2;
 		int innerHeight = ENERGY_DISPLAY_HEIGHT - 2;
 		GuiSprites.drawSprite(guiGraphics, GuiSprites.POWER_BAR_BASE, x, y);
-		int innerDisplayHeight;
+		int drawHeight;
 		if(animation.animationType() != EntryAnimation.Type.NONE) {
-			innerDisplayHeight = Math.round(System.currentTimeMillis() % animation.duration() / (float)animation.duration() * innerHeight);
+			drawHeight = Math.round(System.currentTimeMillis() % animation.duration() / (float)animation.duration() * innerHeight);
 			if(animation.animationType() == EntryAnimation.Type.DOWNWARDS) {
-				innerDisplayHeight = innerHeight - innerDisplayHeight;
+				drawHeight = innerHeight - drawHeight;
 			}
 		}
 		else {
-			innerDisplayHeight = innerHeight;
+			drawHeight = innerHeight;
 		}
-		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.POWER_BAR_OVERLAY), x + 1, y + 1 + innerHeight - innerDisplayHeight, 0, 0, innerWidth, innerDisplayHeight, innerWidth, innerHeight);
+		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.POWER_BAR_OVERLAY), x + 1, y + 1 + innerHeight - drawHeight, 0, 0, innerWidth, drawHeight, innerWidth, innerHeight);
 	}
 
 	public boolean isInEnergyDisplay(int x, int y, double mouseX, double mouseY) {
