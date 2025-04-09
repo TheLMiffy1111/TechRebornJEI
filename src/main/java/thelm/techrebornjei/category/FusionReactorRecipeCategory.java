@@ -18,11 +18,11 @@ public class FusionReactorRecipeCategory extends TwoItemToItemCenterRecipeCatego
 
 	@Override
 	public void draw(FusionReactorRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-		drawEnergyDisplay(poseStack, 8, 8, recipe.getPower() < 0 ? EntryAnimation.DOWNWARDS : EntryAnimation.UPWARDS);
-		drawProgressBar(poseStack, 29 + 21, 30, recipe, GuiBuilder.ProgressDirection.RIGHT);
-		drawProgressBar(poseStack, 29 + 71, 30, recipe, GuiBuilder.ProgressDirection.LEFT);
+		drawEnergyDisplay(poseStack, 3, 3, recipe.getPower() < 0 ? EntryAnimation.DOWNWARDS : EntryAnimation.UPWARDS);
+		drawProgressBar(poseStack, 45, 23, recipe, GuiBuilder.ProgressDirection.RIGHT);
+		drawProgressBar(poseStack, 95, 23, recipe, GuiBuilder.ProgressDirection.LEFT);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
-		font.draw(poseStack, component, getWidth() - font.width(component) - 5, 5, 0xFF404040);
+		font.draw(poseStack, component, getWidth() - font.width(component), 0, 0xFF808080);
 	}
 }

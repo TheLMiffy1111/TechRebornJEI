@@ -14,13 +14,13 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.crafting.RebornFluidRecipe;
 import thelm.techrebornjei.FluidIngredientRenderer;
 
-public class ItemFluidToThreeItemRecipeCategory<R extends RebornFluidRecipe> extends AbstractRebornEnergyRecipeCategory<R> {
+public class ItemFluidToItemRecipeCategory<R extends RebornFluidRecipe> extends AbstractRebornEnergyRecipeCategory<R> {
 
-	public ItemFluidToThreeItemRecipeCategory(RecipeType<R> recipeType) {
+	public ItemFluidToItemRecipeCategory(RecipeType<R> recipeType) {
 		super(recipeType);
 	}
 
-	public ItemFluidToThreeItemRecipeCategory(RecipeType<R> recipeType, Component title) {
+	public ItemFluidToItemRecipeCategory(RecipeType<R> recipeType, Component title) {
 		super(recipeType, title);
 	}
 
@@ -28,9 +28,7 @@ public class ItemFluidToThreeItemRecipeCategory<R extends RebornFluidRecipe> ext
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 50, 20).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
 		builder.addSlot(RecipeIngredientRole.INPUT, 24, 3).addIngredient(FabricTypes.FLUID_STACK, getFluid(recipe)).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.DOWNWARDS);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 2).addItemStack(getOutput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 20).addItemStack(getOutput(recipe, 1)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 38).addItemStack(getOutput(recipe, 2)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 99, 20).addItemStack(getOutput(recipe, 0)).setBackground(outputSlot1(), -4, -4);
 	}
 
 	@Override
@@ -39,6 +37,6 @@ public class ItemFluidToThreeItemRecipeCategory<R extends RebornFluidRecipe> ext
 		drawProgressBar(poseStack, 73, 23, recipe, GuiBuilder.ProgressDirection.RIGHT);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
-		font.draw(poseStack, component, 46, 0, 0xFF808080);
+		font.draw(poseStack, component, getWidth() - font.width(component), 0, 0xFF808080);
 	}
 }
