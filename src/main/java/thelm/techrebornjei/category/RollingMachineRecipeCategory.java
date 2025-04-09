@@ -27,7 +27,7 @@ public class RollingMachineRecipeCategory extends AbstractRebornEnergyRecipeCate
 		List<IRecipeSlotBuilder> slots = new ArrayList<>(9);
 		for(int y = 0; y < 3; ++y) {
 			for(int x = 0; x < 3; ++x) {
-				slots.add(builder.addSlot(RecipeIngredientRole.INPUT, 17 + 10 + x * 18, 6 + 1 + y * 18).setBackground(standardSlot(), -1, -1));
+				slots.add(builder.addSlot(RecipeIngredientRole.INPUT, 27 + x * 18, 2 + y * 18).setBackground(standardSlot(), -1, -1));
 			}
 		}
 		int width = recipe.getShapedRecipe().getWidth();
@@ -39,15 +39,15 @@ public class RollingMachineRecipeCategory extends AbstractRebornEnergyRecipeCate
 				}
 			}
 		}
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 17 + 95, 6 + 19).addItemStack(getOutput(recipe, 0)).setBackground(outputSlot1(), -5, -5);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 112, 20).addItemStack(getOutput(recipe, 0)).setBackground(outputSlot1(), -5, -5);
 	}
 
 	@Override
 	public void draw(RollingMachineRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
 		super.draw(recipe, recipeSlotsView, poseStack, mouseX, mouseY);
-		drawProgressBar(poseStack, 17 + 68, 6 + 22, recipe, GuiBuilder.ProgressDirection.RIGHT);
+		drawProgressBar(poseStack, 85, 23, recipe, GuiBuilder.ProgressDirection.RIGHT);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
-		font.draw(poseStack, component, getWidth() - font.width(component) - 5, 5, 0xFF404040);
+		font.draw(poseStack, component, getWidth() - font.width(component), 0, 0xFF808080);
 	}
 }
