@@ -234,7 +234,7 @@ publishMods {
 		accessToken = providers.gradleProperty("modrinth.token")
 		projectId = "FaJv0NSi"
 		minecraftVersions.add(mcVersion)
-		requires "jei", "techreborn"
+		requires "jei"
 		optional "advancedreborn"
 	}
 }
