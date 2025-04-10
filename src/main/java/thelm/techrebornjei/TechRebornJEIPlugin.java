@@ -1,9 +1,7 @@
 package thelm.techrebornjei;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -19,7 +17,6 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
-import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,12 +26,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import reborncore.client.gui.GuiBase;
-import reborncore.client.gui.GuiSprites;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.client.gui.GuiAlloyFurnace;
 import techreborn.client.gui.GuiAlloySmelter;
 import techreborn.client.gui.GuiAssemblingMachine;
+import techreborn.client.gui.GuiAutoCrafting;
 import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.client.gui.GuiCentrifuge;
 import techreborn.client.gui.GuiChemicalReactor;
@@ -86,7 +83,6 @@ import thelm.techrebornjei.category.TwoItemToItemCenterRecipeCategory;
 import thelm.techrebornjei.category.TwoItemToItemRecipeCategory;
 import thelm.techrebornjei.category.TwoItemToThreeItemRecipeCategory;
 import thelm.techrebornjei.category.TwoItemToTwoItemRecipeCategory;
-import thelm.techrebornjei.mixin.ScreenAccessor;
 
 public class TechRebornJEIPlugin implements IModPlugin {
 
@@ -122,8 +118,6 @@ public class TechRebornJEIPlugin implements IModPlugin {
 	public static final RecipeType<RecipeHolder<FluidGeneratorRecipe>> SEMI_FLUID_GENERATOR = RecipeType.createFromVanilla(ModRecipes.SEMI_FLUID_GENERATOR);
 	public static final RecipeType<RecipeHolder<FluidGeneratorRecipe>> PLASMA_GENERATOR = RecipeType.createFromVanilla(ModRecipes.PLASMA_GENERATOR);
 
-	public static final Set<Class<? extends GuiBase<?>>> ADD_JEI_BUTTON = new HashSet<>();
-
 	public static final ResourceLocation ELEMENTS = ResourceLocation.parse("techrebornjei:textures/gui/elements.png");
 	public static IDrawable outputSlot1;
 	public static IDrawable outputSlot2;
@@ -133,54 +127,9 @@ public class TechRebornJEIPlugin implements IModPlugin {
 	public static final List<IModPlugin> ADDONS = new ArrayList<>();
 
 	public TechRebornJEIPlugin() {
-		ADD_JEI_BUTTON.add(GuiAlloyFurnace.class);
-		ADD_JEI_BUTTON.add(GuiAlloySmelter.class);
-		ADD_JEI_BUTTON.add(GuiAssemblingMachine.class);
-		ADD_JEI_BUTTON.add(GuiBlastFurnace.class);
-		ADD_JEI_BUTTON.add(GuiCentrifuge.class);
-		ADD_JEI_BUTTON.add(GuiChemicalReactor.class);
-		ADD_JEI_BUTTON.add(GuiCompressor.class);
-		ADD_JEI_BUTTON.add(GuiDistillationTower.class);
-		ADD_JEI_BUTTON.add(GuiExtractor.class);
-		ADD_JEI_BUTTON.add(GuiFluidReplicator.class);
-		ADD_JEI_BUTTON.add(GuiFusionReactor.class);
-		ADD_JEI_BUTTON.add(GuiGrinder.class);
-		ADD_JEI_BUTTON.add(GuiImplosionCompressor.class);
-		ADD_JEI_BUTTON.add(GuiIndustrialElectrolyzer.class);
-		ADD_JEI_BUTTON.add(GuiIndustrialGrinder.class);
-		ADD_JEI_BUTTON.add(GuiIndustrialSawmill.class);
-		ADD_JEI_BUTTON.add(GuiRollingMachine.class);
-		ADD_JEI_BUTTON.add(GuiScrapboxinator.class);
-		ADD_JEI_BUTTON.add(GuiSolidCanningMachine.class);
-		ADD_JEI_BUTTON.add(GuiVacuumFreezer.class);
-		ADD_JEI_BUTTON.add(GuiWireMill.class);
-
-		ADD_JEI_BUTTON.add(GuiThermalGenerator.class);
-		ADD_JEI_BUTTON.add(GuiGasTurbine.class);
-		ADD_JEI_BUTTON.add(GuiDieselGenerator.class);
-		ADD_JEI_BUTTON.add(GuiSemifluidGenerator.class);
-		ADD_JEI_BUTTON.add(GuiPlasmaGenerator.class);
-
-		//ADD_JEI_BUTTON.add(GuiAutoCrafting.class);
-		ADD_JEI_BUTTON.add(GuiIronFurnace.class);
-		ADD_JEI_BUTTON.add(GuiElectricFurnace.class);
-
-		ADD_JEI_BUTTON.add(GuiGenerator.class);
-
 		if(FabricLoader.getInstance().isModLoaded("advanced_reborn")) {
 			ADDONS.add(new AdvancedRebornJEIPlugin());
 		}
-
-		ScreenEvents.AFTER_INIT.register((minecraft, screen, scaledWidth, scaledHeight) -> {
-			if(ADD_JEI_BUTTON.contains(screen.getClass())) {
-				GuiBase<?> guiBase = (GuiBase<?>)screen;
-				((ScreenAccessor)guiBase).trjei$addRenderable((guiGraphics, mouseX, mouseY, partialTick) -> {
-					if(!guiBase.hideGuiElements()) {
-						GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.JEI_ICON), guiBase.getGuiLeft() + 158, guiBase.getGuiTop() + 5, 2, 2, 12, 12, 16, 16);
-					}
-				});
-			}
-		});
 	}
 
 	@Override
@@ -353,13 +302,49 @@ public class TechRebornJEIPlugin implements IModPlugin {
 		registration.addRecipeClickArea(GuiSemifluidGenerator.class, 158, 5, 12, 12, SEMI_FLUID_GENERATOR);
 		registration.addRecipeClickArea(GuiPlasmaGenerator.class, 158, 5, 12, 12, PLASMA_GENERATOR);
 
-		//registration.addRecipeClickArea(GuiAutoCrafting.class, 158, 5, 12, 12, RecipeTypes.CRAFTING);
+		registration.addRecipeClickArea(GuiAutoCrafting.class, 158, 18, 12, 12, RecipeTypes.CRAFTING);
 		registration.addRecipeClickArea(GuiIronFurnace.class, 158, 5, 12, 12, RecipeTypes.SMELTING, RecipeTypes.FUELING);
 		registration.addRecipeClickArea(GuiElectricFurnace.class, 158, 5, 12, 12, RecipeTypes.SMELTING);
 
 		registration.addRecipeClickArea(GuiGenerator.class, 158, 5, 12, 12, RecipeTypes.FUELING);
 
 		registration.addGenericGuiContainerHandler(GuiBase.class, new GuiBaseExtraAreaHandler());
+
+		RecipeClickAreaRenderer.ENTRIES.clear();
+
+		RecipeClickAreaRenderer.addEntry(GuiAlloyFurnace.class);
+		RecipeClickAreaRenderer.addEntry(GuiAlloySmelter.class);
+		RecipeClickAreaRenderer.addEntry(GuiAssemblingMachine.class);
+		RecipeClickAreaRenderer.addEntry(GuiBlastFurnace.class);
+		RecipeClickAreaRenderer.addEntry(GuiCentrifuge.class);
+		RecipeClickAreaRenderer.addEntry(GuiChemicalReactor.class);
+		RecipeClickAreaRenderer.addEntry(GuiCompressor.class);
+		RecipeClickAreaRenderer.addEntry(GuiDistillationTower.class);
+		RecipeClickAreaRenderer.addEntry(GuiExtractor.class);
+		RecipeClickAreaRenderer.addEntry(GuiFluidReplicator.class);
+		RecipeClickAreaRenderer.addEntry(GuiFusionReactor.class);
+		RecipeClickAreaRenderer.addEntry(GuiGrinder.class);
+		RecipeClickAreaRenderer.addEntry(GuiImplosionCompressor.class);
+		RecipeClickAreaRenderer.addEntry(GuiIndustrialElectrolyzer.class);
+		RecipeClickAreaRenderer.addEntry(GuiIndustrialGrinder.class);
+		RecipeClickAreaRenderer.addEntry(GuiIndustrialSawmill.class);
+		RecipeClickAreaRenderer.addEntry(GuiRollingMachine.class);
+		RecipeClickAreaRenderer.addEntry(GuiScrapboxinator.class);
+		RecipeClickAreaRenderer.addEntry(GuiSolidCanningMachine.class);
+		RecipeClickAreaRenderer.addEntry(GuiVacuumFreezer.class);
+		RecipeClickAreaRenderer.addEntry(GuiWireMill.class);
+
+		RecipeClickAreaRenderer.addEntry(GuiThermalGenerator.class);
+		RecipeClickAreaRenderer.addEntry(GuiGasTurbine.class);
+		RecipeClickAreaRenderer.addEntry(GuiDieselGenerator.class);
+		RecipeClickAreaRenderer.addEntry(GuiSemifluidGenerator.class);
+		RecipeClickAreaRenderer.addEntry(GuiPlasmaGenerator.class);
+
+		RecipeClickAreaRenderer.addEntry(GuiAutoCrafting.class, 158, 18);
+		RecipeClickAreaRenderer.addEntry(GuiIronFurnace.class);
+		RecipeClickAreaRenderer.addEntry(GuiElectricFurnace.class);
+
+		RecipeClickAreaRenderer.addEntry(GuiGenerator.class);
 
 		ADDONS.forEach(addon -> addon.registerGuiHandlers(registration));
 	}
