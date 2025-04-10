@@ -15,6 +15,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.TooltipFlag;
+import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 
 public record FluidIngredientRenderer(EntryAnimation animation) implements IIngredientRenderer<IJeiFluidIngredient> {
@@ -27,23 +28,24 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 
 	@Override
 	public void render(GuiGraphics guiGraphics, IJeiFluidIngredient ingredient) {
+		int width = getWidth();
 		int height = getHeight();
-		GuiSprites.drawSprite(guiGraphics, GuiSprites.TANK_BACKGROUND, -3, -3);
-		int innerDisplayHeight;
+		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.TANK_BACKGROUND), -3, -3, 0, 0, width + 6, height + 6);
+		float drawHeight;
 		if(animation.animationType() != EntryAnimation.Type.NONE) {
-			innerDisplayHeight = Math.round(System.currentTimeMillis() % animation.duration() / (float)animation.duration() * height);
+			drawHeight = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * height;
 			if(animation.animationType() == EntryAnimation.Type.DOWNWARDS) {
-				innerDisplayHeight = height - innerDisplayHeight;
+				drawHeight = height - drawHeight;
 			}
 		}
 		else {
-			innerDisplayHeight = height;
+			drawHeight = height;
 		}
-		drawFluid(guiGraphics, ingredient.getFluidVariant(), innerDisplayHeight);
-		GuiSprites.drawSprite(guiGraphics, GuiSprites.TANK_FOREGROUND, 0, 0);
+		drawFluid(guiGraphics, ingredient.getFluidVariant(), drawHeight);
+		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.TANK_FOREGROUND), 0, 0, 0, 0, width, height);
 	}
 
-	public void drawFluid(GuiGraphics guiGraphics, FluidVariant fluidVariant, int drawHeight) {
+	public void drawFluid(GuiGraphics guiGraphics, FluidVariant fluidVariant, float drawHeight) {
 		TextureAtlasSprite sprite = FluidVariantRendering.getSprite(fluidVariant);
 		if(sprite == null) {
 			return;
@@ -71,6 +73,7 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 		}
 		return tooltip;
 	}
+
 	@Override
 	public int getHeight() {
 		return 50;
