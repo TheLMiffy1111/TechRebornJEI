@@ -20,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import reborncore.common.crafting.RebornRecipe;
+import thelm.techrebornjei.RecipeClickAreaRenderer;
 import thelm.techrebornjei.TechRebornJEIPlugin;
 import thelm.techrebornjei.category.TwoItemToItemRecipeCategory;
 
@@ -30,13 +31,6 @@ public class AdvancedRebornJEIPlugin implements IModPlugin {
 	public static final RecipeType<RecipeHolder<RebornRecipe>> CANNING_MACHINE = RecipeType.createFromVanilla(Recipes.CANNING_MACHINE);
 
 	public AdvancedRebornJEIPlugin() {
-		TechRebornJEIPlugin.ADD_JEI_BUTTON.add(GuiCanningMachine.class);
-
-		TechRebornJEIPlugin.ADD_JEI_BUTTON.add(GuiRotaryGrinder.class);
-		TechRebornJEIPlugin.ADD_JEI_BUTTON.add(GuiCentrifugalExtractor.class);
-		TechRebornJEIPlugin.ADD_JEI_BUTTON.add(GuiSingularityCompressor.class);
-
-		TechRebornJEIPlugin.ADD_JEI_BUTTON.add(GuiInductionFurnace.class);
 	}
 
 	@Override
@@ -75,5 +69,13 @@ public class AdvancedRebornJEIPlugin implements IModPlugin {
 		registration.addRecipeClickArea(GuiSingularityCompressor.class, 158, 5, 12, 12, TechRebornJEIPlugin.COMPRESSOR);
 
 		registration.addRecipeClickArea(GuiInductionFurnace.class, 158, 5, 12, 12, RecipeTypes.SMELTING);
+
+		RecipeClickAreaRenderer.addEntry(GuiCanningMachine.class);
+
+		RecipeClickAreaRenderer.addEntry(GuiRotaryGrinder.class);
+		RecipeClickAreaRenderer.addEntry(GuiCentrifugalExtractor.class);
+		RecipeClickAreaRenderer.addEntry(GuiSingularityCompressor.class);
+
+		RecipeClickAreaRenderer.addEntry(GuiInductionFurnace.class);
 	}
 }
