@@ -72,6 +72,7 @@ import techreborn.client.gui.GuiWireMill;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import thelm.techrebornjei.addon.advancedreborn.AdvancedRebornJEIPlugin;
+import thelm.techrebornjei.addon.industrialreborn.IndustrialRebornJEIPlugin;
 import thelm.techrebornjei.category.FluidGeneratorRecipeCategory;
 import thelm.techrebornjei.category.FusionReactorRecipeCategory;
 import thelm.techrebornjei.category.ItemFluidToFourItemRecipeCategory;
@@ -131,6 +132,9 @@ public class TechRebornJEIPlugin implements IModPlugin {
 	public TechRebornJEIPlugin() {
 		if(FabricLoader.getInstance().isModLoaded("advanced_reborn")) {
 			ADDONS.add(new AdvancedRebornJEIPlugin());
+		}
+		if(FabricLoader.getInstance().isModLoaded("industrialreborn")) {
+			ADDONS.add(new IndustrialRebornJEIPlugin());
 		}
 	}
 
