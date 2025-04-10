@@ -161,6 +161,7 @@ dependencies {
 	modImplementation "net.pitan76:compatdatapacks76-fabric:1.0.13.204"
 	modImplementation "net.pitan76:mcpitanlib-fabric+1.20.4:3.2.2"
 	modImplementation "curse.maven:advancedreborn-543089:6328110"
+	modImplementation "curse.maven:industrialreborn-941523:5253694"
 }
 
 def replacements = [
