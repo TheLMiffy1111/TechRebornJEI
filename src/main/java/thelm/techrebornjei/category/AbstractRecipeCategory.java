@@ -97,16 +97,16 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	public static final int PROGRESS_BAR_BREADTH = 10;
 
 	public void drawProgressBar(GuiGraphics guiGraphics, int x, int y, int animationDuration, GuiBuilder.ProgressDirection direction) {
-		GuiSprites.drawSprite(guiGraphics, direction.baseSprite, x, y);
-		int drawLength = Math.round(System.currentTimeMillis() % animationDuration / (float)animationDuration * PROGRESS_BAR_LENGTH);
+		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(direction.baseSprite), x, y, 0, 0, direction.width, direction.height);
+		float drawLength = System.currentTimeMillis() % animationDuration / (float)animationDuration * PROGRESS_BAR_LENGTH;
 		if(drawLength < 0) {
 			drawLength = 0;
 		}
 		switch(direction) {
-		case RIGHT -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, drawLength, PROGRESS_BAR_BREADTH);
-		case LEFT -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x + PROGRESS_BAR_LENGTH - drawLength, y, direction.xActive + PROGRESS_BAR_LENGTH - drawLength, direction.yActive, drawLength, PROGRESS_BAR_BREADTH);
-		case UP -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y + PROGRESS_BAR_LENGTH - drawLength, direction.xActive, direction.yActive + PROGRESS_BAR_LENGTH - drawLength, PROGRESS_BAR_BREADTH, drawLength);
-		case DOWN -> guiGraphics.blit(GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, PROGRESS_BAR_BREADTH, drawLength);
+		case RIGHT -> GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(direction.overlaySprite), x, y, 0, 0, drawLength, PROGRESS_BAR_BREADTH, PROGRESS_BAR_LENGTH, PROGRESS_BAR_BREADTH);
+		case LEFT -> GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(direction.overlaySprite), x + PROGRESS_BAR_LENGTH - drawLength, y, PROGRESS_BAR_LENGTH - drawLength, 0, drawLength, PROGRESS_BAR_BREADTH, PROGRESS_BAR_LENGTH, PROGRESS_BAR_BREADTH);
+		case DOWN -> GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(direction.overlaySprite), x, y, 0, 0, PROGRESS_BAR_BREADTH, drawLength, PROGRESS_BAR_LENGTH, PROGRESS_BAR_BREADTH);
+		case UP -> GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(direction.overlaySprite), x, y + PROGRESS_BAR_LENGTH - drawLength, 0, PROGRESS_BAR_LENGTH - drawLength, PROGRESS_BAR_BREADTH, drawLength, PROGRESS_BAR_BREADTH, PROGRESS_BAR_LENGTH);
 		}
 	}
 
@@ -116,10 +116,10 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	public void drawEnergyDisplay(GuiGraphics guiGraphics, int x, int y, EntryAnimation animation) {
 		int innerWidth = ENERGY_DISPLAY_WIDTH - 2;
 		int innerHeight = ENERGY_DISPLAY_HEIGHT - 2;
-		GuiSprites.drawSprite(guiGraphics, GuiSprites.POWER_BAR_BASE, x, y);
-		int drawHeight;
+		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.POWER_BAR_BASE), x, y, 0, 0, ENERGY_DISPLAY_WIDTH, ENERGY_DISPLAY_HEIGHT);
+		float drawHeight;
 		if(animation.animationType() != EntryAnimation.Type.NONE) {
-			drawHeight = Math.round(System.currentTimeMillis() % animation.duration() / (float)animation.duration() * innerHeight);
+			drawHeight = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * innerHeight;
 			if(animation.animationType() == EntryAnimation.Type.DOWNWARDS) {
 				drawHeight = innerHeight - drawHeight;
 			}
