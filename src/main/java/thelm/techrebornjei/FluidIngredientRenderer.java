@@ -12,14 +12,13 @@ import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.material.Fluids;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 
-public class FluidIngredientRenderer extends GuiComponent implements IIngredientRenderer<IJeiFluidIngredient> {
+public record FluidIngredientRenderer(EntryAnimation animation) implements IIngredientRenderer<IJeiFluidIngredient> {
 
 	public static final FluidIngredientRenderer UPWARDS = new FluidIngredientRenderer(EntryAnimation.UPWARDS);
 	public static final FluidIngredientRenderer DOWNWARDS = new FluidIngredientRenderer(EntryAnimation.DOWNWARDS);
@@ -27,34 +26,26 @@ public class FluidIngredientRenderer extends GuiComponent implements IIngredient
 
 	public static final NumberFormat INTEGER_FORMAT = NumberFormat.getIntegerInstance();
 
-	public final EntryAnimation animation;
-
-	public FluidIngredientRenderer(EntryAnimation animation) {
-		this.animation = animation;
-	}
-
 	@Override
 	public void render(PoseStack poseStack, IJeiFluidIngredient ingredient) {
 		int width = getWidth();
 		int height = getHeight();
-		RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-		blit(poseStack, -3, -3, 194, 26, width + 6, height + 6);
-		int innerDisplayHeight;
+		GuiRenderUtil.blit(poseStack, GuiBuilder.defaultTextureSheet, -3, -3, 194, 26, width + 6, height + 6);
+		float drawHeight;
 		if(animation.animationType() != EntryAnimation.Type.NONE) {
-			innerDisplayHeight = Math.round(System.currentTimeMillis() % animation.duration() / (float)animation.duration() * height);
+			drawHeight = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * height;
 			if(animation.animationType() == EntryAnimation.Type.DOWNWARDS) {
-				innerDisplayHeight = height - innerDisplayHeight;
+				drawHeight = height - drawHeight;
 			}
 		}
 		else {
-			innerDisplayHeight = height;
+			drawHeight = height;
 		}
-		drawFluid(poseStack, getFluidVariant(ingredient), innerDisplayHeight);
-		RenderSystem.setShaderTexture(0, GuiBuilder.defaultTextureSheet);
-		blit(poseStack, 0, 0, 194, 82, width, height);
+		drawFluid(poseStack, getFluidVariant(ingredient), drawHeight);
+		GuiRenderUtil.blit(poseStack, GuiBuilder.defaultTextureSheet, 0, 0, 194, 82, width, height);
 	}
 
-	public void drawFluid(PoseStack poseStack, FluidVariant fluidVariant, int drawHeight) {
+	public void drawFluid(PoseStack poseStack, FluidVariant fluidVariant, float drawHeight) {
 		TextureAtlasSprite sprite = FluidVariantRendering.getSprite(fluidVariant);
 		if(sprite == null) {
 			return;
