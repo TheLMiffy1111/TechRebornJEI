@@ -17,10 +17,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.api.generator.FluidGeneratorRecipe;
-import thelm.techrebornjei.EntryAnimation;
+import thelm.techrebornjei.EnergyDisplayDrawable;
 import thelm.techrebornjei.FluidIngredientRenderer;
+import thelm.techrebornjei.ProgressBarDrawable;
 
 public class FluidGeneratorRecipeCategory extends AbstractRecipeCategory<FluidGeneratorRecipe> {
 
@@ -34,18 +34,18 @@ public class FluidGeneratorRecipeCategory extends AbstractRecipeCategory<FluidGe
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, FluidGeneratorRecipe recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 11, 3).addFluidStack(recipe.fluid(), FluidConstants.BUCKET).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.DOWNWARDS);
+		builder.addSlot(RecipeIngredientRole.INPUT, 11, 3).addFluidStack(recipe.fluid(), FluidConstants.BUCKET).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.DOWN);
 	}
 
 	@Override
 	public void draw(FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-		drawEnergyDisplay(poseStack, 114, 3, EntryAnimation.UPWARDS);
-		drawProgressBar(poseStack, 62, 23, 5000, GuiBuilder.ProgressDirection.RIGHT);
+		EnergyDisplayDrawable.UP.draw(poseStack, 114, 3);
+		ProgressBarDrawable.right(5000).draw(poseStack, 62, 23);
 	}
 
 	@Override
 	public List<Component> getTooltipStrings(FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-		if(isInEnergyDisplay(114, 3, mouseX, mouseY)) {
+		if(EnergyDisplayDrawable.isMouseOver(114, 3, mouseX, mouseY)) {
 			return List.of(
 					new TranslatableComponent("techreborn.jei.recipe.energy"),
 					new TranslatableComponent("techreborn.jei.recipe.generator.total", recipe.getEnergyPerBucket()).withStyle(ChatFormatting.GRAY),
