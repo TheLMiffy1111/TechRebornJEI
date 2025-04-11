@@ -2,9 +2,7 @@ package thelm.techrebornjei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import mezz.jei.api.gui.drawable.IDrawableStatic;
-
-public record BlankDrawable(int width, int height) implements IDrawableStatic {
+public record BlankDrawable(int width, int height) implements IMaskableDrawable {
 
 	@Override
 	public int getWidth() {
@@ -17,8 +15,5 @@ public record BlankDrawable(int width, int height) implements IDrawableStatic {
 	}
 
 	@Override
-	public void draw(PoseStack poseStack, int xOffset, int yOffset) {}
-
-	@Override
-	public void draw(PoseStack poseStack, int xOffset, int yOffset, int maskTop, int maskBottom, int maskLeft, int maskRight) {}
+	public void draw(PoseStack poseStack, float xOffset, float yOffset, float maskTop, float maskBottom, float maskLeft, float maskRight) {}
 }
