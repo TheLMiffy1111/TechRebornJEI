@@ -5,8 +5,6 @@ import java.util.List;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.RecipeTypes;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
@@ -118,12 +116,6 @@ public class TechRebornJEIPlugin implements IModPlugin {
 	public static final RecipeType<RecipeHolder<FluidGeneratorRecipe>> SEMI_FLUID_GENERATOR = RecipeType.createFromVanilla(ModRecipes.SEMI_FLUID_GENERATOR);
 	public static final RecipeType<RecipeHolder<FluidGeneratorRecipe>> PLASMA_GENERATOR = RecipeType.createFromVanilla(ModRecipes.PLASMA_GENERATOR);
 
-	public static final ResourceLocation ELEMENTS = ResourceLocation.parse("techrebornjei:textures/gui/elements.png");
-	public static IDrawable outputSlot1;
-	public static IDrawable outputSlot2;
-	public static IDrawable outputSlot3;
-	public static IDrawable outputSlot4;
-
 	public static final List<IModPlugin> ADDONS = new ArrayList<>();
 
 	public TechRebornJEIPlugin() {
@@ -163,11 +155,6 @@ public class TechRebornJEIPlugin implements IModPlugin {
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registration) {
 		jeiHelpers = registration.getJeiHelpers();
-		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		outputSlot1 = guiHelper.drawableBuilder(ELEMENTS, 0, 0, 26, 26).setTextureSize(128, 64).build();
-		outputSlot2 = guiHelper.drawableBuilder(ELEMENTS, 0, 26, 46, 26).setTextureSize(128, 64).build();
-		outputSlot3 = guiHelper.drawableBuilder(ELEMENTS, 46, 26, 66, 26).setTextureSize(128, 64).build();
-		outputSlot4 = guiHelper.drawableBuilder(ELEMENTS, 26, 0, 86, 26).setTextureSize(128, 64).build();
 
 		registration.addRecipeCategories(new TwoItemToItemCenterRecipeCategory<>(ALLOY_SMELTER));
 		registration.addRecipeCategories(new TwoItemToItemRecipeCategory<>(ASSEMBLING_MACHINE));
