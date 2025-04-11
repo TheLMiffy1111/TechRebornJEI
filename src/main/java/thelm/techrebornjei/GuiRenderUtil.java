@@ -15,20 +15,12 @@ import net.minecraft.resources.ResourceLocation;
 
 public class GuiRenderUtil {
 
-	public static void blit(PoseStack poseStack, ResourceLocation atlasLocation, float x, float y, float uOffset, float vOffset, float width, float height) {
-		blit(poseStack, atlasLocation, x, y, uOffset, vOffset, width, height, 256, 256);
-	}
-
 	public static void blit(PoseStack poseStack, ResourceLocation atlasLocation, float x, float y, float uOffset, float vOffset, float width, float height, int textureWidth, int textureHeight) {
 		float uMin = uOffset / textureWidth;
 		float uMax = (uOffset + width) / textureWidth;
 		float vMin = vOffset / textureHeight;
 		float vMax = (vOffset + height) / textureHeight;
 		blit(poseStack, atlasLocation, x, x + width, y, y + height, uMin, uMax, vMin, vMax);
-	}
-
-	public static void blitSprite(PoseStack poseStack, TextureAtlasSprite sprite, float x, float y, int textureWidth, int textureHeight) {
-		blitSprite(poseStack, sprite, x, y, 0, 0, textureWidth, textureHeight, textureWidth, textureHeight);
 	}
 
 	public static void blitSprite(PoseStack poseStack, TextureAtlasSprite sprite, float x, float y, float uOffset, float vOffset, float width, float height, int textureWidth, int textureHeight) {
