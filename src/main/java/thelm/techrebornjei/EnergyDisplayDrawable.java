@@ -3,6 +3,7 @@ package thelm.techrebornjei;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.gui.drawable.IDrawable;
+import net.minecraft.client.Minecraft;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 
 public record EnergyDisplayDrawable(EntryAnimation animation) implements IDrawable {
@@ -39,7 +40,9 @@ public record EnergyDisplayDrawable(EntryAnimation animation) implements IDrawab
 	public void draw(PoseStack poseStack, int xOffset, int yOffset) {
 		float mask = 0;
 		if(animation.direction() != EntryAnimation.Direction.STATIC) {
-			mask = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * (HEIGHT - 2);
+			Minecraft minecraft = Minecraft.getInstance();
+			int guiScale = minecraft.getWindow().calculateScale(minecraft.options.guiScale, minecraft.isEnforceUnicode());
+			mask = Math.round(System.currentTimeMillis() % animation.duration() * guiScale * (HEIGHT - 2) / (float)animation.duration()) / (float)guiScale;
 			if(animation.direction() == EntryAnimation.Direction.UP) {
 				mask = HEIGHT - 2 - mask;
 			}
