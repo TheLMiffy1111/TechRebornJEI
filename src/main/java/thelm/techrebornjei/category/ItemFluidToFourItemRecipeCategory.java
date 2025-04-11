@@ -56,7 +56,6 @@ public class ItemFluidToFourItemRecipeCategory<R extends RebornFluidRecipe> exte
 					new TranslatableComponent("techreborn.jei.recipe.energy"),
 					new TranslatableComponent("techreborn.jei.recipe.running.cost", "E", recipe.getPower()).withStyle(ChatFormatting.GRAY),
 					new TranslatableComponent("techreborn.jei.recipe.generator.total", recipe.getPower() * recipe.getTime()).withStyle(ChatFormatting.GRAY),
-					TextComponent.EMPTY,
 					new TextComponent(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn")));
 		}
 		return List.of();
