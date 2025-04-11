@@ -28,8 +28,8 @@ public class GuiRenderUtil {
 		blit(guiGraphics, atlasLocation, x, x + width, y, y + height, uMin, uMax, vMin, vMax);
 	}
 
-	public static void blitSprite(GuiGraphics guiGraphics, TextureAtlasSprite sprite, float x, float y, float uOffset, float vOffset, int textureWidth, int textureHeight) {
-		blitSprite(guiGraphics, sprite, x, y, uOffset, vOffset, textureWidth, textureHeight, textureWidth, textureHeight);
+	public static void blitSprite(GuiGraphics guiGraphics, TextureAtlasSprite sprite, float x, float y, int textureWidth, int textureHeight) {
+		blitSprite(guiGraphics, sprite, x, y, 0, 0, textureWidth, textureHeight, textureWidth, textureHeight);
 	}
 
 	public static void blitSprite(GuiGraphics guiGraphics, TextureAtlasSprite sprite, float x, float y, float uOffset, float vOffset, float width, float height, int textureWidth, int textureHeight) {
