@@ -15,7 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
-import thelm.techrebornjei.RecipeClickAreaRenderer;
+import thelm.techrebornjei.RecipeClickAreaRenderable;
 import thelm.techrebornjei.TechRebornJEIPlugin;
 import thelm.techrebornjei.category.ItemFluidToItemRecipeCategory;
 
@@ -50,6 +50,6 @@ public class IndustrialRebornJEIPlugin implements IModPlugin {
 	public void registerGuiHandlers(IGuiHandlerRegistration registration) {
 		registration.addRecipeClickArea(GuiFluidTransposer.class, 158, 5, 12, 12, FLUID_TRANSPOSER);
 
-		RecipeClickAreaRenderer.addEntry(GuiFluidTransposer.class);
+		RecipeClickAreaRenderable.addEntry(GuiFluidTransposer.class);
 	}
 }
