@@ -2,9 +2,7 @@ package thelm.techrebornjei.category;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.function.Supplier;
 
-import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -18,26 +16,37 @@ import net.minecraft.network.chat.Component;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PowerSystem.EnergySystem;
+import thelm.techrebornjei.BlankDrawable;
 import thelm.techrebornjei.EntryAnimation;
 import thelm.techrebornjei.GuiRenderUtil;
+import thelm.techrebornjei.OutputSlotDrawable;
+import thelm.techrebornjei.ResourceDrawable;
 import thelm.techrebornjei.TechRebornJEIPlugin;
 
 public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 
 	public static final NumberFormat TIME_FORMAT = new DecimalFormat("###.##");
 
+	public static final IDrawable SLOT = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 150, 0, 18, 18);
+	public static final IDrawable OUTPUT_SLOT = new OutputSlotDrawable(true, true, true);
+	public static final IDrawable OUTPUT_SLOT_LEFT = new OutputSlotDrawable(true, true, false);
+	public static final IDrawable OUTPUT_SLOT_CENTER = new OutputSlotDrawable(false, true, false);
+	public static final IDrawable OUTPUT_SLOT_RIGHT = new OutputSlotDrawable(false, true, true);
+
 	public final RecipeType<R> recipeType;
 	public final Component title;
-	public final Supplier<IDrawable> background = Suppliers.memoize(() -> guiHelper().createBlankDrawable(getWidth(), getHeight()));
+	public final IDrawable background;
 
 	public AbstractRecipeCategory(RecipeType<R> recipeType, Component title) {
 		this.recipeType = recipeType;
 		this.title = title;
+		background = new BlankDrawable(getWidth(), getHeight());
 	}
 
 	public AbstractRecipeCategory(RecipeType<R> recipeType) {
 		this.recipeType = recipeType;
 		this.title = Component.translatable(recipeType.getUid().toString());
+		background = new BlankDrawable(getWidth(), getHeight());
 	}
 
 	@Override
@@ -52,7 +61,7 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 
 	@Override
 	public IDrawable getBackground() {
-		return background.get();
+		return background;
 	}
 
 	@Override
@@ -80,26 +89,6 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 
 	public IGuiHelper guiHelper() {
 		return jeiHelpers().getGuiHelper();
-	}
-
-	public IDrawable standardSlot() {
-		return guiHelper().getSlotDrawable();
-	}
-
-	public IDrawable outputSlot1() {
-		return TechRebornJEIPlugin.outputSlot1;
-	}
-
-	public IDrawable outputSlot2() {
-		return TechRebornJEIPlugin.outputSlot2;
-	}
-
-	public IDrawable outputSlot3() {
-		return TechRebornJEIPlugin.outputSlot3;
-	}
-
-	public IDrawable outputSlot4() {
-		return TechRebornJEIPlugin.outputSlot4;
 	}
 
 	public static final int PROGRESS_BAR_LENGTH = 16;
