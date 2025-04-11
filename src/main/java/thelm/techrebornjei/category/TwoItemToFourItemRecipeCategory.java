@@ -8,8 +8,9 @@ import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
+import thelm.techrebornjei.OutputSlotDrawable;
+import thelm.techrebornjei.ProgressBarDrawable;
 
 public class TwoItemToFourItemRecipeCategory<R extends RebornRecipe> extends AbstractRebornEnergyRecipeCategory<R> {
 
@@ -25,16 +26,16 @@ public class TwoItemToFourItemRecipeCategory<R extends RebornRecipe> extends Abs
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 30, 36).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
 		builder.addSlot(RecipeIngredientRole.INPUT, 50, 36).addItemStacks(getInput(recipe, 1)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 38, 9).addItemStack(getOutput(recipe, 0)).setBackground(OUTPUT_SLOT_LEFT, -5, -5);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 58, 9).addItemStack(getOutput(recipe, 1)).setBackground(OUTPUT_SLOT_CENTER, -5, -5);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 78, 9).addItemStack(getOutput(recipe, 2)).setBackground(OUTPUT_SLOT_CENTER, -5, -5);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 98, 9).addItemStack(getOutput(recipe, 3)).setBackground(OUTPUT_SLOT_RIGHT, -5, -5);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 38, 9).addItemStack(getOutput(recipe, 0)).setBackground(OutputSlotDrawable.LEFT, -5, -5);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 58, 9).addItemStack(getOutput(recipe, 1)).setBackground(OutputSlotDrawable.CENTER, -5, -5);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 78, 9).addItemStack(getOutput(recipe, 2)).setBackground(OutputSlotDrawable.CENTER, -5, -5);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 98, 9).addItemStack(getOutput(recipe, 3)).setBackground(OutputSlotDrawable.RIGHT, -5, -5);
 	}
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-		drawProgressBar(guiGraphics, 70, 35, recipe, GuiBuilder.ProgressDirection.UP);
+		ProgressBarDrawable.up(recipe).draw(guiGraphics, 70, 35);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
 		guiGraphics.drawString(font, component, getWidth() - font.width(component), getHeight() - font.lineHeight, 0xFF808080, false);

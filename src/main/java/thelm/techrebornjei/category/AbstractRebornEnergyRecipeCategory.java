@@ -9,7 +9,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import reborncore.common.crafting.RebornRecipe;
-import thelm.techrebornjei.EntryAnimation;
+import thelm.techrebornjei.EnergyDisplayDrawable;
 
 public abstract class AbstractRebornEnergyRecipeCategory<R extends RebornRecipe> extends AbstractRebornRecipeCategory<R> {
 
@@ -23,12 +23,12 @@ public abstract class AbstractRebornEnergyRecipeCategory<R extends RebornRecipe>
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		drawEnergyDisplay(guiGraphics, 3, 3, EntryAnimation.DOWNWARDS);
+		EnergyDisplayDrawable.DOWN.draw(guiGraphics, 3, 3);
 	}
 
 	@Override
 	public void getTooltip(ITooltipBuilder tooltip, R recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-		if(isInEnergyDisplay(3, 3, mouseX, mouseY)) {
+		if(EnergyDisplayDrawable.isMouseOver(3, 3, mouseX, mouseY)) {
 			tooltip.addAll(List.of(
 					Component.translatable("techreborn.jei.recipe.energy"),
 					Component.translatable("techreborn.jei.recipe.running.cost", "E", recipe.getPower()).withStyle(ChatFormatting.GRAY),
