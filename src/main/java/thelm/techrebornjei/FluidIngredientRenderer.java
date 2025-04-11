@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
@@ -46,7 +47,9 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 		TANK_BACKGROUND.draw(guiGraphics, -3, -3);
 		float drawHeight = HEIGHT;
 		if(animation.direction() != EntryAnimation.Direction.STATIC) {
-			drawHeight = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * HEIGHT;
+			Minecraft minecraft = Minecraft.getInstance();
+			int guiScale = minecraft.getWindow().calculateScale(minecraft.options.guiScale().get(), minecraft.isEnforceUnicode());
+			drawHeight = Math.round(System.currentTimeMillis() % animation.duration() * guiScale * HEIGHT / (float)animation.duration()) / (float)guiScale;
 			if(animation.direction() == EntryAnimation.Direction.DOWN) {
 				drawHeight = HEIGHT - drawHeight;
 			}
