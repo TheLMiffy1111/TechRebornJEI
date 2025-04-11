@@ -4,9 +4,10 @@ import java.util.List;
 
 import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
+import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.common.crafting.RebornRecipe;
@@ -23,8 +24,8 @@ public abstract class AbstractRebornEnergyRecipeCategory<R extends RebornRecipe>
 	}
 
 	@Override
-	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		EnergyDisplayDrawable.DOWN.draw(guiGraphics, 3, 3);
+	public void createRecipeExtras(IRecipeExtrasBuilder builder, R recipe, IFocusGroup focuses) {
+		builder.addDrawable(EnergyDisplayDrawable.DOWN, 3, 3);
 	}
 
 	@Override

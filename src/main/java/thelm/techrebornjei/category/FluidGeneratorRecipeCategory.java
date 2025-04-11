@@ -6,12 +6,12 @@ import mezz.jei.api.fabric.constants.FabricTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import techreborn.recipe.recipes.FluidGeneratorRecipe;
@@ -35,9 +35,9 @@ public class FluidGeneratorRecipeCategory extends AbstractRebornRecipeCategory<F
 	}
 
 	@Override
-	public void draw(FluidGeneratorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		EnergyDisplayDrawable.UP.draw(guiGraphics, 114, 3);
-		ProgressBarDrawable.right(5000).draw(guiGraphics, 62, 23);
+	public void createRecipeExtras(IRecipeExtrasBuilder builder, FluidGeneratorRecipe recipe, IFocusGroup focuses) {
+		builder.addDrawable(EnergyDisplayDrawable.UP, 114, 3);
+		builder.addDrawable(ProgressBarDrawable.right(5000), 62, 23);
 	}
 
 	@Override

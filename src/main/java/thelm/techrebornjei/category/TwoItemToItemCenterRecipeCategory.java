@@ -2,6 +2,7 @@ package thelm.techrebornjei.category;
 
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -31,10 +32,14 @@ public class TwoItemToItemCenterRecipeCategory<R extends RebornRecipe> extends A
 	}
 
 	@Override
+	public void createRecipeExtras(IRecipeExtrasBuilder builder, R recipe, IFocusGroup focuses) {
+		super.createRecipeExtras(builder, recipe, focuses);
+		builder.addDrawable(ProgressBarDrawable.right(recipe), 45, 23);
+		builder.addDrawable(ProgressBarDrawable.left(recipe), 95, 23);
+	}
+
+	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-		ProgressBarDrawable.right(recipe).draw(guiGraphics, 45, 23);
-		ProgressBarDrawable.left(recipe).draw(guiGraphics, 95, 23);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
 		guiGraphics.drawString(font, component, getWidth() - font.width(component), 0, 0xFF808080, false);
