@@ -3,6 +3,7 @@ package thelm.techrebornjei;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -14,6 +15,7 @@ import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.fabricmc.loader.api.FabricLoader;
@@ -211,6 +213,14 @@ public class TechRebornJEIPlugin implements IModPlugin {
 		registration.addRecipes(PLASMA_GENERATOR, getFluidGeneratorRecipes(EFluidGenerator.PLASMA));
 
 		ADDONS.forEach(addon -> addon.registerRecipes(registration));
+	}
+
+	@Override
+	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+		registration.addRecipeTransferHandler(new BuiltScreenHandlerTransferInfo<>("rollingmachine", ROLLING_MACHINE, IntStream.range(40, 49), IntStream.range(0, 36)));
+		registration.addRecipeTransferHandler(new BuiltScreenHandlerTransferInfo<>("autocraftingtable", RecipeTypes.CRAFTING, IntStream.range(36, 45), IntStream.range(0, 36)));
+
+		ADDONS.forEach(addon -> addon.registerRecipeTransferHandlers(registration));
 	}
 
 	@Override
