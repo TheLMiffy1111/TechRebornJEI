@@ -20,29 +20,38 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 
 public record FluidIngredientRenderer(EntryAnimation animation) implements IIngredientRenderer<IJeiFluidIngredient> {
 
-	public static final FluidIngredientRenderer UPWARDS = new FluidIngredientRenderer(EntryAnimation.UPWARDS);
-	public static final FluidIngredientRenderer DOWNWARDS = new FluidIngredientRenderer(EntryAnimation.DOWNWARDS);
-	public static final FluidIngredientRenderer NONE = new FluidIngredientRenderer(EntryAnimation.NONE);
+	public static final FluidIngredientRenderer UP = new FluidIngredientRenderer(EntryAnimation.UP);
+	public static final FluidIngredientRenderer DOWN = new FluidIngredientRenderer(EntryAnimation.DOWN);
+	public static final FluidIngredientRenderer STATIC = new FluidIngredientRenderer(EntryAnimation.STATIC);
+
+	public static final int WIDTH = 16;
+	public static final int HEIGHT = 50;
 
 	public static final NumberFormat INTEGER_FORMAT = NumberFormat.getIntegerInstance();
 
+	public static FluidIngredientRenderer up(int duration) {
+		return new FluidIngredientRenderer(EntryAnimation.up(duration));
+	}
+
+	public static FluidIngredientRenderer down(int duration) {
+		return new FluidIngredientRenderer(EntryAnimation.down(duration));
+	}
+
 	@Override
 	public void render(PoseStack poseStack, IJeiFluidIngredient ingredient) {
-		int width = getWidth();
-		int height = getHeight();
-		GuiRenderUtil.blit(poseStack, GuiBuilder.defaultTextureSheet, -3, -3, 194, 26, width + 6, height + 6);
+		GuiRenderUtil.blit(poseStack, GuiBuilder.defaultTextureSheet, -3, -3, 194, 26, WIDTH + 6, HEIGHT + 6);
 		float drawHeight;
-		if(animation.type() != EntryAnimation.Type.NONE) {
-			drawHeight = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * height;
-			if(animation.type() == EntryAnimation.Type.DOWNWARDS) {
-				drawHeight = height - drawHeight;
+		if(animation.direction() != EntryAnimation.Direction.STATIC) {
+			drawHeight = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * HEIGHT;
+			if(animation.direction() == EntryAnimation.Direction.DOWN) {
+				drawHeight = HEIGHT - drawHeight;
 			}
 		}
 		else {
-			drawHeight = height;
+			drawHeight = HEIGHT;
 		}
 		drawFluid(poseStack, getFluidVariant(ingredient), drawHeight);
-		GuiRenderUtil.blit(poseStack, GuiBuilder.defaultTextureSheet, 0, 0, 194, 82, width, height);
+		GuiRenderUtil.blit(poseStack, GuiBuilder.defaultTextureSheet, 0, 0, 194, 82, WIDTH, HEIGHT);
 	}
 
 	public void drawFluid(PoseStack poseStack, FluidVariant fluidVariant, float drawHeight) {
@@ -78,7 +87,12 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 	}
 
 	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+
+	@Override
 	public int getHeight() {
-		return 50;
+		return HEIGHT;
 	}
 }

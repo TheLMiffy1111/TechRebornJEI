@@ -9,8 +9,9 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
+import thelm.techrebornjei.OutputSlotDrawable;
+import thelm.techrebornjei.ProgressBarDrawable;
 
 public class ItemToItemRecipeCategory<R extends RebornRecipe> extends AbstractRebornEnergyRecipeCategory<R> {
 
@@ -25,13 +26,13 @@ public class ItemToItemRecipeCategory<R extends RebornRecipe> extends AbstractRe
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 41, 20).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 87, 20).addItemStack(getOutput(recipe, 0)).setBackground(OUTPUT_SLOT, -5, -5);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 87, 20).addItemStack(getOutput(recipe, 0)).setBackground(OutputSlotDrawable.SINGLE, -5, -5);
 	}
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
 		super.draw(recipe, recipeSlotsView, poseStack, mouseX, mouseY);
-		drawProgressBar(poseStack, 62, 23, recipe, GuiBuilder.ProgressDirection.RIGHT);
+		ProgressBarDrawable.right(recipe).draw(poseStack, 62, 23);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
 		font.draw(poseStack, component, getWidth() - font.width(component), 0, 0xFF808080);
