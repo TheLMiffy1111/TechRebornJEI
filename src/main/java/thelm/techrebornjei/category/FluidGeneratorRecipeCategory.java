@@ -47,7 +47,6 @@ public class FluidGeneratorRecipeCategory extends AbstractRecipeCategory<FluidGe
 			return List.of(
 					Component.translatable("techreborn.jei.recipe.energy"),
 					Component.translatable("techreborn.jei.recipe.generator.total", recipe.getEnergyPerBucket()).withStyle(ChatFormatting.GRAY),
-					Component.empty(),
 					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn")));
 		}
 		return List.of();
