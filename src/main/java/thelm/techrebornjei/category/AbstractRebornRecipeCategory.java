@@ -13,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.material.Fluids;
-import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
@@ -75,9 +74,5 @@ public abstract class AbstractRebornRecipeCategory<R extends RebornRecipe> exten
 
 	public Component getTimeComponent(RebornRecipe recipe) {
 		return Component.translatable("techreborn.jei.recipe.processing.time.3", TIME_FORMAT.format(recipe.getTime() / 20D));
-	}
-
-	public void drawProgressBar(GuiGraphics guiGraphics, int x, int y, RebornRecipe recipe, GuiBuilder.ProgressDirection direction) {
-		drawProgressBar(guiGraphics, x, y, recipe.getTime() * 50, direction);
 	}
 }
