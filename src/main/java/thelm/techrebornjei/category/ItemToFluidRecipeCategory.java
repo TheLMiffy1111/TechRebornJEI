@@ -10,9 +10,9 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornFluidRecipe;
 import thelm.techrebornjei.FluidIngredientRenderer;
+import thelm.techrebornjei.ProgressBarDrawable;
 
 public class ItemToFluidRecipeCategory<R extends RebornFluidRecipe> extends AbstractRebornEnergyRecipeCategory<R> {
 
@@ -27,13 +27,13 @@ public class ItemToFluidRecipeCategory<R extends RebornFluidRecipe> extends Abst
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 41, 20).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 85, 3).addIngredient(FabricTypes.FLUID_STACK, getFluid(recipe)).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.UPWARDS);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 85, 3).addIngredient(FabricTypes.FLUID_STACK, getFluid(recipe)).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.UP);
 	}
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-		drawProgressBar(guiGraphics, 62, 23, recipe, GuiBuilder.ProgressDirection.RIGHT);
+		ProgressBarDrawable.right(recipe).draw(guiGraphics, 62, 23);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
 		guiGraphics.drawString(font, component, 21, 0, 0xFF808080, false);
