@@ -31,7 +31,7 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 	public void render(GuiGraphics guiGraphics, IJeiFluidIngredient ingredient) {
 		int width = getWidth();
 		int height = getHeight();
-		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.TANK_BACKGROUND), -3, -3, 0, 0, width + 6, height + 6);
+		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.TANK_BACKGROUND), -3, -3, width + 6, height + 6);
 		float drawHeight;
 		if(animation.type() != EntryAnimation.Type.NONE) {
 			drawHeight = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * height;
@@ -43,7 +43,7 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 			drawHeight = height;
 		}
 		drawFluid(guiGraphics, getFluidVariant(ingredient), drawHeight);
-		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.TANK_FOREGROUND), 0, 0, 0, 0, width, height);
+		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.TANK_FOREGROUND), 0, 0, width, height);
 	}
 
 	public void drawFluid(GuiGraphics guiGraphics, FluidVariant fluidVariant, float drawHeight) {
