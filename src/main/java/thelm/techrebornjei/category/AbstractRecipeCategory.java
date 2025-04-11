@@ -17,11 +17,19 @@ import reborncore.client.gui.GuiBuilder;
 import reborncore.client.gui.GuiSprites;
 import thelm.techrebornjei.EntryAnimation;
 import thelm.techrebornjei.GuiRenderUtil;
+import thelm.techrebornjei.OutputSlotDrawable;
+import thelm.techrebornjei.SpriteDrawable;
 import thelm.techrebornjei.TechRebornJEIPlugin;
 
 public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 
 	public static final NumberFormat TIME_FORMAT = new DecimalFormat("###.##");
+
+	public static final IDrawable SLOT = new SpriteDrawable(() -> GuiBase.getSprite(GuiSprites.SLOT), 18, 18);
+	public static final IDrawable OUTPUT_SLOT = new OutputSlotDrawable(true, true, true);
+	public static final IDrawable OUTPUT_SLOT_LEFT = new OutputSlotDrawable(true, true, false);
+	public static final IDrawable OUTPUT_SLOT_CENTER = new OutputSlotDrawable(false, true, false);
+	public static final IDrawable OUTPUT_SLOT_RIGHT = new OutputSlotDrawable(false, true, true);
 
 	public final RecipeType<R> recipeType;
 	public final Component title;
@@ -73,26 +81,6 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 		return jeiHelpers().getGuiHelper();
 	}
 
-	public IDrawable standardSlot() {
-		return guiHelper().getSlotDrawable();
-	}
-
-	public IDrawable outputSlot1() {
-		return TechRebornJEIPlugin.outputSlot1;
-	}
-
-	public IDrawable outputSlot2() {
-		return TechRebornJEIPlugin.outputSlot2;
-	}
-
-	public IDrawable outputSlot3() {
-		return TechRebornJEIPlugin.outputSlot3;
-	}
-
-	public IDrawable outputSlot4() {
-		return TechRebornJEIPlugin.outputSlot4;
-	}
-
 	public static final int PROGRESS_BAR_LENGTH = 16;
 	public static final int PROGRESS_BAR_BREADTH = 10;
 
@@ -118,9 +106,9 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 		int innerHeight = ENERGY_DISPLAY_HEIGHT - 2;
 		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.POWER_BAR_BASE), x, y, 0, 0, ENERGY_DISPLAY_WIDTH, ENERGY_DISPLAY_HEIGHT);
 		float drawHeight;
-		if(animation.animationType() != EntryAnimation.Type.NONE) {
+		if(animation.type() != EntryAnimation.Type.NONE) {
 			drawHeight = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * innerHeight;
-			if(animation.animationType() == EntryAnimation.Type.DOWNWARDS) {
+			if(animation.type() == EntryAnimation.Type.DOWNWARDS) {
 				drawHeight = innerHeight - drawHeight;
 			}
 		}

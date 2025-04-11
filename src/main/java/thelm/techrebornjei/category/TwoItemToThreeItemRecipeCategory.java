@@ -10,7 +10,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
-import thelm.techrebornjei.TechRebornJEIPlugin;
 
 public class TwoItemToThreeItemRecipeCategory<R extends RebornRecipe> extends AbstractRebornEnergyRecipeCategory<R> {
 
@@ -24,11 +23,11 @@ public class TwoItemToThreeItemRecipeCategory<R extends RebornRecipe> extends Ab
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 27, 10).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 27, 30).addItemStacks(getInput(recipe, 1)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 73, 20).addItemStack(getOutput(recipe, 0)).setBackground(TechRebornJEIPlugin.outputSlot3, -5, -5);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 20).addItemStack(getOutput(recipe, 1));
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 113, 20).addItemStack(getOutput(recipe, 2));
+		builder.addSlot(RecipeIngredientRole.INPUT, 27, 10).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
+		builder.addSlot(RecipeIngredientRole.INPUT, 27, 30).addItemStacks(getInput(recipe, 1)).setBackground(SLOT, -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 73, 20).addItemStack(getOutput(recipe, 0)).setBackground(OUTPUT_SLOT_LEFT, -5, -5);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 20).addItemStack(getOutput(recipe, 1)).setBackground(OUTPUT_SLOT_CENTER, -5, -5);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 113, 20).addItemStack(getOutput(recipe, 2)).setBackground(OUTPUT_SLOT_RIGHT, -5, -5);
 	}
 
 	@Override
