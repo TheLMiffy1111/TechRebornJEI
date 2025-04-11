@@ -94,7 +94,7 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	public static final int PROGRESS_BAR_BREADTH = 10;
 
 	public void drawProgressBar(GuiGraphics guiGraphics, int x, int y, int animationDuration, GuiBuilder.ProgressDirection direction) {
-		GuiSprites.drawSprite(guiGraphics, direction.baseSprite, x, y);
+		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(direction.baseSprite), x, y, direction.width, direction.height);
 		float drawLength = System.currentTimeMillis() % animationDuration / (float)animationDuration * PROGRESS_BAR_LENGTH;
 		if(drawLength < 0) {
 			drawLength = 0;
@@ -113,7 +113,7 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	public void drawEnergyDisplay(GuiGraphics guiGraphics, int x, int y, EntryAnimation animation) {
 		int innerWidth = ENERGY_DISPLAY_WIDTH - 2;
 		int innerHeight = ENERGY_DISPLAY_HEIGHT - 2;
-		GuiSprites.drawSprite(guiGraphics, GuiSprites.POWER_BAR_BASE, x, y);
+		GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.POWER_BAR_BASE), x, y, ENERGY_DISPLAY_WIDTH, ENERGY_DISPLAY_HEIGHT);
 		float drawHeight;
 		if(animation.type() != EntryAnimation.Type.NONE) {
 			drawHeight = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * innerHeight;
