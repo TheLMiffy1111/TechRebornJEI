@@ -3,6 +3,7 @@ package thelm.techrebornjei.category;
 import mezz.jei.api.fabric.constants.FabricTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -33,9 +34,13 @@ public class ItemFluidToThreeItemRecipeCategory<R extends RebornFluidRecipe> ext
 	}
 
 	@Override
+	public void createRecipeExtras(IRecipeExtrasBuilder builder, R recipe, IFocusGroup focuses) {
+		super.createRecipeExtras(builder, recipe, focuses);
+		builder.addDrawable(ProgressBarDrawable.right(recipe), 73, 23);
+	}
+
+	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-		ProgressBarDrawable.right(recipe).draw(guiGraphics, 73, 23);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
 		guiGraphics.drawString(font, component, 46, 0, 0xFF808080, false);

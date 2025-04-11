@@ -6,6 +6,7 @@ import mezz.jei.api.fabric.constants.FabricTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -39,9 +40,13 @@ public class ItemFluidToFourItemRecipeCategory<R extends RebornFluidRecipe> exte
 	}
 
 	@Override
+	public void createRecipeExtras(IRecipeExtrasBuilder builder, R recipe, IFocusGroup focuses) {
+		builder.addDrawable(EnergyDisplayDrawable.DOWN, 3, 11);
+		builder.addDrawable(ProgressBarDrawable.right(recipe), 73, 31);
+	}
+
+	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		EnergyDisplayDrawable.DOWN.draw(guiGraphics, 3, 11);
-		ProgressBarDrawable.right(recipe).draw(guiGraphics, 73, 31);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
 		guiGraphics.drawString(font, component, 46, 0, 0xFF808080, false);
