@@ -1,6 +1,7 @@
 package thelm.techrebornjei;
 
 import mezz.jei.api.gui.drawable.IDrawable;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
@@ -70,7 +71,9 @@ public record ProgressBarDrawable(Direction direction, int duration) implements 
 
 	@Override
 	public void draw(GuiGraphics guiGraphics, int xOffset, int yOffset) {
-		float mask = LENGTH - System.currentTimeMillis() % duration / (float)duration * LENGTH;
+		Minecraft minecraft = Minecraft.getInstance();
+		int guiScale = minecraft.getWindow().calculateScale(minecraft.options.guiScale().get(), minecraft.isEnforceUnicode());
+		float mask = LENGTH - Math.round(System.currentTimeMillis() % duration * guiScale * LENGTH / (float)duration) / (float)guiScale;
 		switch(direction) {
 		case RIGHT -> {
 			PROGRESS_RIGHT_BASE.draw(guiGraphics, xOffset, yOffset);
