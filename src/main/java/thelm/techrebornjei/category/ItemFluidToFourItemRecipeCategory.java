@@ -13,10 +13,10 @@ import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.crafting.RebornFluidRecipe;
-import thelm.techrebornjei.EntryAnimation;
+import thelm.techrebornjei.EnergyDisplayDrawable;
 import thelm.techrebornjei.FluidIngredientRenderer;
+import thelm.techrebornjei.ProgressBarDrawable;
 
 public class ItemFluidToFourItemRecipeCategory<R extends RebornFluidRecipe> extends AbstractRebornRecipeCategory<R> {
 
@@ -31,7 +31,7 @@ public class ItemFluidToFourItemRecipeCategory<R extends RebornFluidRecipe> exte
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 50, 28).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 24, 11).addIngredient(FabricTypes.FLUID_STACK, getFluid(recipe)).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.DOWNWARDS);
+		builder.addSlot(RecipeIngredientRole.INPUT, 24, 11).addIngredient(FabricTypes.FLUID_STACK, getFluid(recipe)).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.DOWN);
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 1).addItemStack(getOutput(recipe, 0)).setBackground(SLOT, -1, -1);
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 19).addItemStack(getOutput(recipe, 1)).setBackground(SLOT, -1, -1);
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 37).addItemStack(getOutput(recipe, 2)).setBackground(SLOT, -1, -1);
@@ -40,8 +40,8 @@ public class ItemFluidToFourItemRecipeCategory<R extends RebornFluidRecipe> exte
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-		drawEnergyDisplay(poseStack, 3, 11, EntryAnimation.DOWNWARDS);
-		drawProgressBar(poseStack, 73, 31, recipe, GuiBuilder.ProgressDirection.RIGHT);
+		EnergyDisplayDrawable.DOWN.draw(poseStack, 3, 11);
+		ProgressBarDrawable.right(recipe).draw(poseStack, 73, 31);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
 		font.draw(poseStack, component, 46, 0, 0xFF808080);
@@ -49,7 +49,7 @@ public class ItemFluidToFourItemRecipeCategory<R extends RebornFluidRecipe> exte
 
 	@Override
 	public List<Component> getTooltipStrings(R recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-		if(isInEnergyDisplay(3, 11, mouseX, mouseY)) {
+		if(EnergyDisplayDrawable.isMouseOver(3, 11, mouseX, mouseY)) {
 			return List.of(
 					Component.translatable("techreborn.jei.recipe.energy"),
 					Component.translatable("techreborn.jei.recipe.running.cost", "E", recipe.getPower()).withStyle(ChatFormatting.GRAY),

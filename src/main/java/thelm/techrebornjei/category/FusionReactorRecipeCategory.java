@@ -6,9 +6,9 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.api.recipe.recipes.FusionReactorRecipe;
-import thelm.techrebornjei.EntryAnimation;
+import thelm.techrebornjei.EnergyDisplayDrawable;
+import thelm.techrebornjei.ProgressBarDrawable;
 
 public class FusionReactorRecipeCategory extends TwoItemToItemCenterRecipeCategory<FusionReactorRecipe> {
 
@@ -18,9 +18,9 @@ public class FusionReactorRecipeCategory extends TwoItemToItemCenterRecipeCatego
 
 	@Override
 	public void draw(FusionReactorRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-		drawEnergyDisplay(poseStack, 3, 3, recipe.getPower() < 0 ? EntryAnimation.DOWNWARDS : EntryAnimation.UPWARDS);
-		drawProgressBar(poseStack, 45, 23, recipe, GuiBuilder.ProgressDirection.RIGHT);
-		drawProgressBar(poseStack, 95, 23, recipe, GuiBuilder.ProgressDirection.LEFT);
+		(recipe.getPower() < 0 ? EnergyDisplayDrawable.DOWN : EnergyDisplayDrawable.UP).draw(poseStack, 3, 3);
+		ProgressBarDrawable.right(recipe).draw(poseStack, 45, 23);
+		ProgressBarDrawable.left(recipe).draw(poseStack, 95, 23);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
 		font.draw(poseStack, component, getWidth() - font.width(component), 0, 0xFF808080);
