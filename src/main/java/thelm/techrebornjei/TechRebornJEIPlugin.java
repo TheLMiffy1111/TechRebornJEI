@@ -297,41 +297,41 @@ public class TechRebornJEIPlugin implements IModPlugin {
 
 		registration.addGenericGuiContainerHandler(GuiBase.class, new GuiBaseExtraAreaHandler());
 
-		RecipeClickAreaRenderer.ENTRIES.clear();
+		RecipeClickAreaRenderable.ENTRIES.clear();
 
-		RecipeClickAreaRenderer.addEntry(GuiAlloyFurnace.class);
-		RecipeClickAreaRenderer.addEntry(GuiAlloySmelter.class);
-		RecipeClickAreaRenderer.addEntry(GuiAssemblingMachine.class);
-		RecipeClickAreaRenderer.addEntry(GuiBlastFurnace.class);
-		RecipeClickAreaRenderer.addEntry(GuiCentrifuge.class);
-		RecipeClickAreaRenderer.addEntry(GuiChemicalReactor.class);
-		RecipeClickAreaRenderer.addEntry(GuiCompressor.class);
-		RecipeClickAreaRenderer.addEntry(GuiDistillationTower.class);
-		RecipeClickAreaRenderer.addEntry(GuiExtractor.class);
-		RecipeClickAreaRenderer.addEntry(GuiFluidReplicator.class);
-		RecipeClickAreaRenderer.addEntry(GuiFusionReactor.class);
-		RecipeClickAreaRenderer.addEntry(GuiGrinder.class);
-		RecipeClickAreaRenderer.addEntry(GuiImplosionCompressor.class);
-		RecipeClickAreaRenderer.addEntry(GuiIndustrialElectrolyzer.class);
-		RecipeClickAreaRenderer.addEntry(GuiIndustrialGrinder.class);
-		RecipeClickAreaRenderer.addEntry(GuiIndustrialSawmill.class);
-		RecipeClickAreaRenderer.addEntry(GuiRollingMachine.class);
-		RecipeClickAreaRenderer.addEntry(GuiScrapboxinator.class);
-		RecipeClickAreaRenderer.addEntry(GuiSolidCanningMachine.class);
-		RecipeClickAreaRenderer.addEntry(GuiVacuumFreezer.class);
-		RecipeClickAreaRenderer.addEntry(GuiWireMill.class);
+		RecipeClickAreaRenderable.addEntry(GuiAlloyFurnace.class);
+		RecipeClickAreaRenderable.addEntry(GuiAlloySmelter.class);
+		RecipeClickAreaRenderable.addEntry(GuiAssemblingMachine.class);
+		RecipeClickAreaRenderable.addEntry(GuiBlastFurnace.class);
+		RecipeClickAreaRenderable.addEntry(GuiCentrifuge.class);
+		RecipeClickAreaRenderable.addEntry(GuiChemicalReactor.class);
+		RecipeClickAreaRenderable.addEntry(GuiCompressor.class);
+		RecipeClickAreaRenderable.addEntry(GuiDistillationTower.class);
+		RecipeClickAreaRenderable.addEntry(GuiExtractor.class);
+		RecipeClickAreaRenderable.addEntry(GuiFluidReplicator.class);
+		RecipeClickAreaRenderable.addEntry(GuiFusionReactor.class);
+		RecipeClickAreaRenderable.addEntry(GuiGrinder.class);
+		RecipeClickAreaRenderable.addEntry(GuiImplosionCompressor.class);
+		RecipeClickAreaRenderable.addEntry(GuiIndustrialElectrolyzer.class);
+		RecipeClickAreaRenderable.addEntry(GuiIndustrialGrinder.class);
+		RecipeClickAreaRenderable.addEntry(GuiIndustrialSawmill.class);
+		RecipeClickAreaRenderable.addEntry(GuiRollingMachine.class);
+		RecipeClickAreaRenderable.addEntry(GuiScrapboxinator.class);
+		RecipeClickAreaRenderable.addEntry(GuiSolidCanningMachine.class);
+		RecipeClickAreaRenderable.addEntry(GuiVacuumFreezer.class);
+		RecipeClickAreaRenderable.addEntry(GuiWireMill.class);
 
-		RecipeClickAreaRenderer.addEntry(GuiThermalGenerator.class);
-		RecipeClickAreaRenderer.addEntry(GuiGasTurbine.class);
-		RecipeClickAreaRenderer.addEntry(GuiDieselGenerator.class);
-		RecipeClickAreaRenderer.addEntry(GuiSemifluidGenerator.class);
-		RecipeClickAreaRenderer.addEntry(GuiPlasmaGenerator.class);
+		RecipeClickAreaRenderable.addEntry(GuiThermalGenerator.class);
+		RecipeClickAreaRenderable.addEntry(GuiGasTurbine.class);
+		RecipeClickAreaRenderable.addEntry(GuiDieselGenerator.class);
+		RecipeClickAreaRenderable.addEntry(GuiSemifluidGenerator.class);
+		RecipeClickAreaRenderable.addEntry(GuiPlasmaGenerator.class);
 
-		RecipeClickAreaRenderer.addEntry(GuiAutoCrafting.class, 158, 18);
-		RecipeClickAreaRenderer.addEntry(GuiIronFurnace.class);
-		RecipeClickAreaRenderer.addEntry(GuiElectricFurnace.class);
+		RecipeClickAreaRenderable.addEntry(GuiAutoCrafting.class, 158, 18);
+		RecipeClickAreaRenderable.addEntry(GuiIronFurnace.class);
+		RecipeClickAreaRenderable.addEntry(GuiElectricFurnace.class);
 
-		RecipeClickAreaRenderer.addEntry(GuiGenerator.class);
+		RecipeClickAreaRenderable.addEntry(GuiGenerator.class);
 
 		ADDONS.forEach(addon -> addon.registerGuiHandlers(registration));
 	}
