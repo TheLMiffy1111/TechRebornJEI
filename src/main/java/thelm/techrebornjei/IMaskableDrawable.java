@@ -16,7 +16,7 @@ public interface IMaskableDrawable extends IDrawableStatic {
 
 	@Override
 	default void draw(GuiGraphics guiGraphics, int xOffset, int yOffset, int maskTop, int maskBottom, int maskLeft, int maskRight) {
-		draw(guiGraphics, xOffset, yOffset, maskTop, maskBottom, maskLeft, maskRight);
+		draw(guiGraphics, (float)xOffset, (float)yOffset, maskTop, maskBottom, maskLeft, maskRight);
 	}
 
 	void draw(GuiGraphics guiGraphics, float xOffset, float yOffset, float maskTop, float maskBottom, float maskLeft, float maskRight);
