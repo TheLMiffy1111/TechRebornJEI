@@ -19,7 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import reborncore.common.crafting.RebornRecipe;
-import thelm.techrebornjei.RecipeClickAreaRenderer;
+import thelm.techrebornjei.RecipeClickAreaRenderable;
 import thelm.techrebornjei.TechRebornJEIPlugin;
 import thelm.techrebornjei.category.TwoItemToItemRecipeCategory;
 
@@ -66,12 +66,12 @@ public class AdvancedRebornJEIPlugin implements IModPlugin {
 
 		registration.addRecipeClickArea(GuiInductionFurnace.class, 158, 5, 12, 12, RecipeTypes.SMELTING);
 
-		RecipeClickAreaRenderer.addEntry(GuiCanningMachine.class);
+		RecipeClickAreaRenderable.addEntry(GuiCanningMachine.class);
 
-		RecipeClickAreaRenderer.addEntry(GuiRotaryGrinder.class);
-		RecipeClickAreaRenderer.addEntry(GuiCentrifugalExtractor.class);
-		RecipeClickAreaRenderer.addEntry(GuiSingularityCompressor.class);
+		RecipeClickAreaRenderable.addEntry(GuiRotaryGrinder.class);
+		RecipeClickAreaRenderable.addEntry(GuiCentrifugalExtractor.class);
+		RecipeClickAreaRenderable.addEntry(GuiSingularityCompressor.class);
 
-		RecipeClickAreaRenderer.addEntry(GuiInductionFurnace.class);
+		RecipeClickAreaRenderable.addEntry(GuiInductionFurnace.class);
 	}
 }

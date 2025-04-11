@@ -291,11 +291,11 @@ public class TechRebornJEIPlugin implements IModPlugin {
 
 		registration.addGenericGuiContainerHandler(GuiBase.class, new GuiBaseExtraAreaHandler());
 
-		RecipeClickAreaRenderer.ENTRIES.clear();
+		RecipeClickAreaRenderable.ENTRIES.clear();
 
-		RecipeClickAreaRenderer.addEntry(GuiAlloyFurnace.class);
-		RecipeClickAreaRenderer.addEntry(GuiAutoCrafting.class, 158, 18);
-		RecipeClickAreaRenderer.addEntry(GuiIronFurnace.class);
+		RecipeClickAreaRenderable.addEntry(GuiAlloyFurnace.class);
+		RecipeClickAreaRenderable.addEntry(GuiAutoCrafting.class, 158, 18);
+		RecipeClickAreaRenderable.addEntry(GuiIronFurnace.class);
 
 		ADDONS.forEach(addon -> addon.registerGuiHandlers(registration));
 	}
