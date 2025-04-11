@@ -35,7 +35,6 @@ public abstract class AbstractRebornEnergyRecipeCategory<R extends RebornRecipe>
 					Component.translatable("techreborn.jei.recipe.energy"),
 					Component.translatable("techreborn.jei.recipe.running.cost", "E", recipe.power()).withStyle(ChatFormatting.GRAY),
 					Component.translatable("techreborn.jei.recipe.generator.total", recipe.power() * recipe.time()).withStyle(ChatFormatting.GRAY),
-					Component.empty(),
 					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn"))));
 		}
 	}

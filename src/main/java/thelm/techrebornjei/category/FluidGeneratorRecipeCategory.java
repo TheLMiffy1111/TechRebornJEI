@@ -46,7 +46,6 @@ public class FluidGeneratorRecipeCategory extends AbstractRebornRecipeCategory<F
 			tooltip.addAll(List.of(
 					Component.translatable("techreborn.jei.recipe.energy"),
 					Component.translatable("techreborn.jei.recipe.generator.total", recipe.power() * 1000).withStyle(ChatFormatting.GRAY),
-					Component.empty(),
 					Component.literal(jeiHelpers().getModIdHelper().getFormattedModNameForModId("techreborn"))));
 		}
 	}
