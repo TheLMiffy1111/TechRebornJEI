@@ -1,22 +1,22 @@
 package thelm.techrebornjei;
 
-public record EntryAnimation(Type animationType, int duration) {
+public record EntryAnimation(Direction direction, int duration) {
 
-	public static final EntryAnimation UPWARDS = new EntryAnimation(Type.UPWARDS, 5000);
-	public static final EntryAnimation DOWNWARDS = new EntryAnimation(Type.DOWNWARDS, 5000);
-	public static final EntryAnimation NONE = new EntryAnimation(Type.NONE, 0);
+	public static final EntryAnimation UP = new EntryAnimation(Direction.UP, 5000);
+	public static final EntryAnimation DOWN = new EntryAnimation(Direction.DOWN, 5000);
+	public static final EntryAnimation STATIC = new EntryAnimation(Direction.STATIC, 0);
 
-	public static EntryAnimation upwards(int duration) {
-		return new EntryAnimation(Type.UPWARDS, duration);
+	public static EntryAnimation up(int duration) {
+		return new EntryAnimation(Direction.UP, duration);
 	}
 
-	public static EntryAnimation downwards(int duration) {
-		return new EntryAnimation(Type.DOWNWARDS, duration);
+	public static EntryAnimation down(int duration) {
+		return new EntryAnimation(Direction.DOWN, duration);
 	}
 
-	public enum Type {
-		UPWARDS,
-		DOWNWARDS,
-		NONE;
+	public enum Direction {
+		UP,
+		DOWN,
+		STATIC;
 	}
 }

@@ -9,8 +9,8 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
+import thelm.techrebornjei.ProgressBarDrawable;
 
 public class TwoItemToFourItemCircleRecipeCategory<R extends RebornRecipe> extends AbstractRebornEnergyRecipeCategory<R> {
 
@@ -35,7 +35,7 @@ public class TwoItemToFourItemCircleRecipeCategory<R extends RebornRecipe> exten
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
 		super.draw(recipe, recipeSlotsView, poseStack, mouseX, mouseY);
-		drawProgressBar(poseStack, 54, 23, recipe, GuiBuilder.ProgressDirection.RIGHT);
+		ProgressBarDrawable.right(recipe).draw(poseStack, 54, 23);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
 		font.draw(poseStack, component, 21, 0, 0xFF808080);
