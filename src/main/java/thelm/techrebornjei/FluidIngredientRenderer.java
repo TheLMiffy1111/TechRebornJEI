@@ -30,6 +30,9 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 
 	public static final NumberFormat INTEGER_FORMAT = NumberFormat.getIntegerInstance();
 
+	public static final ResourceDrawable TANK_BACKGROUND = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 194, 26, WIDTH + 6, HEIGHT + 6);
+	public static final ResourceDrawable TANK_FOREGROUND = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 194, 82, WIDTH, HEIGHT);
+
 	public static FluidIngredientRenderer up(int duration) {
 		return new FluidIngredientRenderer(EntryAnimation.up(duration));
 	}
@@ -40,19 +43,16 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 
 	@Override
 	public void render(PoseStack poseStack, IJeiFluidIngredient ingredient) {
-		GuiRenderUtil.blit(poseStack, GuiBuilder.defaultTextureSheet, -3, -3, 194, 26, WIDTH + 6, HEIGHT + 6);
-		float drawHeight;
+		TANK_BACKGROUND.draw(poseStack, -3, -3);
+		float drawHeight = HEIGHT;
 		if(animation.direction() != EntryAnimation.Direction.STATIC) {
 			drawHeight = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * HEIGHT;
 			if(animation.direction() == EntryAnimation.Direction.DOWN) {
 				drawHeight = HEIGHT - drawHeight;
 			}
 		}
-		else {
-			drawHeight = HEIGHT;
-		}
 		drawFluid(poseStack, getFluidVariant(ingredient), drawHeight);
-		GuiRenderUtil.blit(poseStack, GuiBuilder.defaultTextureSheet, 0, 0, 194, 82, WIDTH, HEIGHT);
+		TANK_FOREGROUND.draw(poseStack);
 	}
 
 	public void drawFluid(PoseStack poseStack, FluidVariant fluidVariant, float drawHeight) {
