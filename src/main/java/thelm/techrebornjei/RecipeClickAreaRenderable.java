@@ -14,12 +14,14 @@ import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import thelm.techrebornjei.mixin.ScreenAccessor;
 
-public record RecipeClickAreaRenderer(GuiBase<?> guiBase, int x, int y) implements Renderable {
+public record RecipeClickAreaRenderable(GuiBase<?> guiBase, int x, int y) implements Renderable {
+
+	public static final SpriteDrawable JEI_ICON = new SpriteDrawable(() -> GuiBase.getSprite(GuiSprites.JEI_ICON), 2, 2, 12, 12, 16, 16);
 
 	@Override
 	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		if(!guiBase.hideGuiElements()) {
-			GuiRenderUtil.blitSprite(guiGraphics, GuiBase.getSprite(GuiSprites.JEI_ICON), guiBase.getGuiLeft() + x, guiBase.getGuiTop() + y, 2, 2, 12, 12, 16, 16);
+			JEI_ICON.draw(guiGraphics, guiBase.getGuiLeft() + x, guiBase.getGuiTop() + y);
 		}
 	}
 
@@ -42,14 +44,14 @@ public record RecipeClickAreaRenderer(GuiBase<?> guiBase, int x, int y) implemen
 	}
 
 	static {
-		ScreenEvents.AFTER_INIT.register(RecipeClickAreaRenderer::onAfterScreenInit);
+		ScreenEvents.AFTER_INIT.register(RecipeClickAreaRenderable::onAfterScreenInit);
 	}
 
 	static void onAfterScreenInit(Minecraft minecraft, Screen screen, int scaledWidth, int scaledHeight) {
 		if(screen instanceof GuiBase<?> guiBase) {
 			for(Entry entry : ENTRIES) {
 				if(entry.predicate.test(guiBase)) {
-					((ScreenAccessor)guiBase).trjei$addRenderable(new RecipeClickAreaRenderer(guiBase, entry.x, entry.y));
+					((ScreenAccessor)guiBase).trjei$addRenderable(new RecipeClickAreaRenderable(guiBase, entry.x, entry.y));
 					return;
 				}
 			}
