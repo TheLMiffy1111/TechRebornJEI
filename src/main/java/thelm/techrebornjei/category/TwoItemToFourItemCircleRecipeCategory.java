@@ -24,12 +24,12 @@ public class TwoItemToFourItemCircleRecipeCategory<R extends RebornRecipe> exten
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 33, 10).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 33, 30).addItemStacks(getInput(recipe, 1)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 75, 20).addItemStack(getOutput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 1).addItemStack(getOutput(recipe, 1)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 113, 20).addItemStack(getOutput(recipe, 2)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 39).addItemStack(getOutput(recipe, 3)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.INPUT, 33, 10).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
+		builder.addSlot(RecipeIngredientRole.INPUT, 33, 30).addItemStacks(getInput(recipe, 1)).setBackground(SLOT, -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 75, 20).addItemStack(getOutput(recipe, 0)).setBackground(SLOT, -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 1).addItemStack(getOutput(recipe, 1)).setBackground(SLOT, -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 113, 20).addItemStack(getOutput(recipe, 2)).setBackground(SLOT, -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 39).addItemStack(getOutput(recipe, 3)).setBackground(SLOT, -1, -1);
 	}
 
 	@Override

@@ -32,12 +32,12 @@ public class ItemFluidToFourItemRecipeCategory<R extends RebornFluidRecipe> exte
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 50, 28).addItemStacks(getInput(recipe, 0)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.INPUT, 50, 28).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
 		builder.addSlot(RecipeIngredientRole.INPUT, 24, 11).addIngredient(FabricTypes.FLUID_STACK, getFluid(recipe)).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.DOWNWARDS);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 1).addItemStack(getOutput(recipe, 0)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 19).addItemStack(getOutput(recipe, 1)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 37).addItemStack(getOutput(recipe, 2)).setBackground(standardSlot(), -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 55).addItemStack(getOutput(recipe, 3)).setBackground(standardSlot(), -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 1).addItemStack(getOutput(recipe, 0)).setBackground(SLOT, -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 19).addItemStack(getOutput(recipe, 1)).setBackground(SLOT, -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 37).addItemStack(getOutput(recipe, 2)).setBackground(SLOT, -1, -1);
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 55).addItemStack(getOutput(recipe, 3)).setBackground(SLOT, -1, -1);
 	}
 
 	@Override

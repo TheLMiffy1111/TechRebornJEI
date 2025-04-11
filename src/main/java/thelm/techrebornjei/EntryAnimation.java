@@ -1,6 +1,6 @@
 package thelm.techrebornjei;
 
-public record EntryAnimation(Type animationType, int duration) {
+public record EntryAnimation(Type type, int duration) {
 
 	public static final EntryAnimation UPWARDS = new EntryAnimation(Type.UPWARDS, 5000);
 	public static final EntryAnimation DOWNWARDS = new EntryAnimation(Type.DOWNWARDS, 5000);

@@ -33,9 +33,9 @@ public record FluidIngredientRenderer(EntryAnimation animation) implements IIngr
 		int height = getHeight();
 		GuiRenderUtil.blit(poseStack, GuiBuilder.defaultTextureSheet, -3, -3, 194, 26, width + 6, height + 6);
 		float drawHeight;
-		if(animation.animationType() != EntryAnimation.Type.NONE) {
+		if(animation.type() != EntryAnimation.Type.NONE) {
 			drawHeight = System.currentTimeMillis() % animation.duration() / (float)animation.duration() * height;
-			if(animation.animationType() == EntryAnimation.Type.DOWNWARDS) {
+			if(animation.type() == EntryAnimation.Type.DOWNWARDS) {
 				drawHeight = height - drawHeight;
 			}
 		}
