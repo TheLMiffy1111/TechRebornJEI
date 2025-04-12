@@ -247,6 +247,6 @@ publishMods {
 		projectId = "FaJv0NSi"
 		minecraftVersions.add(mcVersion)
 		requires "jei"
-		optional "advancedreborn"
+		optional "advanced-reborn"
 	}
 }
