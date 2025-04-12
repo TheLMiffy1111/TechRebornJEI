@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import thelm.techrebornjei.RecipeClickAreaRenderable;
 import thelm.techrebornjei.category.ItemFluidToItemRecipeCategory;
 
-public class IndustrialRebornJEIPlugin implements IModPlugin {
+public class IndustrialRebornJEI implements IModPlugin {
 
 	public static final ResourceLocation UID = new ResourceLocation("techrebornjei:industrialreborn");
 
