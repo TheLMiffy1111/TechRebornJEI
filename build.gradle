@@ -104,7 +104,7 @@ def modId = "techrebornjei"
 def specVersion = "19.4"
 def vendor = "thelm"
 
-group = "thelm.textlogger"
+group = "thelm.techrebornjei"
 version = "19.4.0"
 
 archivesBaseName = "${modName}-${mcVersion}"
