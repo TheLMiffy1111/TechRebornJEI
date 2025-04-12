@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import thelm.techrebornjei.BlankDrawable;
 import thelm.techrebornjei.ResourceDrawable;
-import thelm.techrebornjei.TechRebornJEIPlugin;
+import thelm.techrebornjei.TechRebornJEI;
 
 public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 
@@ -83,7 +83,7 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	}
 
 	public IJeiHelpers jeiHelpers() {
-		return TechRebornJEIPlugin.jeiHelpers;
+		return TechRebornJEI.jeiHelpers;
 	}
 
 	public IGuiHelper guiHelper() {

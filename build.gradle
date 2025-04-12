@@ -107,7 +107,7 @@ def vendor = "thelm"
 group = "thelm.techrebornjei"
 version = "18.2.0"
 
-archivesBaseName = "${modName}-${mcVersion}"
+archivesBaseName = modName
 
 sourceSets {
 	main
@@ -216,7 +216,7 @@ publishing {
 
 publishMods {
 	file = remapJar.archiveFile
-	version = displayName = "${project.version}"
+	version = displayName = project.version
 	changelog = file("changelog.md").text
 	type = STABLE
 	modLoaders.add("fabric")
