@@ -17,7 +17,7 @@
 	"environment": "client",
 	"entrypoints": {
 		"jei_mod_plugin": [
-			"thelm.techrebornjei.TechRebornJEIPlugin"
+			"thelm.techrebornjei.TechRebornJEI"
 		]
 	},
 	"mixins": [
