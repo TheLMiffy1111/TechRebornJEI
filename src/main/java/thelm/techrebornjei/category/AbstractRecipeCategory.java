@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import thelm.techrebornjei.SpriteDrawable;
-import thelm.techrebornjei.TechRebornJEIPlugin;
+import thelm.techrebornjei.TechRebornJEI;
 
 public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 
@@ -65,7 +65,7 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	}
 
 	public IJeiHelpers jeiHelpers() {
-		return TechRebornJEIPlugin.jeiHelpers;
+		return TechRebornJEI.jeiHelpers;
 	}
 
 	public IGuiHelper guiHelper() {
