@@ -229,7 +229,7 @@ publishMods {
 		projectId = "1237141"
 		minecraftVersions.add(mcVersion)
 		requires "jei", "techreborn"
-		optional "advancedreborn"
+		optional "advancedreborn", "industrialreborn"
 	}
 
 	modrinth {
@@ -237,6 +237,6 @@ publishMods {
 		projectId = "FaJv0NSi"
 		minecraftVersions.add(mcVersion)
 		requires "jei"
-		optional "advancedreborn", "industrialreborn"
+		optional "advanced-reborn", "industrialreborn"
 	}
 }
