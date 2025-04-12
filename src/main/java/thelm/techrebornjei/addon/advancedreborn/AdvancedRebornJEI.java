@@ -21,16 +21,16 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import reborncore.common.crafting.RebornRecipe;
 import thelm.techrebornjei.RecipeClickAreaRenderable;
-import thelm.techrebornjei.TechRebornJEIPlugin;
+import thelm.techrebornjei.TechRebornJEI;
 import thelm.techrebornjei.category.TwoItemToItemRecipeCategory;
 
-public class AdvancedRebornJEIPlugin implements IModPlugin {
+public class AdvancedRebornJEI implements IModPlugin {
 
 	public static final ResourceLocation UID = new ResourceLocation("techrebornjei:advancedreborn");
 
 	public static final RecipeType<RecipeHolder<RebornRecipe>> CANNING_MACHINE = RecipeType.createFromVanilla(Recipes.CANNING_MACHINE);
 
-	public AdvancedRebornJEIPlugin() {
+	public AdvancedRebornJEI() {
 	}
 
 	@Override
@@ -53,9 +53,9 @@ public class AdvancedRebornJEIPlugin implements IModPlugin {
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
 		registration.addRecipeCatalyst(new ItemStack(Blocks.CANNING_MACHINE), CANNING_MACHINE);
 
-		registration.addRecipeCatalyst(new ItemStack(Blocks.ROTARY_GRINDER), TechRebornJEIPlugin.GRINDER);
-		registration.addRecipeCatalyst(new ItemStack(Blocks.CENTRIFUGAL_EXTRACTOR), TechRebornJEIPlugin.EXTRACTOR);
-		registration.addRecipeCatalyst(new ItemStack(Blocks.SINGULARITY_COMPRESSOR), TechRebornJEIPlugin.COMPRESSOR);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.ROTARY_GRINDER), TechRebornJEI.GRINDER);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.CENTRIFUGAL_EXTRACTOR), TechRebornJEI.EXTRACTOR);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.SINGULARITY_COMPRESSOR), TechRebornJEI.COMPRESSOR);
 
 		registration.addRecipeCatalyst(new ItemStack(Blocks.INDUCTION_FURNACE), RecipeTypes.SMELTING);
 	}
@@ -64,9 +64,9 @@ public class AdvancedRebornJEIPlugin implements IModPlugin {
 	public void registerGuiHandlers(IGuiHandlerRegistration registration) {
 		registration.addRecipeClickArea(GuiCanningMachine.class, 158, 5, 12, 12, CANNING_MACHINE);
 
-		registration.addRecipeClickArea(GuiRotaryGrinder.class, 158, 5, 12, 12, TechRebornJEIPlugin.GRINDER);
-		registration.addRecipeClickArea(GuiCentrifugalExtractor.class, 158, 5, 12, 12, TechRebornJEIPlugin.EXTRACTOR);
-		registration.addRecipeClickArea(GuiSingularityCompressor.class, 158, 5, 12, 12, TechRebornJEIPlugin.COMPRESSOR);
+		registration.addRecipeClickArea(GuiRotaryGrinder.class, 158, 5, 12, 12, TechRebornJEI.GRINDER);
+		registration.addRecipeClickArea(GuiCentrifugalExtractor.class, 158, 5, 12, 12, TechRebornJEI.EXTRACTOR);
+		registration.addRecipeClickArea(GuiSingularityCompressor.class, 158, 5, 12, 12, TechRebornJEI.COMPRESSOR);
 
 		registration.addRecipeClickArea(GuiInductionFurnace.class, 158, 5, 12, 12, RecipeTypes.SMELTING);
 

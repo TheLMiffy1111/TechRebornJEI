@@ -71,7 +71,7 @@ import techreborn.client.gui.GuiVacuumFreezer;
 import techreborn.client.gui.GuiWireMill;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
-import thelm.techrebornjei.addon.advancedreborn.AdvancedRebornJEIPlugin;
+import thelm.techrebornjei.addon.advancedreborn.AdvancedRebornJEI;
 import thelm.techrebornjei.category.FluidGeneratorRecipeCategory;
 import thelm.techrebornjei.category.ItemFluidToFourItemRecipeCategory;
 import thelm.techrebornjei.category.ItemFluidToThreeItemRecipeCategory;
@@ -85,7 +85,7 @@ import thelm.techrebornjei.category.TwoItemToItemRecipeCategory;
 import thelm.techrebornjei.category.TwoItemToThreeItemRecipeCategory;
 import thelm.techrebornjei.category.TwoItemToTwoItemRecipeCategory;
 
-public class TechRebornJEIPlugin implements IModPlugin {
+public class TechRebornJEI implements IModPlugin {
 
 	public static final ResourceLocation UID = new ResourceLocation("techrebornjei:techreborn");
 
@@ -121,9 +121,9 @@ public class TechRebornJEIPlugin implements IModPlugin {
 
 	public static final List<IModPlugin> ADDONS = new ArrayList<>();
 
-	public TechRebornJEIPlugin() {
+	public TechRebornJEI() {
 		if(FabricLoader.getInstance().isModLoaded("advanced_reborn")) {
-			ADDONS.add(new AdvancedRebornJEIPlugin());
+			ADDONS.add(new AdvancedRebornJEI());
 		}
 	}
 
@@ -341,7 +341,7 @@ public class TechRebornJEIPlugin implements IModPlugin {
 
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-		TechRebornJEIPlugin.jeiRuntime = jeiRuntime;
+		TechRebornJEI.jeiRuntime = jeiRuntime;
 
 		ADDONS.forEach(addon -> addon.onRuntimeAvailable(jeiRuntime));
 	}
