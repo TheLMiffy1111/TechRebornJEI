@@ -1,6 +1,5 @@
 package thelm.techrebornjei.category;
 
-import mezz.jei.api.fabric.constants.FabricTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
@@ -12,7 +11,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.common.crafting.RebornFluidRecipe;
-import thelm.techrebornjei.FluidIngredientRenderer;
 import thelm.techrebornjei.ProgressBarDrawable;
 
 public class ItemFluidToThreeItemRecipeCategory<R extends RebornFluidRecipe> extends AbstractRebornEnergyRecipeCategory<R> {
@@ -27,11 +25,11 @@ public class ItemFluidToThreeItemRecipeCategory<R extends RebornFluidRecipe> ext
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 50, 20).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 24, 3).addIngredient(FabricTypes.FLUID_STACK, getFluid(recipe)).setCustomRenderer(FabricTypes.FLUID_STACK, FluidIngredientRenderer.DOWN);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 2).addItemStack(getOutput(recipe, 0)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 20).addItemStack(getOutput(recipe, 1)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 38).addItemStack(getOutput(recipe, 2)).setBackground(SLOT, -1, -1);
+		addItem(builder, RecipeIngredientRole.INPUT, 50, 20, getInput(recipe, 0), SLOT);
+		addFluid(builder, RecipeIngredientRole.INPUT, 24, 3, recipe.fluid());
+		addItem(builder, RecipeIngredientRole.OUTPUT, 96, 2, getOutput(recipe, 0), SLOT);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 96, 20, getOutput(recipe, 1), SLOT);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 96, 38, getOutput(recipe, 2), SLOT);
 	}
 
 	@Override

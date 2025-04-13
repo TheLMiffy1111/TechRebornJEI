@@ -26,11 +26,11 @@ public class TwoItemToThreeItemRecipeCategory<R extends RebornRecipe> extends Ab
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 27, 10).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 27, 30).addItemStacks(getInput(recipe, 1)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 73, 20).addItemStack(getOutput(recipe, 0)).setBackground(OutputSlotDrawable.LEFT, -5, -5);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 20).addItemStack(getOutput(recipe, 1)).setBackground(OutputSlotDrawable.CENTER, -5, -5);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 113, 20).addItemStack(getOutput(recipe, 2)).setBackground(OutputSlotDrawable.RIGHT, -5, -5);
+		addItem(builder, RecipeIngredientRole.INPUT, 27, 10, getInput(recipe, 0), SLOT);
+		addItem(builder, RecipeIngredientRole.INPUT, 27, 30, getInput(recipe, 1), SLOT);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 73, 20, getOutput(recipe, 0), OutputSlotDrawable.LEFT);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 93, 20, getOutput(recipe, 1), OutputSlotDrawable.CENTER);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 113, 20, getOutput(recipe, 2), OutputSlotDrawable.RIGHT);
 	}
 
 	@Override

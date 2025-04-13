@@ -29,7 +29,7 @@ public class RollingMachineRecipeCategory extends AbstractRebornEnergyRecipeCate
 		List<IRecipeSlotBuilder> slots = new ArrayList<>(9);
 		for(int y = 0; y < 3; ++y) {
 			for(int x = 0; x < 3; ++x) {
-				slots.add(builder.addSlot(RecipeIngredientRole.INPUT, 27 + x * 18, 2 + y * 18).setBackground(SLOT, -1, -1));
+				slots.add(addItem(builder, RecipeIngredientRole.INPUT, 27 + x * 18, 2 + y * 18, SLOT));
 			}
 		}
 		int width = recipe.getShapedRecipe().getWidth();
@@ -41,7 +41,7 @@ public class RollingMachineRecipeCategory extends AbstractRebornEnergyRecipeCate
 				}
 			}
 		}
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 112, 20).addItemStack(getOutput(recipe, 0)).setBackground(OutputSlotDrawable.SINGLE, -5, -5);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 112, 20, getOutput(recipe, 0), OutputSlotDrawable.SINGLE);
 	}
 
 	@Override

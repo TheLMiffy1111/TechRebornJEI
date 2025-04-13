@@ -26,8 +26,8 @@ public class ItemToItemRecipeCategory<R extends RebornRecipe> extends AbstractRe
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 41, 20).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 87, 20).addItemStack(getOutput(recipe, 0)).setBackground(OutputSlotDrawable.SINGLE, -5, -5);
+		addItem(builder, RecipeIngredientRole.INPUT, 41, 20, getInput(recipe, 0), SLOT);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 87, 20, getOutput(recipe, 0), OutputSlotDrawable.SINGLE);
 	}
 
 	@Override
