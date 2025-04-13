@@ -33,16 +33,6 @@ public class GuiRenderUtil {
 		blit(poseStack, sprite.atlas().location(), x, x + width, y, y + height, uMin, uMax, vMin, vMax);
 	}
 
-	public static void blitTiledSprite(PoseStack poseStack, TextureAtlasSprite sprite, float x, float y, float width, float height, int textureWidth, int textureHeight) {
-		for(int i = 0; i < width; i += textureWidth) {
-			float drawWidth = Math.min(textureWidth, width - i);
-			for(int j = 0; j < height; j += textureHeight) {
-				float drawHeight = Math.min(textureHeight, height - j);
-				blitSprite(poseStack, sprite, x + i, y + j, 0, 0, drawWidth, drawHeight, textureWidth, textureHeight);
-			}
-		}
-	}
-
 	static void blit(PoseStack poseStack, ResourceLocation atlasLocation, float xMin, float xMax, float yMin, float yMax, float uMin, float uMax, float vMin, float vMax) {
 		RenderSystem.setShaderTexture(0, atlasLocation);
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
