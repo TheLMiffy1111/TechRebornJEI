@@ -2,15 +2,10 @@ package thelm.techrebornjei.category;
 
 import java.util.List;
 
-import mezz.jei.api.fabric.ingredients.fluids.IJeiFluidIngredient;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.fabric.ingredients.fluid.JeiFluidIngredient;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.material.Fluids;
-import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.fluid.container.FluidInstance;
 
 public abstract class AbstractRebornRecipeCategory<R extends RebornRecipe> extends AbstractRecipeCategory<R> {
 
@@ -27,14 +22,6 @@ public abstract class AbstractRebornRecipeCategory<R extends RebornRecipe> exten
 			return recipe.getRebornIngredients().get(index).getPreviewStacks();
 		}
 		return List.of();
-	}
-
-	public IJeiFluidIngredient getFluid(RebornRecipe recipe) {
-		if(recipe instanceof RebornFluidRecipe fluidRecipe) {
-			FluidInstance stack = fluidRecipe.getFluidInstance();
-			return new JeiFluidIngredient(stack.getFluid(), stack.getAmount().getRawValue(), stack.getTag());
-		}
-		return new JeiFluidIngredient(Fluids.EMPTY, 0);
 	}
 
 	public ItemStack getOutput(RebornRecipe recipe, int index) {

@@ -25,12 +25,12 @@ public class TwoItemToFourItemRecipeCategory<R extends RebornRecipe> extends Abs
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 30, 36).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 50, 36).addItemStacks(getInput(recipe, 1)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 38, 9).addItemStack(getOutput(recipe, 0)).setBackground(OutputSlotDrawable.LEFT, -5, -5);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 58, 9).addItemStack(getOutput(recipe, 1)).setBackground(OutputSlotDrawable.CENTER, -5, -5);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 78, 9).addItemStack(getOutput(recipe, 2)).setBackground(OutputSlotDrawable.CENTER, -5, -5);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 98, 9).addItemStack(getOutput(recipe, 3)).setBackground(OutputSlotDrawable.RIGHT, -5, -5);
+		addItem(builder, RecipeIngredientRole.INPUT, 30, 36, getInput(recipe, 0), SLOT);
+		addItem(builder, RecipeIngredientRole.INPUT, 50, 36, getInput(recipe, 1), SLOT);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 38, 9, getOutput(recipe, 0), OutputSlotDrawable.LEFT);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 58, 9, getOutput(recipe, 1), OutputSlotDrawable.CENTER);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 78, 9, getOutput(recipe, 2), OutputSlotDrawable.CENTER);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 98, 9, getOutput(recipe, 3), OutputSlotDrawable.RIGHT);
 	}
 
 	@Override
