@@ -1,1 +1,2 @@
-Initial 1.18.2 release  
+Remove the animated fluid renderer and use platform agnostic fluid ingredient methods  
+Improve BuiltScreenHandlerTransferInfo  

@@ -105,7 +105,7 @@ def specVersion = "18.2"
 def vendor = "thelm"
 
 group = "thelm.techrebornjei"
-version = "18.2.0"
+version = "18.2.1"
 
 archivesBaseName = modName
 

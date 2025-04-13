@@ -25,16 +25,16 @@ public class TwoItemToItemCenterRecipeCategory<R extends RebornRecipe> extends A
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, R recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 24, 20).addItemStacks(getInput(recipe, 0)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.INPUT, 116, 20).addItemStacks(getInput(recipe, 1)).setBackground(SLOT, -1, -1);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 70, 20).addItemStack(getOutput(recipe, 0)).setBackground(OutputSlotDrawable.SINGLE, -5, -5);
+		addItem(builder, RecipeIngredientRole.INPUT, 24, 20, getInput(recipe, 0), SLOT);
+		addItem(builder, RecipeIngredientRole.INPUT, 116, 20, getInput(recipe, 1), SLOT);
+		addItem(builder, RecipeIngredientRole.OUTPUT, 70, 20, getOutput(recipe, 0), OutputSlotDrawable.SINGLE);
 	}
 
 	@Override
 	public void draw(R recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
 		super.draw(recipe, recipeSlotsView, poseStack, mouseX, mouseY);
 		ProgressBarDrawable.right(recipe).draw(poseStack, 45, 23);
-		ProgressBarDrawable.right(recipe).draw(poseStack, 95, 23);
+		ProgressBarDrawable.left(recipe).draw(poseStack, 95, 23);
 		Font font = font();
 		Component component = getTimeComponent(recipe);
 		font.draw(poseStack, component, getWidth() - font.width(component), 0, 0xFF808080);

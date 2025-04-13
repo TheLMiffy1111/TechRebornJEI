@@ -2,18 +2,27 @@ package thelm.techrebornjei.category;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.List;
 
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.helpers.IPlatformFluidHelper;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.material.Fluid;
 import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.common.fluid.container.FluidInstance;
 import thelm.techrebornjei.BlankDrawable;
 import thelm.techrebornjei.ResourceDrawable;
 import thelm.techrebornjei.TechRebornJEI;
@@ -23,6 +32,8 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	public static final NumberFormat TIME_FORMAT = new DecimalFormat("###.##");
 
 	public static final ResourceDrawable SLOT = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 150, 0, 18, 18);
+	public static final ResourceDrawable TANK_BACKGROUND = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 194, 26, 22, 56);
+	public static final ResourceDrawable TANK_FOREGROUND = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 194, 82, 16, 50);
 
 	public final RecipeType<R> recipeType;
 	public final Component title;
@@ -86,7 +97,26 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 		return TechRebornJEI.jeiHelpers;
 	}
 
-	public IGuiHelper guiHelper() {
-		return jeiHelpers().getGuiHelper();
+	public IPlatformFluidHelper<?> fluidHelper() {
+		return jeiHelpers().getPlatformFluidHelper();
+	}
+
+	public IRecipeSlotBuilder addItem(IRecipeLayoutBuilder builder, RecipeIngredientRole ingredientRole, int x, int y, IDrawable background) {
+		return builder.addSlot(ingredientRole, x, y).setBackground(background, 8 - background.getWidth() / 2, 8 - background.getHeight() / 2);
+	}
+
+	public IRecipeSlotBuilder addItem(IRecipeLayoutBuilder builder, RecipeIngredientRole ingredientRole, int x, int y, List<ItemStack> itemStacks, IDrawable background) {
+		return addItem(builder, ingredientRole, x, y, background).addItemStacks(itemStacks);
+	}
+
+	public IRecipeSlotBuilder addItem(IRecipeLayoutBuilder builder, RecipeIngredientRole ingredientRole, int x, int y, ItemStack itemStack, IDrawable background) {
+		return addItem(builder, ingredientRole, x, y, background).addItemStack(itemStack);
+	}
+
+	public IRecipeSlotBuilder addFluid(IRecipeLayoutBuilder builder, RecipeIngredientRole ingredientRole, int x, int y, FluidInstance fluidInstance) {
+		Fluid fluid = fluidInstance.getFluid();
+		long amount = fluidInstance.getAmount().getRawValue() / (FluidConstants.BUCKET / fluidHelper().bucketVolume());
+		CompoundTag data = fluidInstance.getTag().copy();
+		return builder.addSlot(ingredientRole, x, y).addFluidStack(fluid, amount, data).setBackground(TANK_BACKGROUND, -3, -3).setOverlay(TANK_FOREGROUND, 0, 0).setFluidRenderer(amount, false, 16, 50);
 	}
 }
