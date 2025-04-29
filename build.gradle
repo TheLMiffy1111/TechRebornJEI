@@ -151,15 +151,19 @@ dependencies {
 		}
 		parchment "org.parchmentmc.data:parchment-1.20.4:2024.04.14@zip"
 	}
-	modImplementation "net.fabricmc:fabric-loader:0.16.12"
+	modImplementation "net.fabricmc:fabric-loader:0.16.14"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.97.2+1.20.4"
+	modImplementation "eu.pb4:placeholder-api:2.4.0-pre.3+1.20.4"
 	modImplementation "com.terraformersmc:modmenu:9.2.0"
 
 	// Dependencies
 	modImplementation("mezz.jei:jei-1.20.4-fabric:17.3.1.5") {transitive = false}
+	modImplementation "teamreborn:energy:3.0.0"
 	modImplementation "TechReborn:TechReborn-1.20:5.10.4"
+	modImplementation "dev.architectury:architectury-fabric:11.1.17"
+	modImplementation "me.shedaniel.cloth:cloth-config-fabric:13.0.138"
 	modImplementation "net.pitan76:compatdatapacks76-fabric:1.0.13.204"
-	modImplementation "net.pitan76:mcpitanlib-fabric+1.20.4:3.2.2"
+	modImplementation "net.pitan76:mcpitanlib-fabric+1.20.4:3.2.5"
 	modImplementation "curse.maven:advancedreborn-543089:6328110"
 	modImplementation "curse.maven:industrialreborn-941523:5253694"
 }
