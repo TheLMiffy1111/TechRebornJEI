@@ -15,6 +15,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -69,6 +70,10 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	@Override
 	public IDrawable getIcon() {
 		return null;
+	}
+
+	public RegistryAccess registryAccess() {
+		return Minecraft.getInstance().level.registryAccess();
 	}
 
 	public Font font() {
