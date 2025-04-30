@@ -53,8 +53,8 @@ public abstract class AbstractRebornRecipeCategory<R extends RebornRecipe> exten
 	}
 
 	public ItemStack getOutput(RebornRecipe recipe, int index) {
-		if(index >= 0 && index < recipe.getOutputs(null).size()) {
-			return recipe.getOutputs(null).get(index);
+		if(index >= 0 && index < recipe.getOutputs(registryAccess()).size()) {
+			return recipe.getOutputs(registryAccess()).get(index);
 		}
 		return ItemStack.EMPTY;
 	}
