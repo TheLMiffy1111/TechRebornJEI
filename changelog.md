@@ -1,2 +1,1 @@
-Remove the animated fluid renderer and use platform agnostic fluid ingredient methods  
-Improve BuiltScreenHandlerTransferInfo  
+Pass registries to recipes when getting outputs  
