@@ -53,6 +53,7 @@ public class FluidGeneratorRecipeCategory extends AbstractRecipeCategory<FluidGe
 
 	@Override
 	public ResourceLocation getRegistryName(FluidGeneratorRecipe recipe) {
-		return Registry.FLUID.getKey(recipe.fluid());
+		ResourceLocation fluidKey = Registry.FLUID.getKey(recipe.fluid());
+		return new ResourceLocation("%s/%s/%s".formatted(recipeType.getUid(), fluidKey.getNamespace(), fluidKey.getPath()));
 	}
 }
