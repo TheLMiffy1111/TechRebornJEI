@@ -21,9 +21,9 @@ import net.pitan76.advancedreborn.gui.GuiRotaryGrinder;
 import net.pitan76.advancedreborn.gui.GuiSingularityCompressor;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import thelm.techrebornjei.RecipeClickAreaRenderable;
 import thelm.techrebornjei.TechRebornJEI;
-import thelm.techrebornjei.category.TwoItemToItemRecipeCategory;
+import thelm.techrebornjei.gui.render.RecipeClickAreaRenderable;
+import thelm.techrebornjei.recipe.category.TwoItemToItemRecipeCategory;
 
 public class AdvancedRebornJEI implements IModPlugin {
 
