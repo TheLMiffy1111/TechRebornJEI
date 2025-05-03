@@ -72,19 +72,22 @@ import techreborn.client.gui.GuiWireMill;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import thelm.techrebornjei.addon.advancedreborn.AdvancedRebornJEI;
-import thelm.techrebornjei.category.FluidGeneratorRecipeCategory;
-import thelm.techrebornjei.category.FusionReactorRecipeCategory;
-import thelm.techrebornjei.category.ItemFluidToFourItemRecipeCategory;
-import thelm.techrebornjei.category.ItemFluidToThreeItemRecipeCategory;
-import thelm.techrebornjei.category.ItemToFluidRecipeCategory;
-import thelm.techrebornjei.category.ItemToItemRecipeCategory;
-import thelm.techrebornjei.category.RollingMachineRecipeCategory;
-import thelm.techrebornjei.category.TwoItemToFourItemCircleRecipeCategory;
-import thelm.techrebornjei.category.TwoItemToFourItemRecipeCategory;
-import thelm.techrebornjei.category.TwoItemToItemCenterRecipeCategory;
-import thelm.techrebornjei.category.TwoItemToItemRecipeCategory;
-import thelm.techrebornjei.category.TwoItemToThreeItemRecipeCategory;
-import thelm.techrebornjei.category.TwoItemToTwoItemRecipeCategory;
+import thelm.techrebornjei.gui.handler.GuiBaseExtraAreaHandler;
+import thelm.techrebornjei.gui.render.RecipeClickAreaRenderable;
+import thelm.techrebornjei.recipe.category.FluidGeneratorRecipeCategory;
+import thelm.techrebornjei.recipe.category.FusionReactorRecipeCategory;
+import thelm.techrebornjei.recipe.category.ItemFluidToFourItemRecipeCategory;
+import thelm.techrebornjei.recipe.category.ItemFluidToThreeItemRecipeCategory;
+import thelm.techrebornjei.recipe.category.ItemToFluidRecipeCategory;
+import thelm.techrebornjei.recipe.category.ItemToItemRecipeCategory;
+import thelm.techrebornjei.recipe.category.RollingMachineRecipeCategory;
+import thelm.techrebornjei.recipe.category.TwoItemToFourItemCircleRecipeCategory;
+import thelm.techrebornjei.recipe.category.TwoItemToFourItemRecipeCategory;
+import thelm.techrebornjei.recipe.category.TwoItemToItemCenterRecipeCategory;
+import thelm.techrebornjei.recipe.category.TwoItemToItemRecipeCategory;
+import thelm.techrebornjei.recipe.category.TwoItemToThreeItemRecipeCategory;
+import thelm.techrebornjei.recipe.category.TwoItemToTwoItemRecipeCategory;
+import thelm.techrebornjei.recipe.transfer.BuiltScreenHandlerTransferInfo;
 
 public class TechRebornJEI implements IModPlugin {
 
@@ -301,7 +304,7 @@ public class TechRebornJEI implements IModPlugin {
 
 		registration.addGenericGuiContainerHandler(GuiBase.class, new GuiBaseExtraAreaHandler());
 
-		RecipeClickAreaRenderable.ENTRIES.clear();
+		RecipeClickAreaRenderable.clearEntries();
 
 		RecipeClickAreaRenderable.addEntry(GuiAlloyFurnace.class);
 		RecipeClickAreaRenderable.addEntry(GuiAutoCrafting.class, 158, 18);
