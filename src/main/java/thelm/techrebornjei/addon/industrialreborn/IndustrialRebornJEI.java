@@ -15,9 +15,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
-import thelm.techrebornjei.RecipeClickAreaRenderable;
 import thelm.techrebornjei.TechRebornJEI;
-import thelm.techrebornjei.category.ItemFluidToItemRecipeCategory;
+import thelm.techrebornjei.gui.render.RecipeClickAreaRenderable;
+import thelm.techrebornjei.recipe.category.ItemFluidToItemRecipeCategory;
 
 public class IndustrialRebornJEI implements IModPlugin {
 
