@@ -20,9 +20,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import reborncore.common.crafting.RebornRecipe;
-import thelm.techrebornjei.RecipeClickAreaRenderable;
 import thelm.techrebornjei.TechRebornJEI;
-import thelm.techrebornjei.category.TwoItemToItemRecipeCategory;
+import thelm.techrebornjei.gui.render.RecipeClickAreaRenderable;
+import thelm.techrebornjei.recipe.category.TwoItemToItemRecipeCategory;
 
 public class AdvancedRebornJEI implements IModPlugin {
 
