@@ -1,1 +1,2 @@
-Include the recipe type in fluid generator recipe ids  
+Disallow loading with EMI Extra Mod Integrations  
+Reorganize packages  

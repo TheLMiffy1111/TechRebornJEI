@@ -27,5 +27,8 @@
 		"minecraft": ">=1.19.3- <1.19.4-",
 		"jei": "*",
 		"techreborn": "*"
+	},
+	"breaks": {
+		"extra-mod-integrations": "*"
 	}
 }
