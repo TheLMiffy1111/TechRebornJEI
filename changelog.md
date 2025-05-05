@@ -1,2 +1,2 @@
-Remove the animated fluid renderer and use platform agnostic fluid ingredient methods  
-Improve BuiltScreenHandlerTransferInfo  
+Disallow loading with EMI Extra Mod Integrations and EmiTechReborn  
+Reorganize packages  
