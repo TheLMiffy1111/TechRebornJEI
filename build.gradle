@@ -55,6 +55,16 @@ repositories {
 	exclusiveContent {
 		forRepository {
 			maven {
+				url = "https://maven.crystaelix.com/releases/"
+			}
+		}
+		filter {
+			includeGroup "thelm.jeidrawables"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
 				url = "https://maven.architectury.dev/"
 			}
 		}
@@ -105,7 +115,7 @@ def specVersion = "19.2"
 def vendor = "thelm"
 
 group = "thelm.techrebornjei"
-version = "19.2.3"
+version = "19.2.4"
 
 archivesBaseName = modName
 
@@ -158,6 +168,7 @@ dependencies {
 
 	// Dependencies
 	modImplementation("mezz.jei:jei-1.19.2-fabric:11.8.1.1034") {transitive = false}
+	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:19.2.0"))
 	modImplementation "teamreborn:energy:2.3.0"
 	modImplementation("TechReborn:TechReborn-1.19:5.4.0") {exclude module: "RoughlyEnoughItems-fabric"}
 	modImplementation "dev.architectury:architectury-fabric:6.6.92"

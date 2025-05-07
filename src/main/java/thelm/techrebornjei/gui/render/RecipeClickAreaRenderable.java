@@ -12,7 +12,8 @@ import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.screens.Screen;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import thelm.techrebornjei.mixin.ScreenAccessor;
+import thelm.jeidrawables.gui.render.ResourceDrawable;
+import thelm.jeidrawables.mixin.ScreenAccessor;
 
 public record RecipeClickAreaRenderable(GuiBase<?> guiBase, int x, int y) implements Widget {
 
@@ -55,7 +56,7 @@ public record RecipeClickAreaRenderable(GuiBase<?> guiBase, int x, int y) implem
 		if(screen instanceof GuiBase<?> guiBase) {
 			for(Entry entry : ENTRIES) {
 				if(entry.predicate.test(guiBase)) {
-					((ScreenAccessor)guiBase).trjei$addRenderable(new RecipeClickAreaRenderable(guiBase, entry.x, entry.y));
+					((ScreenAccessor)guiBase).jeidas$addRenderable(new RecipeClickAreaRenderable(guiBase, entry.x, entry.y));
 					return;
 				}
 			}
