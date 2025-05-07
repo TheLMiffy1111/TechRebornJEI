@@ -23,9 +23,9 @@ import net.minecraft.world.level.material.Fluid;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import reborncore.common.fluid.container.FluidInstance;
+import thelm.jeidrawables.gui.render.BlankDrawable;
+import thelm.jeidrawables.gui.render.SpriteDrawable;
 import thelm.techrebornjei.TechRebornJEI;
-import thelm.techrebornjei.gui.render.BlankDrawable;
-import thelm.techrebornjei.gui.render.SpriteDrawable;
 
 public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 
@@ -112,7 +112,7 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	public IRecipeSlotBuilder addFluid(IRecipeLayoutBuilder builder, RecipeIngredientRole ingredientRole, int x, int y, FluidInstance fluidInstance) {
 		Fluid fluid = fluidInstance.getFluid();
 		long amount = fluidInstance.getAmount().getRawValue() / (FluidConstants.BUCKET / fluidHelper().bucketVolume());
-		CompoundTag data = fluidInstance.getTag().copy();
+		CompoundTag data = fluidInstance.getTag() == null ? null : fluidInstance.getTag().copy();
 		return builder.addSlot(ingredientRole, x, y).addFluidStack(fluid, amount, data).setBackground(TANK_BACKGROUND, -3, -3).setOverlay(TANK_FOREGROUND, 0, 0).setFluidRenderer(amount, false, 16, 50);
 	}
 }
