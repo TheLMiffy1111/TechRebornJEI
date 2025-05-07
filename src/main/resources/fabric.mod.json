@@ -26,6 +26,7 @@
 	"depends": {
 		"minecraft": ">=1.20.3- <1.20.5-",
 		"jei": "*",
+		"jeidrawables": "*",
 		"techreborn": "*"
 	}
 }

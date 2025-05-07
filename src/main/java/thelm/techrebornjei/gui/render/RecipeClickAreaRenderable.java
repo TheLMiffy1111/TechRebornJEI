@@ -12,7 +12,8 @@ import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
-import thelm.techrebornjei.mixin.ScreenAccessor;
+import thelm.jeidrawables.gui.render.SpriteDrawable;
+import thelm.jeidrawables.mixin.ScreenAccessor;
 
 public record RecipeClickAreaRenderable(GuiBase<?> guiBase, int x, int y) implements Renderable {
 
@@ -55,7 +56,7 @@ public record RecipeClickAreaRenderable(GuiBase<?> guiBase, int x, int y) implem
 		if(screen instanceof GuiBase<?> guiBase) {
 			for(Entry entry : ENTRIES) {
 				if(entry.predicate.test(guiBase)) {
-					((ScreenAccessor)guiBase).trjei$addRenderable(new RecipeClickAreaRenderable(guiBase, entry.x, entry.y));
+					((ScreenAccessor)guiBase).jeidas$addRenderable(new RecipeClickAreaRenderable(guiBase, entry.x, entry.y));
 					return;
 				}
 			}
