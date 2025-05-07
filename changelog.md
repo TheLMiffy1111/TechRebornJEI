@@ -1,2 +1,2 @@
-Disallow loading with EMI Extra Mod Integrations  
-Reorganize packages  
+Move drawables to a separate library mod  
+Fix fluid generator categories  
