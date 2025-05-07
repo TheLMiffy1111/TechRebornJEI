@@ -4,17 +4,18 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.gui.drawable.IDrawable;
 import reborncore.client.gui.guibuilder.GuiBuilder;
+import thelm.jeidrawables.gui.render.ResourceDrawable;
 
 public record OutputSlotDrawable(boolean left, boolean center, boolean right) implements IDrawable {
+
+	public static final ResourceDrawable SLOT_BAR_LEFT = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 150, 122, 3, 26);
+	public static final ResourceDrawable SLOT_BAR_CENTER = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 153, 122, 20, 26);
+	public static final ResourceDrawable SLOT_BAR_RIGHT = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 173, 122, 3, 26);
 
 	public static final OutputSlotDrawable SINGLE = new OutputSlotDrawable(true, true, true);
 	public static final OutputSlotDrawable LEFT = new OutputSlotDrawable(true, true, false);
 	public static final OutputSlotDrawable CENTER = new OutputSlotDrawable(false, true, false);
 	public static final OutputSlotDrawable RIGHT = new OutputSlotDrawable(false, true, true);
-
-	public static final ResourceDrawable SLOT_BAR_LEFT = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 150, 122, 3, 26);
-	public static final ResourceDrawable SLOT_BAR_CENTER = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 153, 122, 20, 26);
-	public static final ResourceDrawable SLOT_BAR_RIGHT = new ResourceDrawable(GuiBuilder.defaultTextureSheet, 173, 122, 3, 26);
 
 	@Override
 	public int getWidth() {
