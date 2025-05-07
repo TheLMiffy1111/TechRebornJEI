@@ -59,6 +59,7 @@ repositories {
 			}
 		}
 		filter {
+			includeGroup "thelm.jeidrawables"
 			includeGroup "thelm.jeibatchfix"
 		}
 	}
@@ -115,7 +116,7 @@ def specVersion = "20.1"
 def vendor = "thelm"
 
 group = "thelm.techrebornjei"
-version = "20.1.3"
+version = "20.1.4"
 
 archivesBaseName = modName
 
@@ -168,6 +169,7 @@ dependencies {
 
 	// Dependencies
 	modImplementation("mezz.jei:jei-1.20.1-fabric:15.20.0.106") {transitive = false}
+	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:20.1.0"))
 	modImplementation "thelm.jeibatchfix:JEIBatchFix-Fabric:20.1.0"
 	modImplementation "teamreborn:energy:3.0.0"
 	modImplementation "TechReborn:TechReborn-1.20.1:5.8.11"
