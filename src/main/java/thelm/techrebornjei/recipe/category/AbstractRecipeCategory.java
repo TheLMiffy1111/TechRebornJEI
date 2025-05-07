@@ -22,8 +22,8 @@ import net.minecraft.world.level.material.Fluid;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import reborncore.common.fluid.container.FluidInstance;
+import thelm.jeidrawables.gui.render.SpriteDrawable;
 import thelm.techrebornjei.TechRebornJEI;
-import thelm.techrebornjei.gui.render.SpriteDrawable;
 
 public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 

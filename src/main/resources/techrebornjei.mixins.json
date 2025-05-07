@@ -6,8 +6,7 @@
 	"target": "@env(DEFAULT)",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"BuiltScreenHandlerAccessor",
-		"ScreenAccessor"
+		"BuiltScreenHandlerAccessor"
 	],
 	"injectors": {
 		"defaultRequire": 1

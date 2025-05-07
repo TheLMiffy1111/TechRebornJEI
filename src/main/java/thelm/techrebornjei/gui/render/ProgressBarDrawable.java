@@ -1,13 +1,14 @@
 package thelm.techrebornjei.gui.render;
 
 import mezz.jei.api.gui.drawable.IDrawable;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
+import thelm.jeidrawables.gui.render.AnimatedDrawable;
+import thelm.jeidrawables.gui.render.SpriteDrawable;
 
-public record ProgressBarDrawable(Direction direction, int duration) implements IDrawable {
+public class ProgressBarDrawable implements IDrawable {
 
 	public static final int LENGTH = 16;
 	public static final int BREADTH = 10;
@@ -20,6 +21,41 @@ public record ProgressBarDrawable(Direction direction, int duration) implements 
 	public static final SpriteDrawable PROGRESS_LEFT_OVERLAY = new SpriteDrawable(() -> GuiBase.getSprite(GuiBuilder.ProgressDirection.LEFT.overlaySprite), LENGTH, BREADTH);
 	public static final SpriteDrawable PROGRESS_DOWN_OVERLAY = new SpriteDrawable(() -> GuiBase.getSprite(GuiBuilder.ProgressDirection.DOWN.overlaySprite), BREADTH, LENGTH);
 	public static final SpriteDrawable PROGRESS_UP_OVERLAY = new SpriteDrawable(() -> GuiBase.getSprite(GuiBuilder.ProgressDirection.UP.overlaySprite), BREADTH, LENGTH);
+
+	public final IDrawable base;
+	public final IDrawable overlay;
+	public final int width;
+	public final int height;
+
+	public ProgressBarDrawable(Direction direction, int millisPerCycle) {
+		switch(direction) {
+		case RIGHT -> {
+			base = PROGRESS_RIGHT_BASE;
+			overlay = new AnimatedDrawable(PROGRESS_RIGHT_OVERLAY, AnimatedDrawable.Type.LEFT_FILL, millisPerCycle);
+			width = LENGTH;
+			height = BREADTH;
+		}
+		case LEFT -> {
+			base = PROGRESS_LEFT_BASE;
+			overlay = new AnimatedDrawable(PROGRESS_LEFT_OVERLAY, AnimatedDrawable.Type.RIGHT_FILL, millisPerCycle);
+			width = LENGTH;
+			height = BREADTH;
+		}
+		case DOWN -> {
+			base = PROGRESS_DOWN_BASE;
+			overlay = new AnimatedDrawable(PROGRESS_DOWN_OVERLAY, AnimatedDrawable.Type.TOP_FILL, millisPerCycle);
+			height = LENGTH;
+			width = BREADTH;
+		}
+		case UP -> {
+			base = PROGRESS_UP_BASE;
+			overlay = new AnimatedDrawable(PROGRESS_UP_OVERLAY, AnimatedDrawable.Type.BOTTOM_FILL, millisPerCycle);
+			height = LENGTH;
+			width = BREADTH;
+		}
+		default -> throw new IllegalArgumentException("Unexpected value: " + direction);
+		}
+	}
 
 	public static ProgressBarDrawable right(int duration) {
 		return new ProgressBarDrawable(Direction.RIGHT, duration);
@@ -55,43 +91,18 @@ public record ProgressBarDrawable(Direction direction, int duration) implements 
 
 	@Override
 	public int getWidth() {
-		return switch(direction) {
-		case RIGHT, LEFT -> LENGTH;
-		case DOWN, UP -> BREADTH;
-		};
+		return width;
 	}
 
 	@Override
 	public int getHeight() {
-		return switch(direction) {
-		case RIGHT, LEFT -> BREADTH;
-		case DOWN, UP -> LENGTH;
-		};
+		return height;
 	}
 
 	@Override
 	public void draw(GuiGraphics guiGraphics, int xOffset, int yOffset) {
-		Minecraft minecraft = Minecraft.getInstance();
-		int guiScale = minecraft.getWindow().calculateScale(minecraft.options.guiScale().get(), minecraft.isEnforceUnicode());
-		float mask = LENGTH - Math.round(System.currentTimeMillis() % duration * guiScale * LENGTH / (float)duration) / (float)guiScale;
-		switch(direction) {
-		case RIGHT -> {
-			PROGRESS_RIGHT_BASE.draw(guiGraphics, xOffset, yOffset);
-			PROGRESS_RIGHT_OVERLAY.draw(guiGraphics, xOffset, yOffset, 0, 0, 0, mask);
-		}
-		case LEFT -> {
-			PROGRESS_LEFT_BASE.draw(guiGraphics, xOffset, yOffset);
-			PROGRESS_LEFT_OVERLAY.draw(guiGraphics, xOffset, yOffset, 0, 0, mask, 0);
-		}
-		case DOWN -> {
-			PROGRESS_DOWN_BASE.draw(guiGraphics, xOffset, yOffset);
-			PROGRESS_DOWN_OVERLAY.draw(guiGraphics, xOffset, yOffset, 0, mask, 0, 0);
-		}
-		case UP -> {
-			PROGRESS_UP_BASE.draw(guiGraphics, xOffset, yOffset);
-			PROGRESS_UP_OVERLAY.draw(guiGraphics, xOffset, yOffset, mask, 0, 0, 0);
-		}
-		}
+		base.draw(guiGraphics, xOffset, yOffset);
+		overlay.draw(guiGraphics, xOffset, yOffset);
 	}
 
 	public enum Direction {

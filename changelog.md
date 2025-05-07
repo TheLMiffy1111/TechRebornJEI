@@ -1,2 +1,1 @@
-Disallow loading with EMI Extra Mod Integrations and EmiTechReborn  
-Reorganize packages  
+Move drawables to a separate library mod  
