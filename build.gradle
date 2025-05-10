@@ -60,7 +60,6 @@ repositories {
 		}
 		filter {
 			includeGroup "thelm.jeidrawables"
-			includeGroup "thelm.jeibatchfix"
 		}
 	}
 	exclusiveContent {
@@ -168,9 +167,8 @@ dependencies {
 	modImplementation "com.terraformersmc:modmenu:11.0.3"
 
 	// Dependencies
-	modImplementation("mezz.jei:jei-1.21.1-fabric:19.21.0.247") {transitive = false}
+	modImplementation("mezz.jei:jei-1.21.1-fabric:19.21.1.304") {transitive = false}
 	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:21.1.1"))
-	modImplementation "thelm.jeibatchfix:JEIBatchFix-Fabric:21.1.0"
 	modImplementation "teamreborn:energy:4.1.0"
 	modImplementation "TechReborn:TechReborn-1.21.1:5.11.17"
 	modImplementation "dev.architectury:architectury-fabric:13.0.8"
