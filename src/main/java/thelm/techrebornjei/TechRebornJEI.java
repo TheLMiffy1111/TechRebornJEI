@@ -234,40 +234,40 @@ public class TechRebornJEI implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.IRON_ALLOY_FURNACE), ALLOY_SMELTER, RecipeTypes.FUELING);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.ALLOY_SMELTER), ALLOY_SMELTER);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.ASSEMBLY_MACHINE), ASSEMBLING_MACHINE);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.INDUSTRIAL_BLAST_FURNACE), BLAST_FURNACE);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.INDUSTRIAL_CENTRIFUGE), CENTRIFUGE);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.CHEMICAL_REACTOR), CHEMICAL_REACTOR);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.COMPRESSOR), COMPRESSOR);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.DISTILLATION_TOWER), DISTILLATION_TOWER);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.EXTRACTOR), EXTRACTOR);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.FLUID_REPLICATOR), FLUID_REPLICATOR);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.FUSION_CONTROL_COMPUTER), FUSION_REACTOR);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.GRINDER), GRINDER);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.IMPLOSION_COMPRESSOR), IMPLOSION_COMPRESSOR);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.INDUSTRIAL_ELECTROLYZER), INDUSTRIAL_ELECTROLYZER);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.INDUSTRIAL_GRINDER), INDUSTRIAL_GRINDER);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.INDUSTRIAL_SAWMILL), INDUSTRIAL_SAWMILL);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.ROLLING_MACHINE), ROLLING_MACHINE);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.SCRAP_BOX), SCRAPBOX);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.SCRAPBOXINATOR), SCRAPBOX);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.SOLID_CANNING_MACHINE), SOLID_CANNING_MACHINE);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.VACUUM_FREEZER), VACUUM_FREEZER);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.WIRE_MILL), WIRE_MILL);
+		registration.addRecipeCatalyst(TRContent.Machine.IRON_ALLOY_FURNACE, ALLOY_SMELTER, RecipeTypes.FUELING);
+		registration.addRecipeCatalyst(TRContent.Machine.ALLOY_SMELTER, ALLOY_SMELTER);
+		registration.addRecipeCatalyst(TRContent.Machine.ASSEMBLY_MACHINE, ASSEMBLING_MACHINE);
+		registration.addRecipeCatalyst(TRContent.Machine.INDUSTRIAL_BLAST_FURNACE, BLAST_FURNACE);
+		registration.addRecipeCatalyst(TRContent.Machine.INDUSTRIAL_CENTRIFUGE, CENTRIFUGE);
+		registration.addRecipeCatalyst(TRContent.Machine.CHEMICAL_REACTOR, CHEMICAL_REACTOR);
+		registration.addRecipeCatalyst(TRContent.Machine.COMPRESSOR, COMPRESSOR);
+		registration.addRecipeCatalyst(TRContent.Machine.DISTILLATION_TOWER, DISTILLATION_TOWER);
+		registration.addRecipeCatalyst(TRContent.Machine.EXTRACTOR, EXTRACTOR);
+		registration.addRecipeCatalyst(TRContent.Machine.FLUID_REPLICATOR, FLUID_REPLICATOR);
+		registration.addRecipeCatalyst(TRContent.Machine.FUSION_CONTROL_COMPUTER, FUSION_REACTOR);
+		registration.addRecipeCatalyst(TRContent.Machine.GRINDER, GRINDER);
+		registration.addRecipeCatalyst(TRContent.Machine.IMPLOSION_COMPRESSOR, IMPLOSION_COMPRESSOR);
+		registration.addRecipeCatalyst(TRContent.Machine.INDUSTRIAL_ELECTROLYZER, INDUSTRIAL_ELECTROLYZER);
+		registration.addRecipeCatalyst(TRContent.Machine.INDUSTRIAL_GRINDER, INDUSTRIAL_GRINDER);
+		registration.addRecipeCatalyst(TRContent.Machine.INDUSTRIAL_SAWMILL, INDUSTRIAL_SAWMILL);
+		registration.addRecipeCatalyst(TRContent.Machine.ROLLING_MACHINE, ROLLING_MACHINE);
+		registration.addRecipeCatalyst(TRContent.SCRAP_BOX, SCRAPBOX);
+		registration.addRecipeCatalyst(TRContent.Machine.SCRAPBOXINATOR, SCRAPBOX);
+		registration.addRecipeCatalyst(TRContent.Machine.SOLID_CANNING_MACHINE, SOLID_CANNING_MACHINE);
+		registration.addRecipeCatalyst(TRContent.Machine.VACUUM_FREEZER, VACUUM_FREEZER);
+		registration.addRecipeCatalyst(TRContent.Machine.WIRE_MILL, WIRE_MILL);
 
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.THERMAL_GENERATOR), THERMAL_GENERATOR);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.GAS_TURBINE), GAS_GENERATOR);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.DIESEL_GENERATOR), DIESEL_GENERATOR);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.SEMI_FLUID_GENERATOR), SEMI_FLUID_GENERATOR);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.PLASMA_GENERATOR), PLASMA_GENERATOR);
+		registration.addRecipeCatalyst(TRContent.Machine.THERMAL_GENERATOR, THERMAL_GENERATOR);
+		registration.addRecipeCatalyst(TRContent.Machine.GAS_TURBINE, GAS_GENERATOR);
+		registration.addRecipeCatalyst(TRContent.Machine.DIESEL_GENERATOR, DIESEL_GENERATOR);
+		registration.addRecipeCatalyst(TRContent.Machine.SEMI_FLUID_GENERATOR, SEMI_FLUID_GENERATOR);
+		registration.addRecipeCatalyst(TRContent.Machine.PLASMA_GENERATOR, PLASMA_GENERATOR);
 
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.AUTO_CRAFTING_TABLE), RecipeTypes.CRAFTING);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.IRON_FURNACE), RecipeTypes.SMELTING, RecipeTypes.FUELING);
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.ELECTRIC_FURNACE), RecipeTypes.SMELTING);
+		registration.addRecipeCatalyst(TRContent.Machine.AUTO_CRAFTING_TABLE, RecipeTypes.CRAFTING);
+		registration.addRecipeCatalyst(TRContent.Machine.IRON_FURNACE, RecipeTypes.SMELTING, RecipeTypes.FUELING);
+		registration.addRecipeCatalyst(TRContent.Machine.ELECTRIC_FURNACE, RecipeTypes.SMELTING);
 
-		registration.addRecipeCatalyst(new ItemStack(TRContent.Machine.SOLID_FUEL_GENERATOR), RecipeTypes.FUELING);
+		registration.addRecipeCatalyst(TRContent.Machine.SOLID_FUEL_GENERATOR, RecipeTypes.FUELING);
 
 		ADDONS.forEach(addon -> addon.registerRecipeCatalysts(registration));
 	}
