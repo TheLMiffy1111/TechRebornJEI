@@ -115,7 +115,7 @@ def specVersion = "19.3"
 def vendor = "thelm"
 
 group = "thelm.techrebornjei"
-version = "19.3.4"
+version = "19.3.5"
 
 archivesBaseName = modName
 
@@ -244,6 +244,7 @@ publishMods {
 		minecraftVersions.add(mcVersion)
 		requires "jei", "techreborn"
 		optional "advancedreborn"
+		incompatible "roughly-enough-items-hacks", "extra-mod-integrations"
 	}
 
 	modrinth {
@@ -252,5 +253,6 @@ publishMods {
 		minecraftVersions.add(mcVersion)
 		requires "jei"
 		optional "advanced-reborn"
+		incompatible "roughly-enough-items-hacks", "extra-mod-integrations"
 	}
 }
