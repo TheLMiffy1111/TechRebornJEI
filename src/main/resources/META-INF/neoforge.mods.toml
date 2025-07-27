@@ -1,0 +1,63 @@
+modLoader = "lowcodefml"
+loaderVersion = "[2,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/TheLMiffy1111/TechRebornJEI/issues"
+
+[properties]
+	"connector:placeholder" = true
+
+[[mods]]
+	modId = "techrebornjei"
+	version = "0@VERSION@"
+	displayName = "TechRebornJEI"
+	description = "An addon to Tech Reborn that adds JEI support."
+	logoFile = "techrebornjei.logo.png"
+	authors = "TheLMiffy1111"
+
+[[dependencies.techrebornjei]]
+	modId = "minecraft"
+	versionRange = "[1.21,1.21.2)"
+	type = "required"
+
+[[dependencies.techrebornjei]]
+	modId = "connector"
+	versionRange = "*"
+	type = "required"
+
+[[dependencies.techrebornjei]]
+	modId = "connectorextras"
+	versionRange = "*"
+	type = "required"
+
+[[dependencies.techrebornjei]]
+	modId = "jei"
+	versionRange = "*"
+	type = "required"
+
+[[dependencies.techrebornjei]]
+	modId = "jeidrawables"
+	versionRange = "*"
+	type = "required"
+
+[[dependencies.techrebornjei]]
+	modId = "techreborn"
+	versionRange = "*"
+	type = "required"
+
+[[dependencies.techrebornjei]]
+	modId = "rei_plugin_compatibilities"
+	versionRange = "*"
+	type = "discouraged"
+	reason = "TechReborn has native REI support"
+
+[[dependencies.techrebornjei]]
+	modId = "extra_mod_integrations_tech_reborn"
+	versionRange = "*"
+	type = "discouraged"
+	reason = "ExMI provides EMI support"
+
+[[dependencies.techrebornjei]]
+	modId = "emitechreborn"
+	versionRange = "*"
+	type = "discouraged"
+	reason = "EmiTechReborn provides EMI support"

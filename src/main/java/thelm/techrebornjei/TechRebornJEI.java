@@ -1,8 +1,12 @@
 package thelm.techrebornjei;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -90,6 +94,7 @@ import thelm.techrebornjei.recipe.transfer.BuiltScreenHandlerTransferInfo;
 public class TechRebornJEI implements IModPlugin {
 
 	public static final ResourceLocation UID = ResourceLocation.parse("techrebornjei:techreborn");
+	public static final Logger LOGGER = LogManager.getLogger();
 
 	public static IJeiHelpers jeiHelpers;
 	public static IJeiRuntime jeiRuntime;
@@ -136,6 +141,10 @@ public class TechRebornJEI implements IModPlugin {
 
 	@Override
 	public void registerItemSubtypes(ISubtypeRegistration registration) {
+		if(checkDisabled()) {
+			return;
+		}
+
 		registration.registerSubtypeInterpreter(TRContent.CELL, new ISubtypeInterpreter<ItemStack>() {
 			@Override
 			public Object getSubtypeData(ItemStack ingredient, UidContext context) {
@@ -160,6 +169,10 @@ public class TechRebornJEI implements IModPlugin {
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registration) {
 		jeiHelpers = registration.getJeiHelpers();
+
+		if(checkDisabled()) {
+			return;
+		}
 
 		registration.addRecipeCategories(new TwoItemToItemCenterRecipeCategory<>(ALLOY_SMELTER));
 		registration.addRecipeCategories(new TwoItemToItemRecipeCategory<>(ASSEMBLING_MACHINE));
@@ -193,6 +206,10 @@ public class TechRebornJEI implements IModPlugin {
 
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
+		if(checkDisabled()) {
+			return;
+		}
+
 		RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
 		registration.addRecipes(ALLOY_SMELTER, recipeManager.getAllRecipesFor(ModRecipes.ALLOY_SMELTER));
 		registration.addRecipes(ASSEMBLING_MACHINE, recipeManager.getAllRecipesFor(ModRecipes.ASSEMBLING_MACHINE));
@@ -226,6 +243,10 @@ public class TechRebornJEI implements IModPlugin {
 
 	@Override
 	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+		if(checkDisabled()) {
+			return;
+		}
+
 		registration.addRecipeTransferHandler(new BuiltScreenHandlerTransferInfo<>("rollingmachine", ROLLING_MACHINE, IntStream.range(0, 9)));
 		registration.addRecipeTransferHandler(new BuiltScreenHandlerTransferInfo<>("autocraftingtable", RecipeTypes.CRAFTING, IntStream.range(0, 9)));
 
@@ -234,6 +255,10 @@ public class TechRebornJEI implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+		if(checkDisabled()) {
+			return;
+		}
+
 		registration.addRecipeCatalyst(TRContent.Machine.IRON_ALLOY_FURNACE, ALLOY_SMELTER, RecipeTypes.FUELING);
 		registration.addRecipeCatalyst(TRContent.Machine.ALLOY_SMELTER, ALLOY_SMELTER);
 		registration.addRecipeCatalyst(TRContent.Machine.ASSEMBLY_MACHINE, ASSEMBLING_MACHINE);
@@ -274,6 +299,10 @@ public class TechRebornJEI implements IModPlugin {
 
 	@Override
 	public void registerGuiHandlers(IGuiHandlerRegistration registration) {
+		if(checkDisabled()) {
+			return;
+		}
+
 		registration.addRecipeClickArea(GuiAlloyFurnace.class, 158, 5, 12, 12, ALLOY_SMELTER, RecipeTypes.FUELING);
 		registration.addRecipeClickArea(GuiAlloySmelter.class, 158, 5, 12, 12, ALLOY_SMELTER);
 		registration.addRecipeClickArea(GuiAssemblingMachine.class, 158, 5, 12, 12, ASSEMBLING_MACHINE);
@@ -353,6 +382,33 @@ public class TechRebornJEI implements IModPlugin {
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		TechRebornJEI.jeiRuntime = jeiRuntime;
 
+		if(checkDisabled()) {
+			return;
+		}
+
 		ADDONS.forEach(addon -> addon.onRuntimeAvailable(jeiRuntime));
+	}
+
+	public boolean checkDisabled() {
+		if(FabricLoader.getInstance().isModLoaded("rei_plugin_compatibilities")) {
+			LOGGER.warn("TechRebornJEI is disabled with REIPC as Tech Reborn has native REI support");
+			return true;
+		}
+		if(FabricLoader.getInstance().isModLoaded("extra-mod-integrations")) {
+			try {
+				Class<?> exmiConfigClass = Class.forName("com.kneelawk.exmi.core.impl.ExMIEnableConfig");
+				Method checkMethod = exmiConfigClass.getMethod("checkIntegration", String.class);
+				if(checkMethod.invoke(null, "techreborn") instanceof Boolean value && value) {
+					LOGGER.warn("TechRebornJEI is disabled with ExMI");
+					return true;
+				}
+			}
+			catch(Exception e) {}
+		}
+		if(FabricLoader.getInstance().isModLoaded("emitechreborn")) {
+			LOGGER.warn("TechRebornJEI is disabled with EmiTechReborn");
+			return true;
+		}
+		return false;
 	}
 }
