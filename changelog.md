@@ -1,2 +1,1 @@
-Move drawables to a separate library mod  
-Fix fluid generator categories  
+Mark alternative compat mods as conflicts and do not load plugin if detected  
