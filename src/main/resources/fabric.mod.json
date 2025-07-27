@@ -29,7 +29,8 @@
 		"jeidrawables": "*",
 		"techreborn": "*"
 	},
-	"breaks": {
+	"conflicts": {
+		"rei_plugin_compatibilities": "*",
 		"extra-mod-integrations": "*",
 		"emitechreborn": "*"
 	}
