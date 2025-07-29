@@ -99,6 +99,6 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 		Fluid fluid = fluidInstance.fluid();
 		long amount = fluidInstance.amount().rawValue() / (FluidConstants.BUCKET / fluidHelper().bucketVolume());
 		DataComponentPatch data = fluidInstance.fluidVariant().getComponents();
-		return builder.addSlot(ingredientRole, x, y).addFluidStack(fluid, amount, data).setBackground(TANK_BACKGROUND, -3, -3).setOverlay(TANK_FOREGROUND, 0, 0).setFluidRenderer(amount, false, 16, 50);
+		return builder.addSlot(ingredientRole, x, y).addFluidStack(fluid, amount, data).setBackground(TANK_BACKGROUND, -3, -3).setOverlay(TANK_FOREGROUND, 0, 0).setFluidRenderer(Math.max(amount, 1), false, 16, 50);
 	}
 }
