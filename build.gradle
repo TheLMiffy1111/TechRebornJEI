@@ -88,17 +88,6 @@ repositories {
 	exclusiveContent {
 		forRepository {
 			maven {
-				url = "https://maven.pitan76.net/"
-			}
-		}
-		filter {
-			includeGroup "ml.pkom"
-			includeGroup "net.pitan76"
-		}
-	}
-	exclusiveContent {
-		forRepository {
-			maven {
 				url = "https://cursemaven.com/"
 			}
 		}
