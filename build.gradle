@@ -88,17 +88,6 @@ repositories {
 	exclusiveContent {
 		forRepository {
 			maven {
-				url = "https://maven.pitan76.net/"
-			}
-		}
-		filter {
-			includeGroup "ml.pkom"
-			includeGroup "net.pitan76"
-		}
-	}
-	exclusiveContent {
-		forRepository {
-			maven {
 				url = "https://cursemaven.com/"
 			}
 		}
@@ -173,8 +162,8 @@ dependencies {
 	modImplementation "TechReborn:TechReborn-1.20:5.10.4"
 	modImplementation "dev.architectury:architectury-fabric:11.1.17"
 	modImplementation "me.shedaniel.cloth:cloth-config-fabric:13.0.138"
-	modImplementation "net.pitan76:compatdatapacks76-fabric:1.0.13.204"
-	modImplementation "net.pitan76:mcpitanlib-fabric+1.20.4:3.3.9"
+	modImplementation "curse.maven:compatdatapacks-1055171:6370815"
+	modImplementation "curse.maven:mcpitanlibarch-682213:6758295"
 	modImplementation "curse.maven:advancedreborn-543089:6328110"
 	modImplementation "curse.maven:industrialreborn-941523:5253694"
 }
