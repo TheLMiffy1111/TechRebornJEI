@@ -104,7 +104,7 @@ def specVersion = "20.4"
 def vendor = "thelm"
 
 group = "thelm.techrebornjei"
-version = "20.4.6"
+version = "20.4.7"
 
 archivesBaseName = modName
 
@@ -157,7 +157,7 @@ dependencies {
 
 	// Dependencies
 	modImplementation("mezz.jei:jei-1.20.4-fabric:17.3.1.5") {transitive = false}
-	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:20.4.2"))
+	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:20.4.3"))
 	modImplementation "teamreborn:energy:3.0.0"
 	modImplementation "TechReborn:TechReborn-1.20:5.10.4"
 	modImplementation "dev.architectury:architectury-fabric:11.1.17"
