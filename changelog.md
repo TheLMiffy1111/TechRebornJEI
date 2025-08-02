@@ -1,1 +1,1 @@
-Prevent empty fluid stacks breaking categories  
+Make fluid slots show fractional part in tooltip  

@@ -22,6 +22,7 @@ import net.minecraft.world.level.material.Fluid;
 import reborncore.client.gui.GuiBase;
 import reborncore.client.gui.GuiSprites;
 import reborncore.common.fluid.container.FluidInstance;
+import thelm.jeidrawables.JEIDrawables;
 import thelm.jeidrawables.gui.render.SpriteDrawable;
 import thelm.techrebornjei.TechRebornJEI;
 
@@ -98,7 +99,12 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	public IRecipeSlotBuilder addFluid(IRecipeLayoutBuilder builder, RecipeIngredientRole ingredientRole, int x, int y, FluidInstance fluidInstance) {
 		Fluid fluid = fluidInstance.fluid();
 		long amount = fluidInstance.amount().rawValue() / (FluidConstants.BUCKET / fluidHelper().bucketVolume());
+		long fraction = fluidInstance.getAmount().rawValue() % (FluidConstants.BUCKET / 1000);
 		DataComponentPatch data = fluidInstance.fluidVariant().getComponents();
-		return builder.addSlot(ingredientRole, x, y).addFluidStack(fluid, amount, data).setBackground(TANK_BACKGROUND, -3, -3).setOverlay(TANK_FOREGROUND, 0, 0).setFluidRenderer(Math.max(amount, 1), false, 16, 50);
+		IRecipeSlotBuilder slot = builder.addSlot(ingredientRole, x, y).setBackground(TANK_BACKGROUND, -3, -3).setOverlay(TANK_FOREGROUND, 0, 0).setFluidRenderer(Math.max(amount, 1), false, 16, 50).addRichTooltipCallback(JEIDrawables.appendFraction(fraction));
+		if(!fluidInstance.isEmpty()) {
+			slot.addFluidStack(fluid, amount, data);
+		}
+		return slot;
 	}
 }
