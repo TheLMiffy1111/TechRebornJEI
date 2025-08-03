@@ -1,0 +1,22 @@
+package thelm.techrebornjei.ingredient.subtype;
+
+import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.UidContext;
+import net.minecraft.world.item.ItemStack;
+import reborncore.common.powerSystem.RcEnergyItem;
+
+public class EnergyItemSubtypeInterpreter implements ISubtypeInterpreter<ItemStack> {
+
+	@Override
+	public Object getSubtypeData(ItemStack ingredient, UidContext context) {
+		if(context == UidContext.Ingredient && ingredient.getItem() instanceof RcEnergyItem energyItem && energyItem.getEnergyCapacity(ingredient) > 0) {
+			return energyItem.getStoredEnergy(ingredient) == energyItem.getEnergyCapacity(ingredient) ? true : null;
+		}
+		return null;
+	}
+
+	@Override
+	public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
+		return getSubtypeData(ingredient, context) == null ? "f" : "";
+	}
+}

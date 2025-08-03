@@ -7,12 +7,15 @@ import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.ISubtypeRegistration;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.pitan76.advancedreborn.Blocks;
+import net.pitan76.advancedreborn.Items;
 import net.pitan76.advancedreborn.Recipes;
 import net.pitan76.advancedreborn.gui.GuiCanningMachine;
 import net.pitan76.advancedreborn.gui.GuiCentrifugalExtractor;
@@ -21,7 +24,9 @@ import net.pitan76.advancedreborn.gui.GuiRotaryGrinder;
 import net.pitan76.advancedreborn.gui.GuiSingularityCompressor;
 import reborncore.common.crafting.RebornRecipe;
 import thelm.techrebornjei.TechRebornJEI;
+import thelm.techrebornjei.addon.advancedreborn.event.CreativeTabEventHandler;
 import thelm.techrebornjei.gui.render.RecipeClickAreaRenderable;
+import thelm.techrebornjei.ingredient.subtype.EnergyItemSubtypeInterpreter;
 import thelm.techrebornjei.recipe.category.TwoItemToItemRecipeCategory;
 
 public class AdvancedRebornJEI implements IModPlugin {
@@ -30,9 +35,27 @@ public class AdvancedRebornJEI implements IModPlugin {
 
 	public static final RecipeType<RecipeHolder<RebornRecipe>> CANNING_MACHINE = RecipeType.createFromVanilla(Recipes.CANNING_MACHINE);
 
+	public AdvancedRebornJEI() {
+		ItemGroupEvents.MODIFY_ENTRIES_ALL.register(new CreativeTabEventHandler());
+	}
+	
 	@Override
 	public ResourceLocation getPluginUid() {
 		return UID;
+	}
+
+	@Override
+	public void registerItemSubtypes(ISubtypeRegistration registration) {
+		EnergyItemSubtypeInterpreter energy = new EnergyItemSubtypeInterpreter();
+		registration.registerSubtypeInterpreter(Items.ADVANCED_BATTERY.get(), energy);
+		registration.registerSubtypeInterpreter(Items.ADVANCED_BATTERY_2.get(), energy);
+		registration.registerSubtypeInterpreter(Items.ADVANCED_BATTERY_3.get(), energy);
+		registration.registerSubtypeInterpreter(Items.ADVANCED_BATTERY_4.get(), energy);
+		registration.registerSubtypeInterpreter(Items.ADVANCED_BATTERY_5.get(), energy);
+		registration.registerSubtypeInterpreter(Items.BATPACK_4.get(), energy);
+		registration.registerSubtypeInterpreter(Items.BATPACK_16.get(), energy);
+		registration.registerSubtypeInterpreter(Items.BATPACK_64.get(), energy);
+		registration.registerSubtypeInterpreter(Items.BATPACK_128.get(), energy);
 	}
 
 	@Override
@@ -48,13 +71,13 @@ public class AdvancedRebornJEI implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(new ItemStack(Blocks.CANNING_MACHINE.getOrNull()), CANNING_MACHINE);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.CANNING_MACHINE.get()), CANNING_MACHINE);
 
-		registration.addRecipeCatalyst(new ItemStack(Blocks.ROTARY_GRINDER.getOrNull()), TechRebornJEI.GRINDER);
-		registration.addRecipeCatalyst(new ItemStack(Blocks.CENTRIFUGAL_EXTRACTOR.getOrNull()), TechRebornJEI.EXTRACTOR);
-		registration.addRecipeCatalyst(new ItemStack(Blocks.SINGULARITY_COMPRESSOR.getOrNull()), TechRebornJEI.COMPRESSOR);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.ROTARY_GRINDER.get()), TechRebornJEI.GRINDER);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.CENTRIFUGAL_EXTRACTOR.get()), TechRebornJEI.EXTRACTOR);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.SINGULARITY_COMPRESSOR.get()), TechRebornJEI.COMPRESSOR);
 
-		registration.addRecipeCatalyst(new ItemStack(Blocks.INDUCTION_FURNACE.getOrNull()), RecipeTypes.SMELTING);
+		registration.addRecipeCatalyst(new ItemStack(Blocks.INDUCTION_FURNACE.get()), RecipeTypes.SMELTING);
 	}
 
 	@Override
