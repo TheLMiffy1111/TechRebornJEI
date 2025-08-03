@@ -7,13 +7,16 @@ import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.ISubtypeRegistration;
 import ml.pkom.advancedreborn.Blocks;
+import ml.pkom.advancedreborn.Items;
 import ml.pkom.advancedreborn.Recipes;
 import ml.pkom.advancedreborn.gui.GuiCanningMachine;
 import ml.pkom.advancedreborn.gui.GuiCentrifugalExtractor;
 import ml.pkom.advancedreborn.gui.GuiInductionFurnace;
 import ml.pkom.advancedreborn.gui.GuiRotaryGrinder;
 import ml.pkom.advancedreborn.gui.GuiSingularityCompressor;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +24,9 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import reborncore.common.crafting.RebornRecipe;
 import thelm.techrebornjei.TechRebornJEI;
+import thelm.techrebornjei.addon.advancedreborn.event.CreativeTabEventHandler;
 import thelm.techrebornjei.gui.render.RecipeClickAreaRenderable;
+import thelm.techrebornjei.ingredient.subtype.EnergyItemSubtypeInterpreter;
 import thelm.techrebornjei.recipe.category.TwoItemToItemRecipeCategory;
 
 public class AdvancedRebornJEI implements IModPlugin {
@@ -31,11 +36,30 @@ public class AdvancedRebornJEI implements IModPlugin {
 	public static final RecipeType<RecipeHolder<RebornRecipe>> CANNING_MACHINE = RecipeType.createFromVanilla(Recipes.CANNING_MACHINE);
 
 	public AdvancedRebornJEI() {
+		ItemGroupEvents.MODIFY_ENTRIES_ALL.register(new CreativeTabEventHandler());
 	}
 
 	@Override
 	public ResourceLocation getPluginUid() {
 		return UID;
+	}
+
+	@Override
+	public void registerItemSubtypes(ISubtypeRegistration registration) {
+		EnergyItemSubtypeInterpreter energy = new EnergyItemSubtypeInterpreter();
+		registration.registerSubtypeInterpreter(Items.ADVANCED_BATTERY, energy);
+		registration.registerSubtypeInterpreter(Items.ADVANCED_BATTERY_2, energy);
+		registration.registerSubtypeInterpreter(Items.ADVANCED_BATTERY_3, energy);
+		registration.registerSubtypeInterpreter(Items.ADVANCED_BATTERY_4, energy);
+		registration.registerSubtypeInterpreter(Items.ADVANCED_BATTERY_5, energy);
+		registration.registerSubtypeInterpreter(Items.NANO_SUIT_HELMET, energy);
+		registration.registerSubtypeInterpreter(Items.NANO_SUIT_BODY_ARMOR, energy);
+		registration.registerSubtypeInterpreter(Items.NANO_SUIT_LEGGINGS, energy);
+		registration.registerSubtypeInterpreter(Items.NANO_SUIT_BOOTS, energy);
+		registration.registerSubtypeInterpreter(Items.BATPACK_4, energy);
+		registration.registerSubtypeInterpreter(Items.BATPACK_16, energy);
+		registration.registerSubtypeInterpreter(Items.BATPACK_64, energy);
+		registration.registerSubtypeInterpreter(Items.BATPACK_128, energy);
 	}
 
 	@Override
