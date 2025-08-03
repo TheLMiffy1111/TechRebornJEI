@@ -1,1 +1,1 @@
-Make fluid slots show fractional part in tooltip  
+Make both charged and uncharged items show in ingredient list  

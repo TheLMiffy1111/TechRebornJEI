@@ -21,7 +21,8 @@
 		]
 	},
 	"mixins": [
-		"techrebornjei.mixins.json"
+		"techrebornjei.mixins.json",
+		"techrebornjei.advancedreborn.mixins.json"
 	],
 	"depends": {
 		"minecraft": ">=1.18.2- <1.19-",
