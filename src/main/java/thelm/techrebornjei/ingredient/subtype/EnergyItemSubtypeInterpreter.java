@@ -9,14 +9,17 @@ public class EnergyItemSubtypeInterpreter implements ISubtypeInterpreter<ItemSta
 
 	@Override
 	public Object getSubtypeData(ItemStack ingredient, UidContext context) {
-		if(context == UidContext.Ingredient && ingredient.getItem() instanceof RcEnergyItem energyItem && energyItem.getEnergyCapacity(ingredient) > 0) {
-			return energyItem.getStoredEnergy(ingredient) == energyItem.getEnergyCapacity(ingredient) ? true : null;
+		if(context == UidContext.Ingredient &&
+				ingredient.getItem() instanceof RcEnergyItem energyItem &&
+				energyItem.getEnergyCapacity(ingredient) > 0 &&
+				energyItem.getStoredEnergy(ingredient) >= energyItem.getEnergyCapacity(ingredient)) {
+			return true;
 		}
 		return null;
 	}
 
 	@Override
 	public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
-		return getSubtypeData(ingredient, context) == null ? "f" : "";
+		return getSubtypeData(ingredient, context) == null ? "" : "f";
 	}
 }
