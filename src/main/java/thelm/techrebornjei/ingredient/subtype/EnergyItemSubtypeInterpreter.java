@@ -12,7 +12,7 @@ public class EnergyItemSubtypeInterpreter implements IIngredientSubtypeInterpret
 		if(context == UidContext.Ingredient &&
 				ingredient.getItem() instanceof RcEnergyItem energyItem &&
 				energyItem.getEnergyCapacity(ingredient) > 0 &&
-				energyItem.getStoredEnergy(ingredient) == energyItem.getEnergyCapacity(ingredient)) {
+				energyItem.getStoredEnergy(ingredient) >= energyItem.getEnergyCapacity(ingredient)) {
 			return "f";
 		}
 		return IIngredientSubtypeInterpreter.NONE;
