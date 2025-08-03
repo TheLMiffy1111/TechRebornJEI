@@ -11,8 +11,6 @@ import org.apache.logging.log4j.Logger;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
-import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -30,7 +28,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.GeneratorRecipeHelper;
@@ -78,6 +75,8 @@ import thelm.techrebornjei.addon.advancedreborn.AdvancedRebornJEI;
 import thelm.techrebornjei.addon.industrialreborn.IndustrialRebornJEI;
 import thelm.techrebornjei.gui.handler.GuiBaseExtraAreaHandler;
 import thelm.techrebornjei.gui.render.RecipeClickAreaRenderable;
+import thelm.techrebornjei.ingredient.subtype.EnergyItemSubtypeInterpreter;
+import thelm.techrebornjei.ingredient.subtype.FluidItemSubtypeInterpreter;
 import thelm.techrebornjei.recipe.category.FluidGeneratorRecipeCategory;
 import thelm.techrebornjei.recipe.category.ItemFluidToFourItemRecipeCategory;
 import thelm.techrebornjei.recipe.category.ItemFluidToThreeItemRecipeCategory;
@@ -149,15 +148,34 @@ public class TechRebornJEI implements IModPlugin {
 			return;
 		}
 
-		registration.registerSubtypeInterpreter(TRContent.CELL, new IIngredientSubtypeInterpreter<ItemStack>() {
-			@Override
-			public String apply(ItemStack ingredient, UidContext context) {
-				if(ingredient.getItem() instanceof ItemFluidInfo info) {
-					return BuiltInRegistries.FLUID.getKey(info.getFluid(ingredient)).toString();
-				}
-				return "";
-			}
-		});
+		registration.registerSubtypeInterpreter(TRContent.CELL, new FluidItemSubtypeInterpreter());
+
+		EnergyItemSubtypeInterpreter energy = new EnergyItemSubtypeInterpreter();
+		registration.registerSubtypeInterpreter(TRContent.QUANTUM_HELMET, energy);
+		registration.registerSubtypeInterpreter(TRContent.QUANTUM_CHESTPLATE, energy);
+		registration.registerSubtypeInterpreter(TRContent.QUANTUM_LEGGINGS, energy);
+		registration.registerSubtypeInterpreter(TRContent.QUANTUM_BOOTS, energy);
+		registration.registerSubtypeInterpreter(TRContent.RED_CELL_BATTERY, energy);
+		registration.registerSubtypeInterpreter(TRContent.LITHIUM_ION_BATTERY, energy);
+		registration.registerSubtypeInterpreter(TRContent.LITHIUM_ION_BATPACK, energy);
+		registration.registerSubtypeInterpreter(TRContent.ENERGY_CRYSTAL, energy);
+		registration.registerSubtypeInterpreter(TRContent.LAPOTRON_CRYSTAL, energy);
+		registration.registerSubtypeInterpreter(TRContent.LAPOTRONIC_ORB, energy);
+		registration.registerSubtypeInterpreter(TRContent.LAPOTRONIC_ORBPACK, energy);
+		registration.registerSubtypeInterpreter(TRContent.BASIC_DRILL, energy);
+		registration.registerSubtypeInterpreter(TRContent.BASIC_CHAINSAW, energy);
+		registration.registerSubtypeInterpreter(TRContent.BASIC_JACKHAMMER, energy);
+		registration.registerSubtypeInterpreter(TRContent.ELECTRIC_TREE_TAP, energy);
+		registration.registerSubtypeInterpreter(TRContent.ADVANCED_DRILL, energy);
+		registration.registerSubtypeInterpreter(TRContent.ADVANCED_CHAINSAW, energy);
+		registration.registerSubtypeInterpreter(TRContent.ADVANCED_JACKHAMMER, energy);
+		registration.registerSubtypeInterpreter(TRContent.ROCK_CUTTER, energy);
+		registration.registerSubtypeInterpreter(TRContent.INDUSTRIAL_DRILL, energy);
+		registration.registerSubtypeInterpreter(TRContent.INDUSTRIAL_CHAINSAW, energy);
+		registration.registerSubtypeInterpreter(TRContent.INDUSTRIAL_JACKHAMMER, energy);
+		registration.registerSubtypeInterpreter(TRContent.NANOSABER, energy);
+		registration.registerSubtypeInterpreter(TRContent.OMNI_TOOL, energy);
+		registration.registerSubtypeInterpreter(TRContent.CLOAKING_DEVICE, energy);
 
 		ADDONS.forEach(addon -> addon.registerItemSubtypes(registration));
 	}
