@@ -16,7 +16,7 @@ public record OutputSlotDrawable(boolean left, boolean center, boolean right) im
 	public static final OutputSlotDrawable LEFT = new OutputSlotDrawable(true, true, false);
 	public static final OutputSlotDrawable CENTER = new OutputSlotDrawable(false, true, false);
 	public static final OutputSlotDrawable RIGHT = new OutputSlotDrawable(false, true, true);
-	
+
 	@Override
 	public int getWidth() {
 		return 26;
