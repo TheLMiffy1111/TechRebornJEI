@@ -38,7 +38,7 @@ public class AdvancedRebornJEI implements IModPlugin {
 	public AdvancedRebornJEI() {
 		ItemGroupEvents.MODIFY_ENTRIES_ALL.register(new CreativeTabEventHandler());
 	}
-	
+
 	@Override
 	public ResourceLocation getPluginUid() {
 		return UID;
