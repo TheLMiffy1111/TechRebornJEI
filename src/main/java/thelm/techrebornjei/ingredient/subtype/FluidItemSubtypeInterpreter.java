@@ -13,6 +13,6 @@ public class FluidItemSubtypeInterpreter implements IIngredientSubtypeInterprete
 		if(ingredient.getItem() instanceof ItemFluidInfo info) {
 			return BuiltInRegistries.FLUID.getKey(info.getFluid(ingredient)).toString();
 		}
-		return IIngredientSubtypeInterpreter.NONE;
+		return NONE;
 	}
 }

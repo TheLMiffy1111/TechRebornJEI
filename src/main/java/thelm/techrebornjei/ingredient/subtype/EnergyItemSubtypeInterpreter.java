@@ -15,6 +15,6 @@ public class EnergyItemSubtypeInterpreter implements IIngredientSubtypeInterpret
 				energyItem.getStoredEnergy(ingredient) >= energyItem.getEnergyCapacity(ingredient)) {
 			return "f";
 		}
-		return IIngredientSubtypeInterpreter.NONE;
+		return NONE;
 	}
 }
