@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -29,7 +28,6 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.GeneratorRecipeHelper;
@@ -146,13 +144,6 @@ public class TechRebornJEI implements IModPlugin {
 		if(checkDisabled()) {
 			return;
 		}
-
-		registration.registerSubtypeInterpreter(TRContent.CELL, (ingredient, context) -> {
-			if(ingredient.getItem() instanceof ItemFluidInfo info) {
-				return Registry.FLUID.getKey(info.getFluid(ingredient)).toString();
-			}
-			return IIngredientSubtypeInterpreter.NONE;
-		});
 
 		registration.registerSubtypeInterpreter(TRContent.CELL, new FluidItemSubtypeInterpreter());
 
