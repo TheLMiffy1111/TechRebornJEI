@@ -157,7 +157,7 @@ dependencies {
 
 	// Dependencies
 	modImplementation("mezz.jei:jei-1.19.4-fabric:13.1.0.19") {transitive = false}
-	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:19.4.3"))
+	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:19.4.4"))
 	modImplementation "teamreborn:energy:3.0.0"
 	modImplementation("TechReborn:TechReborn-1.19:5.7.0") {exclude module: "RoughlyEnoughItems-fabric"}
 	modImplementation "dev.architectury:architectury-fabric:8.2.91"
