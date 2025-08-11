@@ -155,15 +155,21 @@ dependencies {
 	modImplementation "eu.pb4:placeholder-api:2.1.4+1.20.1"
 	modImplementation "com.terraformersmc:modmenu:7.2.2"
 
-	// Dependencies
+	// JEI
 	modImplementation("mezz.jei:jei-1.20.1-fabric:15.20.0.112") {transitive = false}
 	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:20.1.4"))
+
+	// Tech Reborn
 	modImplementation "teamreborn:energy:3.0.0"
 	modImplementation "TechReborn:TechReborn-1.20.1:5.8.14"
-	modImplementation "me.shedaniel.cloth:cloth-config-fabric:11.1.136"
+
+	// Advanced Reborn
 	modImplementation "dev.architectury:architectury-fabric:9.2.14"
+	modImplementation "me.shedaniel.cloth:cloth-config-fabric:11.1.136"
 	modImplementation "curse.maven:mcpitanlibarch-682213:6758287"
 	modImplementation "curse.maven:advancedreborn-543089:6345719"
+
+	// Industrial Reborn
 	modImplementation "curse.maven:industrialreborn-941523:5265767"
 }
 
