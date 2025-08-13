@@ -20,7 +20,7 @@ issueTrackerURL = "https://github.com/TheLMiffy1111/TechRebornJEI/issues"
 	type = "required"
 
 [[dependencies.techrebornjei]]
-	modId = "connector"
+	modId = "connectormod"
 	versionRange = "*"
 	type = "required"
 
