@@ -10,8 +10,8 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.helpers.IPlatformFluidHelper;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -34,21 +34,21 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	public static final SpriteDrawable TANK_BACKGROUND = new SpriteDrawable(() -> GuiBase.getSprite(GuiSprites.TANK_BACKGROUND), 22, 56);
 	public static final SpriteDrawable TANK_FOREGROUND = new SpriteDrawable(() -> GuiBase.getSprite(GuiSprites.TANK_FOREGROUND), 16, 50);
 
-	public final RecipeType<R> recipeType;
+	public final IRecipeType<R> recipeType;
 	public final Component title;
 
-	public AbstractRecipeCategory(RecipeType<R> recipeType, Component title) {
+	public AbstractRecipeCategory(IRecipeType<R> recipeType, Component title) {
 		this.recipeType = recipeType;
 		this.title = title;
 	}
 
-	public AbstractRecipeCategory(RecipeType<R> recipeType) {
+	public AbstractRecipeCategory(IRecipeType<R> recipeType) {
 		this.recipeType = recipeType;
 		this.title = Component.translatable(recipeType.getUid().toString());
 	}
 
 	@Override
-	public RecipeType<R> getRecipeType() {
+	public IRecipeType<R> getRecipeType() {
 		return recipeType;
 	}
 
@@ -93,7 +93,7 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 	}
 
 	public IRecipeSlotBuilder addItem(IRecipeLayoutBuilder builder, RecipeIngredientRole ingredientRole, int x, int y, ItemStack itemStack, IDrawable background) {
-		return addItem(builder, ingredientRole, x, y, background).addItemStack(itemStack);
+		return addItem(builder, ingredientRole, x, y, background).add(itemStack);
 	}
 
 	public IRecipeSlotBuilder addFluid(IRecipeLayoutBuilder builder, RecipeIngredientRole ingredientRole, int x, int y, FluidInstance fluidInstance) {
@@ -103,7 +103,7 @@ public abstract class AbstractRecipeCategory<R> implements IRecipeCategory<R> {
 		DataComponentPatch data = fluidInstance.fluidVariant().getComponents();
 		IRecipeSlotBuilder slot = builder.addSlot(ingredientRole, x, y).setBackground(TANK_BACKGROUND, -3, -3).setOverlay(TANK_FOREGROUND, 0, 0).setFluidRenderer(Math.max(amount, 1), false, 16, 50).addRichTooltipCallback(JEIDrawables.appendFraction(fraction));
 		if(!fluidInstance.isEmpty()) {
-			slot.addFluidStack(fluid, amount, data);
+			slot.add(fluid, amount, data);
 		}
 		return slot;
 	}

@@ -7,7 +7,7 @@ import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -16,11 +16,11 @@ import reborncore.common.crafting.RebornRecipe;
 
 public abstract class AbstractRebornRecipeCategory<R extends RebornRecipe> extends AbstractRecipeCategory<RecipeHolder<R>> {
 
-	public AbstractRebornRecipeCategory(RecipeType<RecipeHolder<R>> recipeType, Component title) {
+	public AbstractRebornRecipeCategory(IRecipeHolderType<R> recipeType, Component title) {
 		super(recipeType, title);
 	}
 
-	public AbstractRebornRecipeCategory(RecipeType<RecipeHolder<R>> recipeType) {
+	public AbstractRebornRecipeCategory(IRecipeHolderType<R> recipeType) {
 		super(recipeType);
 	}
 

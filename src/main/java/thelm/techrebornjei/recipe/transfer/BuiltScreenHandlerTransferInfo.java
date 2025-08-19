@@ -8,17 +8,17 @@ import org.apache.commons.lang3.Range;
 
 import it.unimi.dsi.fastutil.ints.IntImmutableList;
 import it.unimi.dsi.fastutil.ints.IntList;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.screen.BuiltScreenHandler;
 import thelm.techrebornjei.mixin.BuiltScreenHandlerAccessor;
 
-public record BuiltScreenHandlerTransferInfo<R>(String name, RecipeType<R> recipeType, IntList recipeSlotOffsets) implements IRecipeTransferInfo<BuiltScreenHandler, R> {
+public record BuiltScreenHandlerTransferInfo<R>(String name, IRecipeType<R> recipeType, IntList recipeSlotOffsets) implements IRecipeTransferInfo<BuiltScreenHandler, R> {
 
-	public BuiltScreenHandlerTransferInfo(String name, RecipeType<R> recipeType, IntStream recipeSlotOffsets) {
+	public BuiltScreenHandlerTransferInfo(String name, IRecipeType<R> recipeType, IntStream recipeSlotOffsets) {
 		this(name, recipeType, IntImmutableList.toList(recipeSlotOffsets));
 	}
 
@@ -33,7 +33,7 @@ public record BuiltScreenHandlerTransferInfo<R>(String name, RecipeType<R> recip
 	}
 
 	@Override
-	public RecipeType<R> getRecipeType() {
+	public IRecipeType<R> getRecipeType() {
 		return recipeType;
 	}
 

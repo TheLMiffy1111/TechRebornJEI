@@ -2,6 +2,7 @@ package thelm.techrebornjei.recipe.category;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
@@ -9,18 +10,19 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import techreborn.recipe.recipes.RollingMachineRecipe;
 import thelm.techrebornjei.gui.render.OutputSlotDrawable;
 import thelm.techrebornjei.gui.render.ProgressBarDrawable;
 
 public class RollingMachineRecipeCategory extends AbstractRebornEnergyRecipeCategory<RollingMachineRecipe> {
 
-	public RollingMachineRecipeCategory(RecipeType<RecipeHolder<RollingMachineRecipe>> recipeType) {
+	public RollingMachineRecipeCategory(IRecipeHolderType<RollingMachineRecipe> recipeType) {
 		super(recipeType);
 	}
 
@@ -32,12 +34,16 @@ public class RollingMachineRecipeCategory extends AbstractRebornEnergyRecipeCate
 				slots.add(addItem(builder, RecipeIngredientRole.INPUT, 27 + x * 18, 2 + y * 18, SLOT));
 			}
 		}
-		int width = recipe.getShapedRecipe().getWidth();
-		int height = recipe.getShapedRecipe().getHeight();
+		ShapedRecipe shapedRecipe = recipe.getShapedRecipe();
+		int width = shapedRecipe.getWidth();
+		int height = shapedRecipe.getHeight();
 		for(int y = 0; y < height; ++y) {
 			for(int x = 0; x < width; ++x) {
-				if(y * width + x < recipe.getIngredients().size()) {
-					slots.get(y * 3 + x).addIngredients(recipe.getIngredients().get(y * width + x));
+				if(y * width + x < shapedRecipe.getIngredients().size()) {
+					Optional<Ingredient> ing = shapedRecipe.getIngredients().get(y * width + x);
+					if(ing.isPresent()) {
+						slots.get(y * 3 + x).add(ing.get());
+					}
 				}
 			}
 		}

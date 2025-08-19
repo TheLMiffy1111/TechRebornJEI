@@ -5,22 +5,21 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.common.crafting.RebornRecipe;
 import thelm.techrebornjei.gui.render.OutputSlotDrawable;
 import thelm.techrebornjei.gui.render.ProgressBarDrawable;
 
 public class TwoItemToItemRecipeCategory<R extends RebornRecipe> extends AbstractRebornEnergyRecipeCategory<R> {
 
-	public TwoItemToItemRecipeCategory(RecipeType<RecipeHolder<R>> recipeType) {
+	public TwoItemToItemRecipeCategory(IRecipeHolderType<R> recipeType) {
 		super(recipeType);
 	}
 
-	public TwoItemToItemRecipeCategory(RecipeType<RecipeHolder<R>> recipeType, Component title) {
+	public TwoItemToItemRecipeCategory(IRecipeHolderType<R> recipeType, Component title) {
 		super(recipeType, title);
 	}
 

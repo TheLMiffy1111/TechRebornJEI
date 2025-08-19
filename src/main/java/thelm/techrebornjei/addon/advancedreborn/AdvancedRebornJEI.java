@@ -1,18 +1,18 @@
 package thelm.techrebornjei.addon.advancedreborn;
 
+import java.util.List;
+
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.RecipeTypes;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeMap;
 import net.pitan76.advancedreborn.Blocks;
 import net.pitan76.advancedreborn.Items;
 import net.pitan76.advancedreborn.Recipes;
@@ -32,7 +32,7 @@ public class AdvancedRebornJEI implements IModPlugin {
 
 	public static final ResourceLocation UID = ResourceLocation.parse("techrebornjei:advancedreborn");
 
-	public static final RecipeType<RecipeHolder<RebornRecipe>> CANNING_MACHINE = RecipeType.createFromVanilla(Recipes.CANNING_MACHINE);
+	public static final IRecipeHolderType<RebornRecipe> CANNING_MACHINE = IRecipeHolderType.create(Recipes.CANNING_MACHINE);
 
 	public AdvancedRebornJEI() {
 		ItemGroupEvents.MODIFY_ENTRIES_ALL.register(new CreativeTabEventHandler());
@@ -64,19 +64,19 @@ public class AdvancedRebornJEI implements IModPlugin {
 
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
-		RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
-		registration.addRecipes(CANNING_MACHINE, recipeManager.getAllRecipesFor(Recipes.CANNING_MACHINE));
+		RecipeMap recipeMap = RecipeMap.EMPTY; // JEI doesn't do recipe sync yet
+		registration.addRecipes(CANNING_MACHINE, List.copyOf(recipeMap.byType(Recipes.CANNING_MACHINE)));
 	}
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(Blocks.CANNING_MACHINE.get(), CANNING_MACHINE);
+		registration.addCraftingStation(CANNING_MACHINE, Blocks.CANNING_MACHINE.get());
 
-		registration.addRecipeCatalyst(Blocks.ROTARY_GRINDER.get(), TechRebornJEI.GRINDER);
-		registration.addRecipeCatalyst(Blocks.CENTRIFUGAL_EXTRACTOR.get(), TechRebornJEI.EXTRACTOR);
-		registration.addRecipeCatalyst(Blocks.SINGULARITY_COMPRESSOR.get(), TechRebornJEI.COMPRESSOR);
+		registration.addCraftingStation(TechRebornJEI.GRINDER, Blocks.ROTARY_GRINDER.get());
+		registration.addCraftingStation(TechRebornJEI.EXTRACTOR, Blocks.CENTRIFUGAL_EXTRACTOR.get());
+		registration.addCraftingStation(TechRebornJEI.COMPRESSOR, Blocks.SINGULARITY_COMPRESSOR.get());
 
-		registration.addRecipeCatalyst(Blocks.INDUCTION_FURNACE.get(), RecipeTypes.SMELTING);
+		registration.addCraftingStation(RecipeTypes.SMELTING, Blocks.INDUCTION_FURNACE.get());
 	}
 
 	@Override

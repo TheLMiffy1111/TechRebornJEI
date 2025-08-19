@@ -6,20 +6,19 @@ import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import reborncore.common.crafting.RebornRecipe;
 import thelm.techrebornjei.gui.render.EnergyDisplayDrawable;
 
 public abstract class AbstractRebornEnergyRecipeCategory<R extends RebornRecipe> extends AbstractRebornRecipeCategory<R> {
 
-	public AbstractRebornEnergyRecipeCategory(RecipeType<RecipeHolder<R>> recipeType) {
+	public AbstractRebornEnergyRecipeCategory(IRecipeHolderType<R> recipeType) {
 		super(recipeType);
 	}
 
-	public AbstractRebornEnergyRecipeCategory(RecipeType<RecipeHolder<R>> recipeType, Component title) {
+	public AbstractRebornEnergyRecipeCategory(IRecipeHolderType<R> recipeType, Component title) {
 		super(recipeType, title);
 	}
 

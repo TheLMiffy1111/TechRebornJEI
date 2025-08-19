@@ -24,14 +24,12 @@
 		"techrebornjei.mixins.json"
 	],
 	"depends": {
-		"minecraft": ">=1.21- <1.21.2-",
+		"minecraft": ">=1.21.5- <1.21.6-",
 		"jei": "*",
 		"jeidrawables": "*",
 		"techreborn": "*"
 	},
 	"conflicts": {
-		"rei_plugin_compatibilities": "*",
-		"extra_mod_integrations_tech_reborn": "*",
-		"emitechreborn": "*"
+		"rei_plugin_compatibilities": "*"
 	}
 }

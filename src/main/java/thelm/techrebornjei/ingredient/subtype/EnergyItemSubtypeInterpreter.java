@@ -17,9 +17,4 @@ public class EnergyItemSubtypeInterpreter implements ISubtypeInterpreter<ItemSta
 		}
 		return null;
 	}
-
-	@Override
-	public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
-		return getSubtypeData(ingredient, context) == null ? "" : "f";
-	}
 }

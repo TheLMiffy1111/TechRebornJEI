@@ -3,18 +3,17 @@ package thelm.techrebornjei.recipe.category;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import techreborn.recipe.recipes.FusionReactorRecipe;
 import thelm.techrebornjei.gui.render.EnergyDisplayDrawable;
 import thelm.techrebornjei.gui.render.ProgressBarDrawable;
 
 public class FusionReactorRecipeCategory extends TwoItemToItemCenterRecipeCategory<FusionReactorRecipe> {
 
-	public FusionReactorRecipeCategory(RecipeType<RecipeHolder<FusionReactorRecipe>> recipeType) {
+	public FusionReactorRecipeCategory(IRecipeHolderType<FusionReactorRecipe> recipeType) {
 		super(recipeType);
 	}
 

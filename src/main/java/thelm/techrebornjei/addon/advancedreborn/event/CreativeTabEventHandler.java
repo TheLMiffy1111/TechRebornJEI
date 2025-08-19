@@ -12,7 +12,7 @@ import reborncore.common.powerSystem.RcEnergyItem;
 
 public class CreativeTabEventHandler implements ItemGroupEvents.ModifyEntriesAll {
 
-	public final CreativeModeTab tab = BuiltInRegistries.CREATIVE_MODE_TAB.get(AdvancedReborn.INSTANCE.id("item_group"));
+	public final CreativeModeTab tab = BuiltInRegistries.CREATIVE_MODE_TAB.get(AdvancedReborn.INSTANCE.id("item_group")).get().value();
 
 	@Override
 	public void modifyEntries(CreativeModeTab tab, FabricItemGroupEntries entries) {
