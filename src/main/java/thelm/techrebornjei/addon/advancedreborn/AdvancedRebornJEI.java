@@ -11,7 +11,6 @@ import mezz.jei.api.registration.ISubtypeRegistration;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.pitan76.advancedreborn.Blocks;
@@ -71,13 +70,13 @@ public class AdvancedRebornJEI implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(new ItemStack(Blocks.CANNING_MACHINE.get()), CANNING_MACHINE);
+		registration.addRecipeCatalyst(Blocks.CANNING_MACHINE.get(), CANNING_MACHINE);
 
-		registration.addRecipeCatalyst(new ItemStack(Blocks.ROTARY_GRINDER.get()), TechRebornJEI.GRINDER);
-		registration.addRecipeCatalyst(new ItemStack(Blocks.CENTRIFUGAL_EXTRACTOR.get()), TechRebornJEI.EXTRACTOR);
-		registration.addRecipeCatalyst(new ItemStack(Blocks.SINGULARITY_COMPRESSOR.get()), TechRebornJEI.COMPRESSOR);
+		registration.addRecipeCatalyst(Blocks.ROTARY_GRINDER.get(), TechRebornJEI.GRINDER);
+		registration.addRecipeCatalyst(Blocks.CENTRIFUGAL_EXTRACTOR.get(), TechRebornJEI.EXTRACTOR);
+		registration.addRecipeCatalyst(Blocks.SINGULARITY_COMPRESSOR.get(), TechRebornJEI.COMPRESSOR);
 
-		registration.addRecipeCatalyst(new ItemStack(Blocks.INDUCTION_FURNACE.get()), RecipeTypes.SMELTING);
+		registration.addRecipeCatalyst(Blocks.INDUCTION_FURNACE.get(), RecipeTypes.SMELTING);
 	}
 
 	@Override
