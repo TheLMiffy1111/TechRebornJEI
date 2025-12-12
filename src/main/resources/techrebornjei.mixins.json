@@ -5,6 +5,9 @@
 	"refmap": "techrebornjei.refmap.json",
 	"target": "@env(DEFAULT)",
 	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"RebornRecipeManagerMixin"
+	],
 	"client": [
 		"BuiltScreenHandlerAccessor"
 	],

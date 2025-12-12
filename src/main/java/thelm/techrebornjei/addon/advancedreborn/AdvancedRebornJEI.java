@@ -11,8 +11,8 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.recipe.v1.sync.SynchronizedRecipes;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeMap;
 import net.pitan76.advancedreborn.Blocks;
 import net.pitan76.advancedreborn.Items;
 import net.pitan76.advancedreborn.Recipes;
@@ -64,8 +64,8 @@ public class AdvancedRebornJEI implements IModPlugin {
 
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
-		RecipeMap recipeMap = RecipeMap.EMPTY; // JEI doesn't do recipe sync yet
-		registration.addRecipes(CANNING_MACHINE, List.copyOf(recipeMap.byType(Recipes.CANNING_MACHINE)));
+		SynchronizedRecipes recipeMap = TechRebornJEI.recipeMap;
+		registration.addRecipes(CANNING_MACHINE, List.copyOf(recipeMap.getAllOfType(Recipes.CANNING_MACHINE)));
 	}
 
 	@Override

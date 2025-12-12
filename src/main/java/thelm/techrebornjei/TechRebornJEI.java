@@ -18,12 +18,12 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
-import mezz.jei.common.Internal;
+import net.fabricmc.fabric.api.client.recipe.v1.sync.ClientRecipeSynchronizedEvent;
+import net.fabricmc.fabric.api.recipe.v1.sync.SynchronizedRecipes;
+import net.fabricmc.fabric.impl.recipe.sync.SynchronizedRecipesImpl;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeMap;
 import reborncore.client.gui.GuiBase;
 import reborncore.common.crafting.RebornRecipe;
 import techreborn.client.gui.GuiAlloyFurnace;
@@ -93,6 +93,8 @@ public class TechRebornJEI implements IModPlugin {
 	public static final ResourceLocation UID = ResourceLocation.parse("techrebornjei:techreborn");
 	public static final Logger LOGGER = LogManager.getLogger();
 
+	public static SynchronizedRecipes recipeMap = SynchronizedRecipesImpl.EMPTY;
+
 	public static IJeiHelpers jeiHelpers;
 	public static IJeiRuntime jeiRuntime;
 
@@ -129,6 +131,8 @@ public class TechRebornJEI implements IModPlugin {
 		if(FabricLoader.getInstance().isModLoaded("advanced_reborn")) {
 			ADDONS.add(new AdvancedRebornJEI());
 		}
+
+		ClientRecipeSynchronizedEvent.EVENT.register((client, recipes) -> recipeMap = recipes);
 	}
 
 	@Override
@@ -218,33 +222,32 @@ public class TechRebornJEI implements IModPlugin {
 			return;
 		}
 
-		RecipeMap recipeMap = RecipeMap.EMPTY; // JEI doesn't do recipe sync yet
-		registration.addRecipes(ALLOY_SMELTER, List.copyOf(recipeMap.byType(ModRecipes.ALLOY_SMELTER)));
-		registration.addRecipes(ASSEMBLING_MACHINE, List.copyOf(recipeMap.byType(ModRecipes.ASSEMBLING_MACHINE)));
-		registration.addRecipes(BLAST_FURNACE, List.copyOf(recipeMap.byType(ModRecipes.BLAST_FURNACE)));
-		registration.addRecipes(CENTRIFUGE, List.copyOf(recipeMap.byType(ModRecipes.CENTRIFUGE)));
-		registration.addRecipes(CHEMICAL_REACTOR, List.copyOf(recipeMap.byType(ModRecipes.CHEMICAL_REACTOR)));
-		registration.addRecipes(COMPRESSOR, List.copyOf(recipeMap.byType(ModRecipes.COMPRESSOR)));
-		registration.addRecipes(DISTILLATION_TOWER, List.copyOf(recipeMap.byType(ModRecipes.DISTILLATION_TOWER)));
-		registration.addRecipes(EXTRACTOR, List.copyOf(recipeMap.byType(ModRecipes.EXTRACTOR)));
-		registration.addRecipes(FLUID_REPLICATOR, List.copyOf(recipeMap.byType(ModRecipes.FLUID_REPLICATOR)));
-		registration.addRecipes(FUSION_REACTOR, List.copyOf(recipeMap.byType(ModRecipes.FUSION_REACTOR)));
-		registration.addRecipes(GRINDER, List.copyOf(recipeMap.byType(ModRecipes.GRINDER)));
-		registration.addRecipes(IMPLOSION_COMPRESSOR, List.copyOf(recipeMap.byType(ModRecipes.IMPLOSION_COMPRESSOR)));
-		registration.addRecipes(INDUSTRIAL_ELECTROLYZER, List.copyOf(recipeMap.byType(ModRecipes.INDUSTRIAL_ELECTROLYZER)));
-		registration.addRecipes(INDUSTRIAL_GRINDER, List.copyOf(recipeMap.byType(ModRecipes.INDUSTRIAL_GRINDER)));
-		registration.addRecipes(INDUSTRIAL_SAWMILL, List.copyOf(recipeMap.byType(ModRecipes.INDUSTRIAL_SAWMILL)));
-		registration.addRecipes(ROLLING_MACHINE, List.copyOf(recipeMap.byType(ModRecipes.ROLLING_MACHINE)));
-		registration.addRecipes(SCRAPBOX, List.copyOf(recipeMap.byType(ModRecipes.SCRAPBOX)));
-		registration.addRecipes(SOLID_CANNING_MACHINE, List.copyOf(recipeMap.byType(ModRecipes.SOLID_CANNING_MACHINE)));
-		registration.addRecipes(VACUUM_FREEZER, List.copyOf(recipeMap.byType(ModRecipes.VACUUM_FREEZER)));
-		registration.addRecipes(WIRE_MILL, List.copyOf(recipeMap.byType(ModRecipes.WIRE_MILL)));
+		registration.addRecipes(ALLOY_SMELTER, List.copyOf(recipeMap.getAllOfType(ModRecipes.ALLOY_SMELTER)));
+		registration.addRecipes(ASSEMBLING_MACHINE, List.copyOf(recipeMap.getAllOfType(ModRecipes.ASSEMBLING_MACHINE)));
+		registration.addRecipes(BLAST_FURNACE, List.copyOf(recipeMap.getAllOfType(ModRecipes.BLAST_FURNACE)));
+		registration.addRecipes(CENTRIFUGE, List.copyOf(recipeMap.getAllOfType(ModRecipes.CENTRIFUGE)));
+		registration.addRecipes(CHEMICAL_REACTOR, List.copyOf(recipeMap.getAllOfType(ModRecipes.CHEMICAL_REACTOR)));
+		registration.addRecipes(COMPRESSOR, List.copyOf(recipeMap.getAllOfType(ModRecipes.COMPRESSOR)));
+		registration.addRecipes(DISTILLATION_TOWER, List.copyOf(recipeMap.getAllOfType(ModRecipes.DISTILLATION_TOWER)));
+		registration.addRecipes(EXTRACTOR, List.copyOf(recipeMap.getAllOfType(ModRecipes.EXTRACTOR)));
+		registration.addRecipes(FLUID_REPLICATOR, List.copyOf(recipeMap.getAllOfType(ModRecipes.FLUID_REPLICATOR)));
+		registration.addRecipes(FUSION_REACTOR, List.copyOf(recipeMap.getAllOfType(ModRecipes.FUSION_REACTOR)));
+		registration.addRecipes(GRINDER, List.copyOf(recipeMap.getAllOfType(ModRecipes.GRINDER)));
+		registration.addRecipes(IMPLOSION_COMPRESSOR, List.copyOf(recipeMap.getAllOfType(ModRecipes.IMPLOSION_COMPRESSOR)));
+		registration.addRecipes(INDUSTRIAL_ELECTROLYZER, List.copyOf(recipeMap.getAllOfType(ModRecipes.INDUSTRIAL_ELECTROLYZER)));
+		registration.addRecipes(INDUSTRIAL_GRINDER, List.copyOf(recipeMap.getAllOfType(ModRecipes.INDUSTRIAL_GRINDER)));
+		registration.addRecipes(INDUSTRIAL_SAWMILL, List.copyOf(recipeMap.getAllOfType(ModRecipes.INDUSTRIAL_SAWMILL)));
+		registration.addRecipes(ROLLING_MACHINE, List.copyOf(recipeMap.getAllOfType(ModRecipes.ROLLING_MACHINE)));
+		registration.addRecipes(SCRAPBOX, List.copyOf(recipeMap.getAllOfType(ModRecipes.SCRAPBOX)));
+		registration.addRecipes(SOLID_CANNING_MACHINE, List.copyOf(recipeMap.getAllOfType(ModRecipes.SOLID_CANNING_MACHINE)));
+		registration.addRecipes(VACUUM_FREEZER, List.copyOf(recipeMap.getAllOfType(ModRecipes.VACUUM_FREEZER)));
+		registration.addRecipes(WIRE_MILL, List.copyOf(recipeMap.getAllOfType(ModRecipes.WIRE_MILL)));
 
-		registration.addRecipes(THERMAL_GENERATOR, List.copyOf(recipeMap.byType(ModRecipes.THERMAL_GENERATOR)));
-		registration.addRecipes(GAS_GENERATOR, List.copyOf(recipeMap.byType(ModRecipes.GAS_GENERATOR)));
-		registration.addRecipes(DIESEL_GENERATOR, List.copyOf(recipeMap.byType(ModRecipes.DIESEL_GENERATOR)));
-		registration.addRecipes(SEMI_FLUID_GENERATOR, List.copyOf(recipeMap.byType(ModRecipes.SEMI_FLUID_GENERATOR)));
-		registration.addRecipes(PLASMA_GENERATOR, List.copyOf(recipeMap.byType(ModRecipes.PLASMA_GENERATOR)));
+		registration.addRecipes(THERMAL_GENERATOR, List.copyOf(recipeMap.getAllOfType(ModRecipes.THERMAL_GENERATOR)));
+		registration.addRecipes(GAS_GENERATOR, List.copyOf(recipeMap.getAllOfType(ModRecipes.GAS_GENERATOR)));
+		registration.addRecipes(DIESEL_GENERATOR, List.copyOf(recipeMap.getAllOfType(ModRecipes.DIESEL_GENERATOR)));
+		registration.addRecipes(SEMI_FLUID_GENERATOR, List.copyOf(recipeMap.getAllOfType(ModRecipes.SEMI_FLUID_GENERATOR)));
+		registration.addRecipes(PLASMA_GENERATOR, List.copyOf(recipeMap.getAllOfType(ModRecipes.PLASMA_GENERATOR)));
 
 		ADDONS.forEach(addon -> addon.registerRecipes(registration));
 	}
