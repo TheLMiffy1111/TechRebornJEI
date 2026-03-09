@@ -148,17 +148,17 @@ dependencies {
 		parchment "org.parchmentmc.data:parchment-1.20.1:2023.09.03@zip"
 	}
 	modImplementation "net.fabricmc:fabric-loader:0.18.1"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.92.6+1.20.1"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.92.7+1.20.1"
 	modImplementation "eu.pb4:placeholder-api:2.1.4+1.20.1"
 	modImplementation "com.terraformersmc:modmenu:7.2.2"
 
 	// JEI
-	modImplementation("mezz.jei:jei-1.20.1-fabric:15.20.0.127") {transitive = false}
+	modImplementation("mezz.jei:jei-1.20.1-fabric:15.20.0.129") {transitive = false}
 	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:20.1.4"))
 
 	// Tech Reborn
 	modImplementation "teamreborn:energy:3.0.0"
-	modImplementation "TechReborn:TechReborn-1.20.1:5.8.14"
+	modImplementation "TechReborn:TechReborn-1.20.1:5.8.15"
 
 	// Advanced Reborn
 	modImplementation "dev.architectury:architectury-fabric:9.2.14"
