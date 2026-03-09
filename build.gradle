@@ -148,7 +148,7 @@ dependencies {
 		parchment "org.parchmentmc.data:parchment-1.21.10:2025.10.12@zip"
 	}
 	modImplementation "net.fabricmc:fabric-loader:0.18.1"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.138.3+1.21.10"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.138.4+1.21.10"
 	modImplementation "eu.pb4:placeholder-api:2.8.1+1.21.10"
 	modImplementation "com.terraformersmc:modmenu:16.0.0-rc.1"
 
@@ -158,7 +158,7 @@ dependencies {
 
 	// Tech Reborn
 	modImplementation "teamreborn:energy:4.2.0"
-	modImplementation "TechReborn:TechReborn-1.21.10:5.15.0"
+	modImplementation "TechReborn:TechReborn-1.21.10:5.15.1"
 
 	// Advanced Reborn
 	modImplementation "dev.architectury:architectury-fabric:18.0.8"
