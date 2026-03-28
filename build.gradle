@@ -104,7 +104,7 @@ def specVersion = "20.2"
 def vendor = "thelm"
 
 group = "thelm.techrebornjei"
-version = "20.2.8"
+version = "20.2.9"
 
 def archivesName = modName
 base.archivesName = archivesName
@@ -127,6 +127,7 @@ tasks.withType(JavaCompile).configureEach {
 
 loom {
 	silentMojangMappingsLicense()
+	mixin.defaultRefmapName = "${modId}.refmap.json"
 	runs {
 		configureEach {
 			property "fabric.log.console.level", "debug"
@@ -154,7 +155,7 @@ dependencies {
 
 	// JEI
 	modImplementation("mezz.jei:jei-1.20.2-fabric:16.0.0.2") {transitive = false}
-	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:20.2.4"))
+	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:20.2.7"))
 
 	// Tech Reborn
 	modImplementation "teamreborn:energy:3.0.0"
