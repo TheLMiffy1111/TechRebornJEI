@@ -1,1 +1,1 @@
-Make both charged and uncharged items show in ingredient list  
+Simplified fluid generator recipe id  
