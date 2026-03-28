@@ -127,6 +127,7 @@ tasks.withType(JavaCompile).configureEach {
 
 loom {
 	silentMojangMappingsLicense()
+	mixin.defaultRefmapName = "${modId}.refmap.json"
 	runs {
 		configureEach {
 			property "fabric.log.console.level", "debug"
@@ -154,7 +155,7 @@ dependencies {
 
 	// JEI
 	modImplementation("mezz.jei:jei-1.21.8-fabric:24.2.0.6") {transitive = false}
-	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:21.8.4"))
+	include(modImplementation("thelm.jeidrawables:JEIDrawables-Fabric:21.8.7"))
 
 	// Tech Reborn
 	modImplementation "teamreborn:energy:4.2.0"
